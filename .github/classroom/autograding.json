@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "testB",
+      "setup": "cmake .",
+      "run": "make && ./bin/basic_test && ./bin/testB",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 50
+    }
+  ]
+}
