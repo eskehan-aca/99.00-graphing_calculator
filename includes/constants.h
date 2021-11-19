@@ -61,10 +61,10 @@ const float RANGE_MAX = 5;
 
 const int NUM_POINTS = 51;
 
-const string DEFAULT_EQUATION = "2 - 4";    //MODIFY ME!!
+const string DEFAULT_EQUATION = "cos ( x )";    //MODIFY ME!!
 const string DEFAULT_EQUATION1 = "x";
 const string DEFAULT_EQUATION2 = "x ^ 2";
-const string DEFAULT_EQUATION3 = "x ^ 3";
+const string DEFAULT_EQUATION3 = "x ^ 3 - 1";
 const string DEFAULT_EQUATION4 = "2 * x - 4";
 
 ///////////////////////////////////
