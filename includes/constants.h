@@ -40,11 +40,16 @@ const bool rpnDebug=false;
 const bool syDebug=false;
 
 //SFML -- CHECK SFML FOLDER FOR DIFF CONST FILE
-const float SCREEN_WIDTH = 1200;
-const float SCREEN_HEIGHT = 800;
 
-const float GRAPH_WIDTH = 500;
-const float GRAPH_HEIGHT = 500;
+const float GRAPH_WIDTH = 1000;
+const float GRAPH_HEIGHT = 1000;
+const float GRAPH_PADDING = 50;
+
+const float WORK_PANEL = GRAPH_WIDTH+GRAPH_PADDING;
+const float SIDE_BAR = 400;
+
+const float SCREEN_WIDTH = GRAPH_WIDTH+GRAPH_PADDING+SIDE_BAR;
+const float SCREEN_HEIGHT = GRAPH_WIDTH+GRAPH_PADDING;
 
 const float POINT_RADIUS = 4;
 const float LINE_WEIGHT = 1;
@@ -54,18 +59,23 @@ const float DOMAIN_MAX = 5;
 const float RANGE_MIN = -5;
 const float RANGE_MAX = 5;
 
-const int NUM_POINTS = 21;
+const int NUM_POINTS = 51;
 
-const string DEFAULT_EQUATION = "x ^ 2 - 4";
+const string DEFAULT_EQUATION = "2 - 4";    //MODIFY ME!!
+const string DEFAULT_EQUATION1 = "x";
+const string DEFAULT_EQUATION2 = "x ^ 2";
+const string DEFAULT_EQUATION3 = "x ^ 3";
+const string DEFAULT_EQUATION4 = "2 * x - 4";
 
 ///////////////////////////////////
 
-const float WORK_PANEL = SCREEN_WIDTH*4/5;
-const float SIDE_BAR = SCREEN_WIDTH*1/5;
+const float SB_SPACING = 10;
 
 const int SB_MOUSE_POSITION = 0;
 const int SB_MOUSE_CLICKED = SB_MOUSE_POSITION+1;
 const int SB_KEY_PRESSED = SB_MOUSE_CLICKED+1;
+const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
+const int SB_EQUATION_LABEL = SB_COMMAND_NAME+2;
 
 ///////////////////////////////////
 
