@@ -246,7 +246,6 @@ bool test_plot(bool debug=false){
     float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
     info->_delta=sf::Vector2f(x,y);
     info->_scale=sf::Vector2f(GRAPH_WIDTH/info->_num_points,GRAPH_HEIGHT/(info->_range.y-info->_range.x)); //????????
-    info->_angle=0;
   }
   Plot p(info);
   vector<sf::Vector2f> coords=p();
@@ -268,7 +267,6 @@ bool test_graph1(bool debug=false){
     float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
     info->_delta=sf::Vector2f(x,y);
     info->_scale=sf::Vector2f(GRAPH_WIDTH/info->_num_points,GRAPH_HEIGHT/info->_num_points); //????????
-    info->_angle=0;
   }
   cout<<"_info should be address "<<info<<endl;
   Graph g(info);
@@ -313,7 +311,6 @@ bool test_graph_comp(bool debug=false){
   float y=(_info->_range.y-_info->_range.x)/(_info->_num_points-1);
   _info->_delta=sf::Vector2f(x,y);
   _info->_scale=sf::Vector2f(GRAPH_WIDTH/(_info->_num_points-1),GRAPH_HEIGHT/(_info->_num_points-1)); //????????
-  _info->_angle=0;                        //????????
 
   _info->_equation="x";
   Graph g(_info);

@@ -54,8 +54,8 @@ const float SCREEN_HEIGHT = GRAPH_WIDTH+GRAPH_PADDING;
 const float POINT_RADIUS = 4;
 const float LINE_WEIGHT = 1;
 
-const float DOMAIN_MIN = -5;
-const float DOMAIN_MAX = 5;
+const float DOMAIN_MIN = -3;
+const float DOMAIN_MAX = 8;
 const float RANGE_MIN = -5;
 const float RANGE_MAX = 5;
 

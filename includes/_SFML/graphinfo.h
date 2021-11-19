@@ -14,9 +14,11 @@ struct GraphInfo{
     sf::Vector2f _scale;                //
     sf::Vector2f _delta;                //revisit and later make this vector (make sure to change plot() op)
     
-    
     int _num_points;                    //determine from domain/scale?
-    int _angle;                         //?
+    bool _origin_centered;              //true if origin=GRAPH_WIDTH/2,GRAPH_HEIGHT/2
+    
+    //bool _origin_in                   //true if origin is within graph bounds
+    //int _angle;                       //?
 };
 
 #endif //GRAPH_INFO_H
