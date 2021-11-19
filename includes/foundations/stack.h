@@ -33,13 +33,13 @@ public:
         }
         //member operator:      ++it; or  ++it = new_value
         Iterator &operator++(){
-            _ptr=_ptr->next;
+            _ptr=_ptr->_next;
             return *this;
         }
         //friend operator: it++
         friend Iterator operator++(Iterator &it, int unused){
             Iterator temp=it;
-            it._ptr=(it._ptr->next);
+            it._ptr=(it._ptr->_next);
             return temp;
         }
 
