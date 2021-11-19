@@ -10,7 +10,19 @@ vector<sf::Vector2f>& Translate::translate(vector<sf::Vector2f>& coords){
     }
     
     for(int i=0; i<coords.size(); i++){
-        if(translateDebug){cout<<"standardCoords["<<i<<"]=("<<coords[i].x<<","<<coords[i].y<<")\t convert--> ";}
+        if(translateDebug){
+            cout<<"standardCoords["<<i<<"]=("<<coords[i].x<<","<<coords[i].y<<")\n";
+
+
+            cout<<"origin x: "<<_info->_origin.x<<endl;
+            cout<<"origin y: "<<_info->_origin.y<<endl;
+
+            cout<<"scale x: "<<_info->_scale.x<<endl;
+            cout<<"scale y: "<<_info->_scale.y<<endl;
+
+        }
+
+
 
         //revisit this with linear scaling       
         float x=_info->_origin.x+(coords[i].x*_info->_scale.x);
