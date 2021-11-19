@@ -1,7 +1,8 @@
 #include "graph.h"
 
 Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
-    update();  
+    update();
+    _init_sfml();
 }
 
 void Graph::update(){    //MAKE SURE THAT UPDATE IS CALLED WHENEVER _INFO CHANGES
@@ -9,9 +10,12 @@ void Graph::update(){    //MAKE SURE THAT UPDATE IS CALLED WHENEVER _INFO CHANGE
 }
 
 void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED BEFORE DRAW!!
-    //DRAWING GRID ========================================
-    //not sure if this should be here but rofl!! maybe in system????
+    _draw_background(window);
+    _draw_points(window);
+    _draw_label(window);
+}
 
+void Graph::_draw_background(sf::RenderWindow& window){
     //grid background
     sf::RectangleShape grid(sf::Vector2f(GRAPH_WIDTH,GRAPH_HEIGHT));
     grid.setPosition(sf::Vector2f(0,0));
@@ -31,13 +35,13 @@ void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED
     xaxis.setPosition(sf::Vector2f(0,_info->_origin.y-LINE_WEIGHT));
     xaxis.setFillColor(sf::Color::White);
     window.draw(xaxis); 
-
-    //DRAWING POINTS =========================================
+}
+void Graph::_draw_points(sf::RenderWindow& window){
     for(int i=0; i<_screen_points.size(); i++){       
         if(_screen_points[i].x<GRAPH_WIDTH && _screen_points[i].y<GRAPH_HEIGHT){
             sf::CircleShape point(POINT_RADIUS);
             point.setPosition(_screen_points[i]);
-            point.setFillColor(sf::Color::Blue);
+            point.setFillColor(sf::Color::Red);
             window.draw(point);
         }
         else if(_screen_points[i].x<SCREEN_WIDTH && _screen_points[i].y<SCREEN_HEIGHT){
@@ -50,8 +54,29 @@ void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED
         else if(graphDebug){cout<<"out of bounds screen: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
     }
 }
+void Graph::_draw_label(sf::RenderWindow& window){
+    string label="Graphing y = [ "+_info->_equation+" ]";
+    _equation_label.setString(label);    //revisit this 
+    window.draw(_equation_label);
+}
 
 void Graph::printpts(){
     for(int i=0; i<_screen_points.size(); i++){
         cout<<"("<<_screen_points[i].x<<", "<<_screen_points[i].y<<") ";}
+}
+
+void Graph::_init_sfml(){
+    //init font
+    if (!_font.loadFromFile("arial.ttf")){
+        cout<<"GRAPH INIT_SFML(): Font failed to load"<<endl;
+        cin.get();
+        exit(-1);
+    }
+    
+    //init label (revisit)
+    _equation_label=sf::Text(_info->_equation, _font);
+    _equation_label.setCharacterSize(20);
+    _equation_label.setStyle(sf::Text::Bold);
+    _equation_label.setFillColor(sf::Color::White);
+    _equation_label.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_equation_label.getLocalBounds().height+5));
 }
