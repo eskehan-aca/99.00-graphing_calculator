@@ -11,7 +11,7 @@ vector<sf::Vector2f> Plot::operator()(){
     //getting graph coords from RPN obj
     vector<sf::Vector2f> coords;
     for(int i=0; i<_info->_num_points; i++){
-        double xval=(_info->_domain.x)+(i*_info->_delta);
+        double xval=(_info->_domain.x)+(i*_info->_delta.x);
         double yval=rpn(xval);
         coords.push_back(sf::Vector2f(xval,yval));
     }

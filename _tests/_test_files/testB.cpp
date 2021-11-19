@@ -240,7 +240,11 @@ bool test_plot(bool debug=false){
     info->_domain=sf::Vector2f(-4,4);
     info->_range=sf::Vector2f(-4,4);
     info->_num_points=4;
-    info->_delta=((info->_domain.y-info->_domain.x)/info->_num_points);                     //????????
+    float x=(info->_domain.y-info->_domain.x)/(info->_num_points-1);
+    float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
+    float x=(info->_domain.y-info->_domain.x)/(info->_num_points-1);
+    float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
+    info->_delta=sf::Vector2f(x,y);
     info->_scale=sf::Vector2f(GRAPH_WIDTH/info->_num_points,GRAPH_HEIGHT/(info->_range.y-info->_range.x)); //????????
     info->_angle=0;
   }
@@ -260,7 +264,9 @@ bool test_graph1(bool debug=false){
     info->_origin=sf::Vector2f(GRAPH_WIDTH/2,GRAPH_HEIGHT/2);
     info->_domain=sf::Vector2f(-10,10);
     info->_num_points=10;
-    info->_delta=((info->_domain.y-info->_domain.x)/info->_num_points);                     //????????
+    float x=(info->_domain.y-info->_domain.x)/(info->_num_points-1);
+    float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
+    info->_delta=sf::Vector2f(x,y);
     info->_scale=sf::Vector2f(GRAPH_WIDTH/info->_num_points,GRAPH_HEIGHT/info->_num_points); //????????
     info->_angle=0;
   }
@@ -303,7 +309,9 @@ bool test_graph_comp(bool debug=false){
   _info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
   _info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
   _info->_num_points=NUM_POINTS;
-  _info->_delta=((_info->_domain.y-_info->_domain.x)/(_info->_num_points-1));
+  float x=(_info->_domain.y-_info->_domain.x)/(_info->_num_points-1);
+  float y=(_info->_range.y-_info->_range.x)/(_info->_num_points-1);
+  _info->_delta=sf::Vector2f(x,y);
   _info->_scale=sf::Vector2f(GRAPH_WIDTH/(_info->_num_points-1),GRAPH_HEIGHT/(_info->_num_points-1)); //????????
   _info->_angle=0;                        //????????
 

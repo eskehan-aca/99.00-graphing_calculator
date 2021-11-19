@@ -4,26 +4,26 @@ Translate::Translate(GraphInfo* info):_info(info){}
 
 vector<sf::Vector2f>& Translate::translate(vector<sf::Vector2f>& coords){
     if(translateDebug){
-        cout<<"delta: "<<_info->_delta<<endl;
-        cout<<"scalex: "<<_info->_scale.x<<endl;
-        cout<<"scaley: "<<_info->_scale.y<<endl;
+        cout<<"delta x: "<<_info->_delta.x<<endl;
+        cout<<"delta y: "<<_info->_delta.y<<endl;
+
+        cout<<"origin x: "<<_info->_origin.x<<endl;
+        cout<<"origin y: "<<_info->_origin.y<<endl;
+
+        cout<<"scale x: "<<_info->_scale.x<<endl;
+        cout<<"scale y: "<<_info->_scale.y<<endl;
     }
     
     for(int i=0; i<coords.size(); i++){
         if(translateDebug){
             cout<<"standardCoords["<<i<<"]=("<<coords[i].x<<","<<coords[i].y<<")\n";
 
-            cout<<"origin x: "<<_info->_origin.x<<endl;
-            cout<<"origin y: "<<_info->_origin.y<<endl;
-
-            cout<<"scale x: "<<_info->_scale.x<<endl;
-            cout<<"scale y: "<<_info->_scale.y<<endl;
         }
 
         float x,y;
         //scale the coordinate
-        x=coords[i].x*(_info->_scale.x/_info->_delta);
-        y=coords[i].y*(_info->_scale.y/_info->_delta);
+        x=coords[i].x*(_info->_scale.x/_info->_delta.x);
+        y=coords[i].y*(_info->_scale.y/_info->_delta.y);                        //CURRENTLY FITS ALL COORDS ON SCREEN --> REVISIT LATER/?
         if(translateDebug){cout<<"scale:  ("<<x<<","<<y<<")\n";}
         //shift to origin
         x=_info->_origin.x+x;
