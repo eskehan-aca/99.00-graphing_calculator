@@ -5,29 +5,7 @@ using namespace std;
 
 //------------------------------------------------------------------------------------------
 //Files we are testing:
-
-#include "../../includes/token/tk_string.h"
-#include "../../includes/token/token.h"
-#include "../../includes/token/variable.h"
-#include "../../includes/token/operator.h"
-#include "../../includes/token/integer.h"
-#include "../../includes/token/function.h"
-#include "../../includes/token/leftparen.h"
-#include "../../includes/token/rightparen.h"
-
-#include "../../includes/graph/graph.h"
-#include "../../includes/graph/translate_coords.h"
-
-#include "../../includes/graph/point.h"
-#include "../../includes/graph/graphinfo.h"
-#include "../../includes/graph/plot.h"
-
-#include "../../includes/queue/MyQueue.h"
-
-#include "../../includes/shunting_yard/shunting_yard.h"
-#include "../../includes/rpn/rpn.h"
-
-
+#include "../../includes/_SFML/animate.h"
 //------------------------------------------------------------------------------------------
 
 bool test_stub(bool debug=false){
