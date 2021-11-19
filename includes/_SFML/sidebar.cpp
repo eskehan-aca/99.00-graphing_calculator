@@ -8,20 +8,20 @@ Sidebar::Sidebar(float left, float width):_left(left), _width(width){
     _sb_rect.setFillColor(sf::Color(105,105,105)); //(192,192,192)); //silver
     _sb_rect.setPosition(sf::Vector2f(left, 0));
     _sb_rect.setSize(sf::Vector2f(width, SCREEN_HEIGHT));
-    cout<<"Sidebar CTOR: about to load font."<<endl;
     if (!font.loadFromFile("Roboto-Thin.ttf")){
         cout<<"Sidebar() CTOR: Font failed to load"<<endl;
         cin.get();
         exit(-1);
     }
-    cout<<"Sidebar CTOR: loaded font."<<endl;
-    ////- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    cout<<"Sidebar CTOR: Font Loaded."<<endl;
+
     _sb_text.setFont(font);
     _sb_text.setCharacterSize(20);
     _sb_text.setStyle(sf::Text::Bold);
     _sb_text.setFillColor(sf::Color::Yellow);
     cout<<"Sidebar CTOR: Text object initialized."<<endl;
-    ////this is how you would position text on screen:
+
+    //this is how you would position text on screen:
     //_sb_text.setPosition(sf::Vector2f(10, SCREEN_HEIGHT-_sb_text.getLocalBounds().height-5));
 
     _items.push_back("sidebar sample text");
@@ -29,6 +29,11 @@ Sidebar::Sidebar(float left, float width):_left(left), _width(width){
     for (int i=0 ; i<30; i++){
         _items.push_back("");
     }
+    _items[SB_MOUSE_POSITION]="MOUSE POSITION";
+    _items[SB_MOUSE_CLICKED]="MOUSE COMMAND";
+    _items[SB_KEY_PRESSED]="KEYBOARD COMMAND";
+    _items[SB_COMMAND_NAME]="COMMAND NAME";
+    _items[SB_EQUATION_LABEL]="EQUATION LABEL";
     cout<<"Sidebar: CTOR: Exit."<<endl;
 }
 
@@ -37,7 +42,7 @@ void Sidebar::Draw(sf::RenderWindow& window){
     const double LEFT_MARGIN = 10.0;
 
     window.draw(_sb_rect);
-    float height = 10;
+    float height = SB_SPACING;  //??idk what this is
 
     for (vector<string>::iterator it = _items.begin(); it!= _items.end(); it++){
         bool blank=false;

@@ -10,6 +10,7 @@ Animate::Animate():_info(new GraphInfo()),sidebar(WORK_PANEL, SIDE_BAR),_system(
     _cursor.setRadius(2.5);
     _cursor.setFillColor(sf::Color::Red);
 
+    /*
     cout<<"load font"<<endl;
     if (!font.loadFromFile("arial.ttf")){
         cout<<"Animate() CTOR: Font failed to load"<<endl;
@@ -18,17 +19,13 @@ Animate::Animate():_info(new GraphInfo()),sidebar(WORK_PANEL, SIDE_BAR),_system(
     }
     //label for orig eq: (move this to graph class later)
     //make sure to modify this when eq gets changed
-    _equation_label = sf::Text(_info->_equation, font);
+    _equation_label = sf::Text("USER INPUT", font);
     _equation_label.setCharacterSize(20);
     _equation_label.setStyle(sf::Text::Bold);
     _equation_label.setFillColor(sf::Color::White);
     _equation_label.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_equation_label.getLocalBounds().height-5));
+    */
 
-    //these get shifted down when a command is registered & outputted?
-    sidebar[10]="equation";
-    sidebar[2]="point1";
-    sidebar[3]="point2";
-    sidebar[4]="point3";
     cout<<"Animate instantiated successfully."<<endl;
 }
 
@@ -46,13 +43,9 @@ void Animate::Draw(){
 
 void Animate::update(){
     _system.Step(command, _info);
-    command=0;  //this resetting command to 0      
-    //cause changes to the data for the next frame
-    //command is a priv var --> edited and then passed
-    //this is just hardcoding, delete/revisit later
-    
-    //in here --> when graphinfo gets updated, make sure to update _equation_label
-    _equation_label.setString(_info->_equation);
+    command=-1;
+
+    //_equation_label.setString(_info->_equation);  //needs tp be updated HERE!! use to display input from user before graphing :)
 
     if(mouseIn){
         _cursor.setPosition(sf::Mouse::getPosition(_window).x-2.5, sf::Mouse::getPosition(_window).y-2.5);   //_cursor red dot:
@@ -77,12 +70,37 @@ void Animate::processEvents(){
         case sf::Event::KeyPressed:
             switch(event.key.code){
             case sf::Keyboard::Enter:
-                sidebar[SB_KEY_PRESSED] = "ENTER";          //use to get input eq
+                sidebar[SB_KEY_PRESSED] = "ENTER"; //update
+                sidebar[SB_COMMAND_NAME] = "UPDATE"; //update
+                command = 0;
+                break;
+            case sf::Keyboard::Num1:
+                sidebar[SB_KEY_PRESSED] = "NUM 1";
+                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
+                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
                 command = 1;
+                break;
+            case sf::Keyboard::Num2:
+                sidebar[SB_KEY_PRESSED] = "NUM 2";
+                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
+                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
+                command = 2;
+                break;
+            case sf::Keyboard::Num3:
+                sidebar[SB_KEY_PRESSED] = "NUM 3";
+                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
+                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                command = 3;
+                break;
+            case sf::Keyboard::Num4:
+                sidebar[SB_KEY_PRESSED] = "NUM 4";
+                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
+                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                command = 4;
                 break;
             case sf::Keyboard::R:
                 sidebar[SB_KEY_PRESSED] = "RESET";          //use to reset
-                command = 4;
+                command = 10;
                 break;
             case sf::Keyboard::Left:
                 sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan

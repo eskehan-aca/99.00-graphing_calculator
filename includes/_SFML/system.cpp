@@ -14,11 +14,27 @@ void System::Step(int command, GraphInfo* info){
     // change # pts
 
     switch(command){
-    case 1:
-        /* code */
+    case 0:
         _g.update();
         break;
-    
+    //equation defaults
+    case 1:
+        info->_equation=DEFAULT_EQUATION1;
+        _g.update();
+        break;
+    case 2:
+        info->_equation=DEFAULT_EQUATION2;
+        _g.update();
+        break;
+    case 3:
+        info->_equation=DEFAULT_EQUATION3;
+        _g.update();
+        break;
+    case 4:
+        info->_equation=DEFAULT_EQUATION4;
+        _g.update();
+        break;
+    //other functs
     default:
         break;
     }

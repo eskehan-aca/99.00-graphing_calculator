@@ -19,7 +19,7 @@ private:
     sf::RenderWindow _window;           //sfml window
     sf::CircleShape _cursor;            //dot to follow cursor movement
     
-    //move to graph class later? unless necessary for user string input
+    //REVISIT TO DISPLAY USER INPUT ON SCREEN --> maybe in system instead??????
     sf::Text _equation_label;           //text to draw on main screen
     sf::Font font;                      //font to draw on main screen
     
