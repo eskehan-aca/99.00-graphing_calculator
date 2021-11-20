@@ -22,6 +22,7 @@ private:
     sf::Text _equation_label;
     sf::Text _point_counter;
     sf::Text _domain_display;
+    sf::Text _range_display;
 
     //PRIVATE FUNCTIONS
     void _init_sfml();

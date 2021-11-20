@@ -70,6 +70,10 @@ void Graph::_draw_labels(sf::RenderWindow& window){
     string dm="Domain: ["+to_string(_info->_domain.x)+", "+to_string(_info->_domain.y)+"]";
     _domain_display.setString(dm);
     window.draw(_domain_display);
+
+    string rg="Range: ["+to_string(_info->_range.x)+", "+to_string(_info->_range.y)+"]";
+    _range_display.setString(rg);
+    window.draw(_range_display);
 }
 
 void Graph::printpts(){
@@ -105,4 +109,11 @@ void Graph::_init_sfml(){
     _domain_display.setStyle(sf::Text::Regular);
     _domain_display.setFillColor(sf::Color::White);
     _domain_display.setPosition(sf::Vector2f(800, SCREEN_HEIGHT-GRAPH_PADDING/2));
+    
+    //init range display
+    _range_display=sf::Text("RANGE DISPLAY", _font);
+    _range_display.setCharacterSize(15);
+    _range_display.setStyle(sf::Text::Regular);
+    _range_display.setFillColor(sf::Color::White);
+    _range_display.setPosition(sf::Vector2f(800, SCREEN_HEIGHT-GRAPH_PADDING));
 }
