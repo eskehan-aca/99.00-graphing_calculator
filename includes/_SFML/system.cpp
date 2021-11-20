@@ -99,22 +99,27 @@ void System::Step(int command, GraphInfo* info){
         //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
-        info->_domain=sf::Vector2f(prevMin-(0.25*prevMin),prevMax-(0.25*prevMax));
+        temp=(prevMax-prevMin)/10;
+        info->_domain=sf::Vector2f(prevMin-temp,prevMax+temp);
         //range
-        prevMin=info->_range.x;
-        prevMax=info->_range.y;
-        info->_range=sf::Vector2f(prevMin-(0.25*prevMin),prevMin-(0.25*prevMax));
+        // prevMin=info->_range.x;
+        // prevMax=info->_range.y;
+        // temp=(prevMax-prevMin)/10;
+        // info->_range=sf::Vector2f(prevMin-temp,prevMin+temp);
         _calculate_graph_info(info);
         _g.update();
         break;
     case MINUS:
+        //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
-        info->_domain=sf::Vector2f(prevMin+(0.25*prevMin),prevMax+(0.25*prevMax));
+        temp=(prevMax-prevMin)/10;
+        info->_domain=sf::Vector2f(prevMin+temp,prevMax-temp);
         //range
-        prevMin=info->_range.x;
-        prevMax=info->_range.y;
-        info->_range=sf::Vector2f(prevMin+(0.25*prevMin),prevMin+(0.25*prevMax));
+        // prevMin=info->_range.x;
+        // prevMax=info->_range.y;
+        // temp=(prevMax-prevMin)/10;
+        // info->_range=sf::Vector2f(prevMin+temp,prevMin-temp);
         _calculate_graph_info(info);
         _g.update();
         break;
