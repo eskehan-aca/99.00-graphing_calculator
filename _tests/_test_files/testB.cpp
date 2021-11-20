@@ -242,8 +242,6 @@ bool test_plot(bool debug=false){
     info->_num_points=4;
     float x=(info->_domain.y-info->_domain.x)/(info->_num_points-1);
     float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
-    float x=(info->_domain.y-info->_domain.x)/(info->_num_points-1);
-    float y=(info->_range.y-info->_range.x)/(info->_num_points-1);
     info->_delta=sf::Vector2f(x,y);
     info->_scale=sf::Vector2f(GRAPH_WIDTH/info->_num_points,GRAPH_HEIGHT/(info->_range.y-info->_range.x)); //????????
   }
