@@ -20,12 +20,14 @@ private:
     //SFML THINGS (font?)
     sf::Font _font;                      //font to draw on main screen
     sf::Text _equation_label;
+    sf::Text _point_counter;
+    sf::Text _domain_display;
 
     //PRIVATE FUNCTIONS
     void _init_sfml();
     void _draw_background(sf::RenderWindow& window);
     void _draw_points(sf::RenderWindow& window);
-    void _draw_label(sf::RenderWindow& window);
+    void _draw_labels(sf::RenderWindow& window);
 };
 
 #endif //GRAPH_H

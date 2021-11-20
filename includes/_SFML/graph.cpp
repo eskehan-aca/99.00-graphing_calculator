@@ -5,14 +5,18 @@ Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
     _init_sfml();
 }
 
-void Graph::update(){    //MAKE SURE THAT UPDATE IS CALLED WHENEVER _INFO CHANGES
-    _screen_points=_plotter();
+void Graph::update(){    //UPDATE IS CALLED WHENEVER _INFO CHANGES
+    if(_info->_equation.empty()){
+        cout<<"no equation!!"<<endl;
+    }
+    else
+        _screen_points=_plotter();
 }
 
 void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED BEFORE DRAW!!
     _draw_background(window);
     _draw_points(window);
-    _draw_label(window);
+    _draw_labels(window);
 }
 
 void Graph::_draw_background(sf::RenderWindow& window){
@@ -54,10 +58,18 @@ void Graph::_draw_points(sf::RenderWindow& window){
         else if(graphDebug){cout<<"out of bounds screen: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
     }
 }
-void Graph::_draw_label(sf::RenderWindow& window){
-    string label="Graphing y = [ "+_info->_equation+" ]";
-    _equation_label.setString(label);    //revisit this 
+void Graph::_draw_labels(sf::RenderWindow& window){
+    string eq="Graphing y = [ "+_info->_equation+" ]";
+    _equation_label.setString(eq);
     window.draw(_equation_label);
+
+    string pt="Number of points: "+to_string(_info->_num_points);
+    _point_counter.setString(pt);
+    window.draw(_point_counter);
+
+    string dm="Domain: ["+to_string(_info->_domain.x)+", "+to_string(_info->_domain.y)+"]";
+    _domain_display.setString(dm);
+    window.draw(_domain_display);
 }
 
 void Graph::printpts(){
@@ -74,9 +86,23 @@ void Graph::_init_sfml(){
     }
     
     //init label (revisit)
-    _equation_label=sf::Text(_info->_equation, _font);
+    _equation_label=sf::Text("EQUATION LABEL", _font);
     _equation_label.setCharacterSize(20);
     _equation_label.setStyle(sf::Text::Bold);
     _equation_label.setFillColor(sf::Color::White);
-    _equation_label.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_equation_label.getLocalBounds().height+5));
+    _equation_label.setPosition(sf::Vector2f(10, SCREEN_HEIGHT-GRAPH_PADDING/1.5));
+
+    //init point counter
+    _point_counter=sf::Text("POINT COUNTER", _font);
+    _point_counter.setCharacterSize(15);
+    _point_counter.setStyle(sf::Text::Regular);
+    _point_counter.setFillColor(sf::Color::White);
+    _point_counter.setPosition(sf::Vector2f(500, SCREEN_HEIGHT-GRAPH_PADDING/2));
+    
+    //init domain display
+    _domain_display=sf::Text("DOMAIN DISPLAY", _font);
+    _domain_display.setCharacterSize(15);
+    _domain_display.setStyle(sf::Text::Regular);
+    _domain_display.setFillColor(sf::Color::White);
+    _domain_display.setPosition(sf::Vector2f(800, SCREEN_HEIGHT-GRAPH_PADDING/2));
 }
