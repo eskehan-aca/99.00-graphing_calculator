@@ -100,12 +100,13 @@ void System::Step(int command, GraphInfo* info){
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
+        // cout<<"zoom scale (temp): "<<temp<<endl;
         info->_domain=sf::Vector2f(prevMin-temp,prevMax+temp);
         //range
-        // prevMin=info->_range.x;
-        // prevMax=info->_range.y;
-        // temp=(prevMax-prevMin)/10;
-        // info->_range=sf::Vector2f(prevMin-temp,prevMin+temp);
+        prevMin=info->_range.x;
+        prevMax=info->_range.y;
+        temp=(prevMax-prevMin)/10;
+        info->_range=sf::Vector2f(prevMin-temp,prevMax+temp);
         _calculate_graph_info(info);
         _g.update();
         break;
@@ -114,12 +115,13 @@ void System::Step(int command, GraphInfo* info){
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
+        // cout<<"zoom scale (temp): "<<temp<<endl;
         info->_domain=sf::Vector2f(prevMin+temp,prevMax-temp);
         //range
-        // prevMin=info->_range.x;
-        // prevMax=info->_range.y;
-        // temp=(prevMax-prevMin)/10;
-        // info->_range=sf::Vector2f(prevMin+temp,prevMin-temp);
+        prevMin=info->_range.x;
+        prevMax=info->_range.y;
+        temp=(prevMax-prevMin)/10;
+        info->_range=sf::Vector2f(prevMin+temp,prevMax-temp);
         _calculate_graph_info(info);
         _g.update();
         break;
@@ -181,7 +183,9 @@ void System::_calculate_graph_info(GraphInfo* info){
     
     //calculate _scale
     x=GRAPH_WIDTH/(info->_num_points-1);
-    y=GRAPH_HEIGHT/(info->_num_points-1);
+    y=GRAPH_WIDTH/(info->_num_points-1);
+    // currently just have the graph be square
+    // y=GRAPH_HEIGHT/(info->_num_points-1);
     info->_scale=sf::Vector2f(x,y);
     
     //calculate _origin 
