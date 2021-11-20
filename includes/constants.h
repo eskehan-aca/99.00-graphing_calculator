@@ -54,8 +54,8 @@ const float SCREEN_HEIGHT = GRAPH_WIDTH+GRAPH_PADDING;
 const float POINT_RADIUS = 4;
 const float LINE_WEIGHT = 1;
 
-const float DOMAIN_MIN = -12;
-const float DOMAIN_MAX = 8;
+const float DOMAIN_MIN = -10;
+const float DOMAIN_MAX = 10;
 const float RANGE_MIN = -10;
 const float RANGE_MAX = 10;
 
@@ -90,25 +90,23 @@ enum COMMANDS{
     NUM_3,  //default equation 3
     NUM_4,  //default equation 4
     
-    R,      //reset origin
-    C,      //center origin (also letter H)
-    F,      //force update/recalculate
+    RESET,  //reset origin          R
+    CENTER, //center origin         C, H
+    FORCE_UPDATE,//recalculate      F
 
-    RIGHT,  //pan right
-    LEFT,   //pan left
-    UP,     //pan up
-    DOWN,   //pan down
+    PAN_RIGHT,  //pan right         arrow keys
+    PAN_LEFT,   //pan left
+    PAN_UP,     //pan up
+    PAN_DOWN,   //pan down
 
-    PLUS,   //zoom in
-    MINUS,  //zoom out
+    ZOOM_IN,   //zoom in            +
+    ZOOM_OUT,  //zoom out           -
 
-    RBRACKET,   //increase # pts
-    LBRACKET,   //decrease # pts
+    INC_PTS,   //increase # pts     ]
+    DEC_PTS,   //decrease # pts     [
 
     ENTER,  //?????????????? get equation maybe    
     ESCAPE, //exit (no command # associated, just here for reference) --> should not *do* anything?
-
-    
 
     //MOUSE COMMANDS
 };

@@ -34,13 +34,13 @@ void System::Step(int command, GraphInfo* info){
         break;
 
     //LETTERS==================================================================
-    case R:
+    case RESET:
         info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
         info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
         _calculate_graph_info(info);
         _g.update();
         break;
-    case C:
+    case CENTER:
         //revisit --> preserve scale and delta x? just shift (center) domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
@@ -55,13 +55,13 @@ void System::Step(int command, GraphInfo* info){
         cout<<"origin centered: "<<boolalpha<<info->_origin_centered<<endl;
         _g.update();
         break;
-    case F:
+    case FORCE_UPDATE:
         _calculate_graph_info(info);
         _g.update();
         break;
 
     //PANNING/ARROW KEYS=======================================================
-    case RIGHT:
+    case PAN_RIGHT:
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
@@ -69,7 +69,7 @@ void System::Step(int command, GraphInfo* info){
         _calculate_graph_info(info);
         _g.update();
         break;
-    case LEFT:
+    case PAN_LEFT:
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
@@ -77,7 +77,7 @@ void System::Step(int command, GraphInfo* info){
         _calculate_graph_info(info);
         _g.update();
         break;
-    case UP:
+    case PAN_UP:
         prevMin=info->_range.x;
         prevMax=info->_range.y;
         temp=(prevMax-prevMin)/10;
@@ -85,7 +85,7 @@ void System::Step(int command, GraphInfo* info){
         _calculate_graph_info(info);
         _g.update();
         break;
-    case DOWN:
+    case PAN_DOWN:
         prevMin=info->_range.x;
         prevMax=info->_range.y;
         temp=(prevMax-prevMin)/10;
@@ -95,7 +95,7 @@ void System::Step(int command, GraphInfo* info){
         break;
     
     //ZOOMING==================================================================
-    case PLUS:
+    case ZOOM_IN:
         //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
@@ -110,7 +110,7 @@ void System::Step(int command, GraphInfo* info){
         _calculate_graph_info(info);
         _g.update();
         break;
-    case MINUS:
+    case ZOOM_OUT:
         //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
@@ -127,12 +127,12 @@ void System::Step(int command, GraphInfo* info){
         break;
     
     //POINTS PLOTTED===========================================================
-    case RBRACKET:
+    case INC_PTS:
         info->_num_points+=10;
         _calculate_graph_info(info);
         _g.update();
         break;
-    case LBRACKET:
+    case DEC_PTS:
         info->_num_points-=10;
         _calculate_graph_info(info);
         _g.update(); 

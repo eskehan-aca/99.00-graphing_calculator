@@ -108,64 +108,64 @@ void Animate::processEvents(){
             case sf::Keyboard::R:
                 sidebar[SB_KEY_PRESSED] = "R";
                 sidebar[SB_COMMAND_NAME] = "RESET";
-                command=R;
+                command=RESET;
                 break;
             case sf::Keyboard::H:
             case sf::Keyboard::C:
                 sidebar[SB_KEY_PRESSED] = "C";
                 sidebar[SB_COMMAND_NAME] = "RESET";
-                command=C;
+                command=CENTER;
                 break;
             case sf::Keyboard::F:
                 sidebar[SB_KEY_PRESSED] = "F";
                 sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
-                command=F;
+                command=FORCE_UPDATE;
                 break;
             
             //PANNING/ARROW KEYS===============================================
             case sf::Keyboard::Right:
                 sidebar[SB_KEY_PRESSED] = "RIGHT ARROW";    //use to pan
                 sidebar[SB_COMMAND_NAME] = "PAN RIGHT";
-                command=RIGHT;
+                command=PAN_RIGHT;
                 break;
             case sf::Keyboard::Left:
                 sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan
                 sidebar[SB_COMMAND_NAME] = "PAN LEFT";
-                command=LEFT;
+                command=PAN_LEFT;
                 break;
             case sf::Keyboard::Up:
                 sidebar[SB_KEY_PRESSED] = "UP ARROW";       //use to pan
                 sidebar[SB_COMMAND_NAME] = "PAN UP";
-                command=UP;
+                command=PAN_UP;
                 break;
             case sf::Keyboard::Down:
                 sidebar[SB_KEY_PRESSED] = "DOWN ARROW";     //use to pan
                 sidebar[SB_COMMAND_NAME] = "PAN DOWN";
-                command=DOWN;
+                command=PAN_DOWN;
                 break;
             
             //ZOOMING==========================================================
             case sf::Keyboard::Equal:
                 sidebar[SB_KEY_PRESSED] = "PLUS";           //zoom in
                 sidebar[SB_COMMAND_NAME] = "ZOOM IN";
-                command=PLUS;
+                command=ZOOM_IN;
                 break;
             case sf::Keyboard::Hyphen:
                 sidebar[SB_KEY_PRESSED] = "MINUS";          //zoom out
                 sidebar[SB_COMMAND_NAME] = "ZOOM OUT";
-                command=MINUS;
+                command=ZOOM_OUT;
                 break;
 
             //POINTS PLOTTED===================================================
             case sf::Keyboard::RBracket:
                 sidebar[SB_KEY_PRESSED] = "RBRACKET";       //increase # pts
                 sidebar[SB_COMMAND_NAME] = "INCREASE POINTS";
-                command=RBRACKET;
+                command=INC_PTS;
                 break;
             case sf::Keyboard::LBracket:
                 sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
                 sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
-                command=LBRACKET;
+                command=DEC_PTS;
                 break;
             
             //OTHER============================================================
