@@ -110,6 +110,7 @@ void Animate::processEvents(){
                 sidebar[SB_COMMAND_NAME] = "RESET";
                 command=R;
                 break;
+            case sf::Keyboard::H:
             case sf::Keyboard::C:
                 sidebar[SB_KEY_PRESSED] = "C";
                 sidebar[SB_COMMAND_NAME] = "RESET";

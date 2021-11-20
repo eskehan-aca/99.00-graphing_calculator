@@ -91,7 +91,7 @@ enum COMMANDS{
     NUM_4,  //default equation 4
     
     R,      //reset origin
-    C,      //center origin
+    C,      //center origin (also letter H)
     F,      //force update/recalculate
 
     RIGHT,  //pan right
