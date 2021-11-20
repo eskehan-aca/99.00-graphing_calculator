@@ -6,19 +6,25 @@ using namespace std;
 struct GraphInfo{
     string _equation;                   //equation string (infix)
 
+    //recall _calculate_graph_info()
     sf::Vector2f _window_dimensions;    //600x600? for rn
-    sf::Vector2f _origin;               //graphs's (0,0) in screen coords
+    
     sf::Vector2f _domain;               //from x: [min,max]
     sf::Vector2f _range;                //from y: [min,max]
+
+    int _num_points;                    //determine from domain/scale?
     
-    sf::Vector2f _scale;                //
+    //changing the above dimensions changes these!!
+
+    sf::Vector2f _origin;               //graphs's (0,0) in screen coords
+    sf::Vector2f _scale;                //scale to multiply points by (translate class)
     sf::Vector2f _delta;                //revisit and later make this vector (make sure to change plot() op)
     
-    int _num_points;                    //determine from domain/scale?
     bool _origin_centered;              //true if origin=GRAPH_WIDTH/2,GRAPH_HEIGHT/2
-    
-    //bool _origin_in                   //true if origin is within graph bounds
-    //int _angle;                       //?
 };
 
 #endif //GRAPH_INFO_H
+
+//FUTURE FUNCTIONS?
+//bool _origin_in                   //true if origin is within graph bounds
+//int _angle;                       //?

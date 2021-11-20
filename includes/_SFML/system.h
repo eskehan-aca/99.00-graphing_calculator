@@ -12,7 +12,8 @@ public:
 
 private:
     Graph _g;
-    void init_graph_info(GraphInfo* info);
+    void _init_graph_info(GraphInfo* info);
+    void _calculate_graph_info(GraphInfo* info);
 };
 
 #endif // SYSTEM_H
