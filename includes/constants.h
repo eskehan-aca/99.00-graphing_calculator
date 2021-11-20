@@ -30,7 +30,7 @@ const int numFuncts=4;
 const array<string,numFuncts> functList{"sin", "cos", "tan", "log"};
 
 //DEBUG
-const bool translateDebug=true;
+const bool translateDebug=false;
 const bool tokenizeDebug=false;
 const bool graphDebug=false;
 const bool queueDebug=false;
@@ -54,18 +54,18 @@ const float SCREEN_HEIGHT = GRAPH_WIDTH+GRAPH_PADDING;
 const float POINT_RADIUS = 4;
 const float LINE_WEIGHT = 1;
 
-const float DOMAIN_MIN = -3;
+const float DOMAIN_MIN = -12;
 const float DOMAIN_MAX = 8;
-const float RANGE_MIN = -5;
-const float RANGE_MAX = 5;
+const float RANGE_MIN = -10;
+const float RANGE_MAX = 10;
 
-const int NUM_POINTS = 51;
+const int NUM_POINTS = 21;
 
-const string DEFAULT_EQUATION = "cos ( x )";    //MODIFY ME!!
+const string DEFAULT_EQUATION0 = "";    //MODIFY ME!!
 const string DEFAULT_EQUATION1 = "x";
 const string DEFAULT_EQUATION2 = "x ^ 2";
 const string DEFAULT_EQUATION3 = "x ^ 3 - 1";
-const string DEFAULT_EQUATION4 = "2 * x - 4";
+const string DEFAULT_EQUATION4 = "cos ( x )";
 
 ///////////////////////////////////
 
@@ -78,5 +78,55 @@ const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
 const int SB_EQUATION_LABEL = SB_COMMAND_NAME+2;
 
 ///////////////////////////////////
+
+//COMMANDS
+enum COMMANDS{
+
+    //KEYBOARD COMMANDS
+        
+    NUM_0,  //default equation 0
+    NUM_1,  //default equation 1
+    NUM_2,  //default equation 2
+    NUM_3,  //default equation 3
+    NUM_4,  //default equation 4
+    
+    R,      //reset origin
+    C,      //center origin
+    F,      //force update/recalculate
+
+    RIGHT,  //pan right
+    LEFT,   //pan left
+    UP,     //pan up
+    DOWN,   //pan down
+
+    PLUS,   //zoom in
+    MINUS,  //zoom out
+
+    RBRACKET,   //increase # pts
+    LBRACKET,   //decrease # pts
+
+    ENTER,  //?????????????? get equation maybe    
+    ESCAPE, //exit (no command # associated, just here for reference) --> should not *do* anything?
+
+    
+
+    //MOUSE COMMANDS
+};
+
+//-1 = no command
+//functionalities:
+//  - default eqs                           0-4
+//  - escape                                esc
+
+//  - zoom                                  plus minus
+//  - pan                                   arrow keys
+
+//  - increase num pts?                     brackets
+//  - force update                          'f'
+//  - reset origin                          'r'
+
+//  - enter equation                        'enter'?
+//  - change colors :) (pts,background)     'c'
+//  - display grid lines                    'g'
 
 #endif //CONSTANTS_H
