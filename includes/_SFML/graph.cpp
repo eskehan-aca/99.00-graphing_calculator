@@ -3,6 +3,7 @@
 Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
     update();
     _init_sfml();
+    cout<<"Graph instantiated successfully"<<endl;
 }
 
 void Graph::update(){    //UPDATE IS CALLED WHENEVER POINTS TO PLOT CHANGES
@@ -85,7 +86,7 @@ void Graph::printpts(){
 
 void Graph::_init_sfml(){
     //init font
-    if (!_font.loadFromFile("arial.ttf")){
+    if(!_font.loadFromFile("arial.ttf")){
         cout<<"GRAPH INIT_SFML(): Font failed to load"<<endl;
         cin.get();
         exit(-1);

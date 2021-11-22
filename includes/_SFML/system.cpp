@@ -2,6 +2,7 @@
 
 System::System(GraphInfo* info):_g(info){
     _init_graph_info(info);
+    cout<<"System instantiated successfully"<<endl;
 }
 
 //------------------------------------------------------------------

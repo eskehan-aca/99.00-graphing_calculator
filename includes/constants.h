@@ -74,7 +74,7 @@ const string DEFAULT_EQUATION4 = "arcsin ( x )";
 
 const float SB_SPACING = 10;
 
-const int SB_MOUSE_POSITION = 0;
+const int SB_MOUSE_POSITION = 1;
 const int SB_MOUSE_CLICKED = SB_MOUSE_POSITION+1;
 const int SB_KEY_PRESSED = SB_MOUSE_CLICKED+1;
 const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
