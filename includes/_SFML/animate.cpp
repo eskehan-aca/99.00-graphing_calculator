@@ -159,12 +159,29 @@ void Animate::processEvents(){
                 break;
             
             //OTHER============================================================
-            case sf::Keyboard::Enter:
+            case sf::Keyboard::Enter:{
                 _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
                 _sidebar[SB_COMMAND_NAME] = "ENTER";
                 command=ENTER;
 
             /*
+                string strInput="";
+                while(_window.pollEvent(event)){
+                    if(event.type==sf::Event::TextEntered && event.text.unicode<128){
+                        strInput+=static_cast<char>(event.text.unicode);
+                        cout<<"strinput: ["<<strInput<<"]"<<endl;
+
+                        if(event.text.unicode==13)
+                            cout<<"should exit"<<endl;
+                    }
+                    if(event.type==sf::Event::MouseButtonPressed)
+                        cout<<"MOUSE"<<endl;
+                }
+                cout<<"exit strinput: ["<<strInput<<"]"<<endl;
+            */
+            /*
+                //entering a "function mode" --> should not leave this case
+
                 //print prompt (revisit later)
                 //create a new box (input display) to house all of this in
 
@@ -186,6 +203,8 @@ void Animate::processEvents(){
                     }
                 }while(textInput.type==sf::Event::KeyPressed && textInput.key.code!=sf::Keyboard::Enter);
                 cout<<strInput<<endl;
+
+                //if function not changed (new str==old str) --> no need to update
             */
             /*
             //enter a loop that gets each letter until enter is hit again
@@ -200,6 +219,7 @@ void Animate::processEvents(){
             */
 
                 break;
+            }
             case sf::Keyboard::Escape:
                 _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
                 _window.close();
