@@ -51,7 +51,7 @@ void Graph::_draw_points(sf::RenderWindow& window){
         else if(_screen_points[i].x<SCREEN_WIDTH && _screen_points[i].y<SCREEN_HEIGHT){
             sf::CircleShape point(POINT_RADIUS);
             point.setPosition(_screen_points[i]);
-            point.setFillColor(sf::Color::Red);
+            point.setFillColor(sf::Color(255,0,0,255/4)); //red, 25% opacity
             window.draw(point);
             if(graphDebug){cout<<"out of bounds grid: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
         }
