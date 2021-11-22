@@ -12,23 +12,6 @@
 //type for shunting --> formatting queue
 //prec for rpn      --> evaluating queue
 
-enum TOKEN_TYPES{
-    LPAREN,   //shunting
-    RPAREN,   //shunting
-    NUMBER,
-    VARIABLE,
-    OPERATOR,
-    FUNCTION, //prec 5? type 0
-};
-
-//OPERATOR LIST:    +, -, *, /, ^
-const int numOpers=5;
-const array<string,numOpers> operList{"+", "-", "*", "/", "^"};
-
-//FUNCTION LIST:    sin, cos, tan, log
-const int numFuncts=4;
-const array<string,numFuncts> functList{"sin", "cos", "tan", "log"};
-
 //DEBUG
 const bool translateDebug=false;
 const bool tokenizeDebug=false;
@@ -39,6 +22,26 @@ const bool plotDebug=false;
 const bool rpnDebug=false;
 const bool syDebug=false;
 
+enum TOKEN_TYPES{
+    LPAREN,   //shunting
+    RPAREN,   //shunting
+    NUMBER,
+    VARIABLE,
+    OPERATOR,
+    FUNCTION, //prec 5? type 0
+};
+
+//operators have 2 args, functions have 1
+
+//OPERATOR LIST:    +, -, *, /, ^
+const int NUM_OPERS=5;
+const array<string,NUM_OPERS> OPER_LIST{"+", "-", "*", "/", "^"};
+
+//FUNCTION LIST:    sin, cos, tan, arcsin, arccos, arctan, log, sqrt
+const int NUM_FUNCTS=12;
+const array<string,NUM_FUNCTS> FUNCT_LIST{"sin", "cos", "tan", "arcsin", "arccos", "arctan", "log", "sqrt", "csc", "sec", "cot"};
+
+//=============================================================================
 //DEFAULT VALUES
 
 const float GRAPH_WIDTH = 1000;
@@ -62,10 +65,10 @@ const float RANGE_MAX = 10;
 const int NUM_POINTS = 21;
 
 const string DEFAULT_EQUATION0 = "";    //MODIFY ME!!
-const string DEFAULT_EQUATION1 = "x";
-const string DEFAULT_EQUATION2 = "x ^ 2";
-const string DEFAULT_EQUATION3 = "x ^ 3 - 1";
-const string DEFAULT_EQUATION4 = "cos ( x )";
+const string DEFAULT_EQUATION1 = "log x";
+const string DEFAULT_EQUATION2 = "sec ( x )";
+const string DEFAULT_EQUATION3 = "sqrt ( x )";
+const string DEFAULT_EQUATION4 = "arcsin ( x )";
 
 ///////////////////////////////////
 
@@ -81,8 +84,8 @@ const int SB_EQUATION_LABEL = SB_COMMAND_NAME+2;
 
 //COMMANDS
 enum COMMANDS{
-
     //KEYBOARD COMMANDS
+    //-1 = no command
         
     NUM_0,  //default equation 0
     NUM_1,  //default equation 1
@@ -112,7 +115,6 @@ enum COMMANDS{
     //MOUSE COMMANDS
 };
 
-//-1 = no command
 //functionalities:
 //  - default eqs                           0-4
 //  - escape                                esc

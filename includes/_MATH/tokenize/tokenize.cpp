@@ -99,14 +99,14 @@ int Tokenize::_token_type(const char* token){
     return -1;
 }
 bool Tokenize::_is_funct(string tokstr){
-    for(int i=0; i<numFuncts; i++)
-        if(tokstr==functList[i])
+    for(int i=0; i<NUM_FUNCTS; i++)
+        if(tokstr==FUNCT_LIST[i])
             return true;
     return false;
 }
 bool Tokenize::_is_oper(string tokstr){
-    for(int i=0; i<numOpers; i++)
-        if(tokstr==operList[i])
+    for(int i=0; i<NUM_OPERS; i++)
+        if(tokstr==OPER_LIST[i])
             return true;
     return false;
 }

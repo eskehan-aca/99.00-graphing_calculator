@@ -28,8 +28,22 @@ double Function::perform(double input){
         return cos(input);
     if(_funct=="tan")
         return tan(input);
+    if(_funct=="arcsin")
+        return asin(input);
+    if(_funct=="arccos")
+        return acos(input);
+    if(_funct=="arctan")
+        return atan(input);
     if(_funct=="log")
         return log(input);
+    if(_funct=="sqrt")          //domain error if x is negative 
+        return sqrt(input);     //check for errors w/ precedence
+    if(_funct=="csc")
+        return 1/sin(input);    //check divide by 0?
+    if(_funct=="sec")
+        return 1/cos(input);
+    if(_funct=="cot")
+        return 1/tan(input);
     assert(false);
 }
 
