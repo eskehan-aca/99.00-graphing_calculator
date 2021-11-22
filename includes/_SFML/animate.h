@@ -2,6 +2,7 @@
 #define ANIMATE_H
 #include "../constants.h"
 #include "sidebar.h"
+#include "textbox.h"
 #include "system.h"
 #include "graph.h"
 
@@ -15,16 +16,13 @@ private:
     GraphInfo* _info;                   //init by system
     System _system;                     //container for all the animated objects
     Sidebar _sidebar;                   //rectangular message sidebar
+    Textbox _textbox;                   //textbox for user input
 
     sf::RenderWindow _window;           //sfml window
     sf::CircleShape _cursor;            //dot to follow cursor movement
-    
-    //REVISIT TO DISPLAY USER INPUT ON SCREEN --> maybe in system instead??????
-    sf::Text _equation_label;           //text to draw on main screen
-    sf::Font font;                      //font to draw on main screen
-    
-    int command;                        //command to send to system
-    bool mouseIn;                       //if mouse is in the screen
+        
+    int _command;                       //command to send to system
+    bool _mouse_in;                     //if mouse is in the screen
 
     //FUNCTIONS
     void processEvents();               //processing mouse movement, clicks, etc, modifies command int
