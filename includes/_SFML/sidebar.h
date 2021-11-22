@@ -1,11 +1,12 @@
 #ifndef SIDEBAR_H
 #define SIDEBAR_H
 #include "../constants.h"
+#include "textbox.h"
 
 using namespace std;
 class Sidebar{
 public:
-    Sidebar(float left, float width);
+    Sidebar(float height, float width);
     void Draw(sf::RenderWindow& window);
     string& operator [](int index);
 
@@ -15,7 +16,7 @@ private:
     sf::Font font;                      //used to draw text
     sf::Text _sb_text;                  //used to draw strings on the window object
 
-    float _left;
+    float _height;
     float _width;
 };
 

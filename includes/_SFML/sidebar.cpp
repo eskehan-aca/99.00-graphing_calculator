@@ -1,12 +1,12 @@
 #include "sidebar.h"
 
-Sidebar::Sidebar(float left, float width):_left(left), _width(width){
+Sidebar::Sidebar(float height, float width):_height(height), _width(width){
     cout<<"Sidebar CTOR: TOP"<<endl;
     _items.reserve(50);
 
     //set up the sidebar rectangle:
     _sb_rect.setFillColor(sf::Color(105,105,105)); //(192,192,192)); //silver
-    _sb_rect.setPosition(sf::Vector2f(left, 0));
+    _sb_rect.setPosition(sf::Vector2f(height, 0));
     _sb_rect.setSize(sf::Vector2f(width, SCREEN_HEIGHT));
     if (!font.loadFromFile("Roboto-Thin.ttf")){
         cout<<"Sidebar() CTOR: Font failed to load"<<endl;
@@ -52,7 +52,7 @@ void Sidebar::Draw(sf::RenderWindow& window){
             _sb_text.setString("BLANK");
         }
         else{_sb_text.setString(it->c_str());}
-        _sb_text.setPosition(sf::Vector2f(_left+LEFT_MARGIN,height));
+        _sb_text.setPosition(sf::Vector2f(_height+LEFT_MARGIN,height));
         height+=_sb_text.getLocalBounds().height+VERTICAL_LINE_SPACING;
         
         if(!blank)
