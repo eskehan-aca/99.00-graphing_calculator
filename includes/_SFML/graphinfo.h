@@ -21,6 +21,7 @@ struct GraphInfo{
     sf::Vector2f _delta;                //revisit and later make this vector (make sure to change plot() op)
     
     bool _origin_centered;              //true if origin=GRAPH_WIDTH/2,GRAPH_HEIGHT/2
+    bool _graph_info;                   //display graphinfo text :)
 };
 
 #endif //GRAPH_INFO_H

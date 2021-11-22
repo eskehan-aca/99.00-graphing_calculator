@@ -39,7 +39,7 @@ const bool plotDebug=false;
 const bool rpnDebug=false;
 const bool syDebug=false;
 
-//SFML -- CHECK SFML FOLDER FOR DIFF CONST FILE
+//DEFAULT VALUES
 
 const float GRAPH_WIDTH = 1000;
 const float GRAPH_HEIGHT = 1000;
@@ -92,6 +92,7 @@ enum COMMANDS{
     
     RESET,  //reset origin          R
     CENTER, //center origin         C, H
+    INFO_LABEL, //toggle graph info     I
     FORCE_UPDATE,//recalculate      F
 
     PAN_RIGHT,  //pan right         arrow keys
@@ -126,5 +127,11 @@ enum COMMANDS{
 //  - enter equation                        'enter'?
 //  - change colors :) (pts,background)     'c'
 //  - display grid lines                    'g'
+//  - show graph info                       'i'
+
+// revisit zoom --> zoom in based on cursor location??
+// hiding sidebar?
+// funct sqrt
+// plot multiple eqs?
 
 #endif //CONSTANTS_H

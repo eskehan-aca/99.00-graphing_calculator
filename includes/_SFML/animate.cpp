@@ -1,6 +1,6 @@
 #include "animate.h"
 
-Animate::Animate():_info(new GraphInfo()),sidebar(WORK_PANEL, SIDE_BAR),_system(_info){
+Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info){
     cout<<"Animate CTOR: TOP"<<endl;
     _window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GRAPHING CALCULATOR");
     _window.setFramerateLimit(15);
@@ -28,35 +28,20 @@ Animate::Animate():_info(new GraphInfo()),sidebar(WORK_PANEL, SIDE_BAR),_system(
 
     cout<<"Animate instantiated successfully."<<endl;
 }
-
-void Animate::Draw(){
-    _system.Draw(_window);
-    sidebar.Draw(_window); 
-    _window.draw(_equation_label);          //print equation text on top of graph --> check that this is updated?
-                                            //move this to graph class eventually:)
-    if(mouseIn){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   
-    //- - - - - - - - - - - - - - - - - - -
-    //getPosition() gives you screen coords, getPosition(_window) gives you _window coords
-    //cout<<"mosue pos: "<<sf::Mouse::getPosition(_window).x<<", "<<sf::Mouse::getPosition(_window).y<<endl;
-    //- - - - - - - - - - - - - - - - - - -
-}
-
-void Animate::update(){
-    _system.Step(command, _info);
-    command=-1;     //resetting command
-
-    //_equation_label.setString(_info->_equation);  //needs tp be updated HERE!! use to display input from user before graphing :)
-
-    if(mouseIn){
-        _cursor.setPosition(sf::Mouse::getPosition(_window).x-2.5, sf::Mouse::getPosition(_window).y-2.5);   //_cursor red dot:
-        sidebar[SB_MOUSE_POSITION] = mouse_pos_string(_window);  //mouse location text for sidebar:
+void Animate::run(){ 
+    while (_window.isOpen()){
+        processEvents();
+        update();
+        render(); //clear/Draw/display
     }
+    cout<<endl<<"-------ANIMATE MAIN LOOP EXITING ------------"<<endl;
 }
 void Animate::render(){
     _window.clear();
-    Draw();
+    Draw();                                 //calling animate's Draw --> calls system & sidebar Draw
     _window.display();
 }
+
 void Animate::processEvents(){
     sf::Event event;
     float mouseX, mouseY;
@@ -74,108 +59,113 @@ void Animate::processEvents(){
 
             //NUMERS (default equations)=======================================
             case sf::Keyboard::Num0:
-                sidebar[SB_KEY_PRESSED] = "NUM 0";
-                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
-                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
+                _sidebar[SB_KEY_PRESSED] = "NUM 0";
+                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
+                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
                 command=NUM_0;
                 break;
             case sf::Keyboard::Num1:
-                sidebar[SB_KEY_PRESSED] = "NUM 1";
-                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
-                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
+                _sidebar[SB_KEY_PRESSED] = "NUM 1";
+                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
+                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
                 command=NUM_1;
                 break;
             case sf::Keyboard::Num2:
-                sidebar[SB_KEY_PRESSED] = "NUM 2";
-                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
-                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
+                _sidebar[SB_KEY_PRESSED] = "NUM 2";
+                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
+                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
                 command=NUM_2;
                 break;
             case sf::Keyboard::Num3:
-                sidebar[SB_KEY_PRESSED] = "NUM 3";
-                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
-                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                _sidebar[SB_KEY_PRESSED] = "NUM 3";
+                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
+                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
                 command=NUM_3;
                 break;
             case sf::Keyboard::Num4:
-                sidebar[SB_KEY_PRESSED] = "NUM 4";
-                sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
-                sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                _sidebar[SB_KEY_PRESSED] = "NUM 4";
+                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
+                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
                 command=NUM_4;
                 break;
 
             //LETTERS==========================================================
             case sf::Keyboard::R:
-                sidebar[SB_KEY_PRESSED] = "R";
-                sidebar[SB_COMMAND_NAME] = "RESET";
+                _sidebar[SB_KEY_PRESSED] = "R";
+                _sidebar[SB_COMMAND_NAME] = "RESET";
                 command=RESET;
                 break;
             case sf::Keyboard::H:
             case sf::Keyboard::C:
-                sidebar[SB_KEY_PRESSED] = "C";
-                sidebar[SB_COMMAND_NAME] = "RESET";
+                _sidebar[SB_KEY_PRESSED] = "C";
+                _sidebar[SB_COMMAND_NAME] = "RESET";
                 command=CENTER;
                 break;
+            case sf::Keyboard::I:
+                _sidebar[SB_KEY_PRESSED] = "I";
+                _sidebar[SB_COMMAND_NAME] = "GRAPH INFO";
+                command=INFO_LABEL;
+                break;
             case sf::Keyboard::F:
-                sidebar[SB_KEY_PRESSED] = "F";
-                sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
+                _sidebar[SB_KEY_PRESSED] = "F";
+                _sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
                 command=FORCE_UPDATE;
                 break;
             
             //PANNING/ARROW KEYS===============================================
             case sf::Keyboard::Right:
-                sidebar[SB_KEY_PRESSED] = "RIGHT ARROW";    //use to pan
-                sidebar[SB_COMMAND_NAME] = "PAN RIGHT";
+                _sidebar[SB_KEY_PRESSED] = "RIGHT ARROW";    //use to pan
+                _sidebar[SB_COMMAND_NAME] = "PAN RIGHT";
                 command=PAN_RIGHT;
                 break;
             case sf::Keyboard::Left:
-                sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan
-                sidebar[SB_COMMAND_NAME] = "PAN LEFT";
+                _sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan
+                _sidebar[SB_COMMAND_NAME] = "PAN LEFT";
                 command=PAN_LEFT;
                 break;
             case sf::Keyboard::Up:
-                sidebar[SB_KEY_PRESSED] = "UP ARROW";       //use to pan
-                sidebar[SB_COMMAND_NAME] = "PAN UP";
+                _sidebar[SB_KEY_PRESSED] = "UP ARROW";       //use to pan
+                _sidebar[SB_COMMAND_NAME] = "PAN UP";
                 command=PAN_UP;
                 break;
             case sf::Keyboard::Down:
-                sidebar[SB_KEY_PRESSED] = "DOWN ARROW";     //use to pan
-                sidebar[SB_COMMAND_NAME] = "PAN DOWN";
+                _sidebar[SB_KEY_PRESSED] = "DOWN ARROW";     //use to pan
+                _sidebar[SB_COMMAND_NAME] = "PAN DOWN";
                 command=PAN_DOWN;
                 break;
             
             //ZOOMING==========================================================
             case sf::Keyboard::Equal:
-                sidebar[SB_KEY_PRESSED] = "PLUS";           //zoom in
-                sidebar[SB_COMMAND_NAME] = "ZOOM IN";
+                _sidebar[SB_KEY_PRESSED] = "PLUS";           //zoom in
+                _sidebar[SB_COMMAND_NAME] = "ZOOM IN";
                 command=ZOOM_IN;
                 break;
             case sf::Keyboard::Hyphen:
-                sidebar[SB_KEY_PRESSED] = "MINUS";          //zoom out
-                sidebar[SB_COMMAND_NAME] = "ZOOM OUT";
+                _sidebar[SB_KEY_PRESSED] = "MINUS";          //zoom out
+                _sidebar[SB_COMMAND_NAME] = "ZOOM OUT";
                 command=ZOOM_OUT;
                 break;
 
             //POINTS PLOTTED===================================================
             case sf::Keyboard::RBracket:
-                sidebar[SB_KEY_PRESSED] = "RBRACKET";       //increase # pts
-                sidebar[SB_COMMAND_NAME] = "INCREASE POINTS";
+                _sidebar[SB_KEY_PRESSED] = "RBRACKET";       //increase # pts
+                _sidebar[SB_COMMAND_NAME] = "INCREASE POINTS";
                 command=INC_PTS;
                 break;
             case sf::Keyboard::LBracket:
-                sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
-                sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
+                _sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
+                _sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
                 command=DEC_PTS;
                 break;
             
             //OTHER============================================================
             case sf::Keyboard::Enter:
-                sidebar[SB_KEY_PRESSED] = "ENTER";          //update
-                sidebar[SB_COMMAND_NAME] = "ENTER";
+                _sidebar[SB_KEY_PRESSED] = "ENTER";          //update
+                _sidebar[SB_COMMAND_NAME] = "ENTER";
                 command=ENTER;
                 break;
             case sf::Keyboard::Escape:
-                sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
+                _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
                 _window.close();
                 command=ESCAPE;
                 break;
@@ -196,9 +186,9 @@ void Animate::processEvents(){
             break;
         case sf::Event::MouseButtonReleased:
             if(event.mouseButton.button == sf::Mouse::Right){
-                sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
+                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
             else{
-                sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);}
+                _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);}
             break;
         
         //=====================================================================
@@ -207,13 +197,28 @@ void Animate::processEvents(){
         }
     }
 }
-void Animate::run(){ 
-    while (_window.isOpen()){
-        processEvents();
-        update();
-        render(); //clear/Draw/display
+void Animate::update(){
+    _system.Step(command, _info);
+    command=-1;     //resetting command
+
+    //_equation_label.setString(_info->_equation);  //needs tp be updated HERE!! use to display input from user before graphing :)
+
+    if(mouseIn){
+        _cursor.setPosition(sf::Mouse::getPosition(_window).x-2.5, sf::Mouse::getPosition(_window).y-2.5);   //_cursor red dot:
+        _sidebar[SB_MOUSE_POSITION] = mouse_pos_string(_window);  //mouse location text for sidebar:
     }
-    cout<<endl<<"-------ANIMATE MAIN LOOP EXITING ------------"<<endl;
+}
+void Animate::Draw(){
+    _system.Draw(_window);
+    _sidebar.Draw(_window); 
+    
+    _window.draw(_equation_label);          //print equation text on top of graph --> check that this is updated?
+                                            //move this to graph class eventually:)
+    if(mouseIn){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   
+    //- - - - - - - - - - - - - - - - - - -
+    //getPosition() gives you screen coords, getPosition(_window) gives you _window coords
+    //cout<<"mosue pos: "<<sf::Mouse::getPosition(_window).x<<", "<<sf::Mouse::getPosition(_window).y<<endl;
+    //- - - - - - - - - - - - - - - - - - -
 }
 
 string mouse_pos_string(sf::RenderWindow& _window){

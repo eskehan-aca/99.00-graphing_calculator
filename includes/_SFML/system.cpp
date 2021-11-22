@@ -55,6 +55,9 @@ void System::Step(int command, GraphInfo* info){
         cout<<"origin centered: "<<boolalpha<<info->_origin_centered<<endl;
         _g.update();
         break;
+    case INFO_LABEL:
+        info->_graph_info=!info->_graph_info;
+        break;
     case FORCE_UPDATE:
         _calculate_graph_info(info);
         _g.update();
@@ -160,9 +163,10 @@ void System::Draw(sf::RenderWindow& window){
     _g.draw(window);
 }
 void System::_init_graph_info(GraphInfo* info){
-    cout<<"_init_graph_info enter"<<endl;
+    cout<<"System: initializing GraphInfo"<<endl;
 
     info->_equation=DEFAULT_EQUATION0;
+    info->_graph_info=false;
 
     //CHANGING THESE MEANS WE HAVE TO RECALCULATE GRAPH INFO (call funct)
     info->_window_dimensions=sf::Vector2f(GRAPH_WIDTH,GRAPH_HEIGHT);
