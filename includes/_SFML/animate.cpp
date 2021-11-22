@@ -160,9 +160,45 @@ void Animate::processEvents(){
             
             //OTHER============================================================
             case sf::Keyboard::Enter:
-                _sidebar[SB_KEY_PRESSED] = "ENTER";          //update
+                _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
                 _sidebar[SB_COMMAND_NAME] = "ENTER";
                 command=ENTER;
+
+            /*
+                //print prompt (revisit later)
+                //create a new box (input display) to house all of this in
+
+                //create a new event object????????
+                //create a string to hold user input 
+                //use sf::Event::TextEntered to get user input?
+                //replace eq string :) (within System::Step) 
+
+                //if statements to exit textEntered?
+
+                sf::Event textInput;
+                string strInput="";
+                do{
+                    while(_window.pollEvent(textInput) && textInput.type==sf::Event::TextEntered){
+                        if(textInput.text.unicode<128){
+                            strInput+=static_cast<char>(textInput.text.unicode);
+                            cout<<strInput<<endl;
+                        }
+                    }
+                }while(textInput.type==sf::Event::KeyPressed && textInput.key.code!=sf::Keyboard::Enter);
+                cout<<strInput<<endl;
+            */
+            /*
+            //enter a loop that gets each letter until enter is hit again
+                sf::Event input;
+                string input_eq;
+                char get;
+                while(_window.pollEvent(input)){
+                    if(input.type==sf::Event::KeyPressed && input.key.code!=sf::Keyboard::Enter){
+                        get==
+                    }
+                }
+            */
+
                 break;
             case sf::Keyboard::Escape:
                 _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
@@ -212,7 +248,7 @@ void Animate::Draw(){
     _system.Draw(_window);
     _sidebar.Draw(_window); 
     
-    _window.draw(_equation_label);          //print equation text on top of graph --> check that this is updated?
+    //_window.draw(_equation_label);        //print equation text on top of graph --> check that this is updated?
                                             //move this to graph class eventually:)
     if(mouseIn){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   
     //- - - - - - - - - - - - - - - - - - -
