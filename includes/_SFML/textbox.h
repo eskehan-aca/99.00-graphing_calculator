@@ -7,7 +7,13 @@ class Textbox{
 public:
     Textbox();
 
+    void select();
+    void _sort_input(sf::Event input);
+
     void Draw(sf::RenderWindow& window);
+
+    bool isSelected() const;
+    string getText() const;
 
 private:
     sf::Text _text_display;

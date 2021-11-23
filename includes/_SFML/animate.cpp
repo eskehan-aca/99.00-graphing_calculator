@@ -33,209 +33,229 @@ void Animate::processEvents(){
     float mouseX, mouseY;
     while(_window.pollEvent(event)){//or waitEvent
         
-        switch (event.type){//check the type of event
-        case sf::Event::Closed:     // _window closed
-            _window.close();
-            break;
+        if(_textbox.isSelected()){
+            _sidebar[7]="IN FUNCTION MODE";
+            string prev=_textbox.getText();
+            if(event.type==sf::Event::TextEntered){
+                _textbox._sort_input(event);
+                cout<<"exiting if statement"<<endl;
+            }
+            //if prev!=current text && current is valid (check w/ tokenize) 
+            //--> set eq --> return command code to update graph
+            //THIS OCCURS IN THE SWITCH BELOW (when toggled)               
+        }
         
-        //KEYBOARD INPUT=======================================================
-        {
-        case sf::Event::KeyPressed:
-            switch(event.key.code){
+        else{
+            _sidebar[7]="NOT IN FUNCTION MODE";
+            switch (event.type){        //check the type of event
+            case sf::Event::Closed:     // _window closed
+                _window.close();
+                break;
+            //KEYBOARD INPUT=======================================================
+            {
+            case sf::Event::KeyPressed:
+                switch(event.key.code){
+                //NUMERS (default equations)=======================================
+                case sf::Keyboard::Num0:
+                    _sidebar[SB_KEY_PRESSED] = "NUM 0";
+                    _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
+                    _command=NUM_0;
+                    break;
+                case sf::Keyboard::Num1:
+                    _sidebar[SB_KEY_PRESSED] = "NUM 1";
+                    _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
+                    _command=NUM_1;
+                    break;
+                case sf::Keyboard::Num2:
+                    _sidebar[SB_KEY_PRESSED] = "NUM 2";
+                    _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
+                    _command=NUM_2;
+                    break;
+                case sf::Keyboard::Num3:
+                    _sidebar[SB_KEY_PRESSED] = "NUM 3";
+                    _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                    _command=NUM_3;
+                    break;
+                case sf::Keyboard::Num4:
+                    _sidebar[SB_KEY_PRESSED] = "NUM 4";
+                    _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                    _command=NUM_4;
+                    break;
 
-            //NUMERS (default equations)=======================================
-            case sf::Keyboard::Num0:
-                _sidebar[SB_KEY_PRESSED] = "NUM 0";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
-                _command=NUM_0;
-                break;
-            case sf::Keyboard::Num1:
-                _sidebar[SB_KEY_PRESSED] = "NUM 1";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
-                _command=NUM_1;
-                break;
-            case sf::Keyboard::Num2:
-                _sidebar[SB_KEY_PRESSED] = "NUM 2";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
-                _command=NUM_2;
-                break;
-            case sf::Keyboard::Num3:
-                _sidebar[SB_KEY_PRESSED] = "NUM 3";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
-                _command=NUM_3;
-                break;
-            case sf::Keyboard::Num4:
-                _sidebar[SB_KEY_PRESSED] = "NUM 4";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
-                _command=NUM_4;
-                break;
+                //LETTERS==========================================================
+                case sf::Keyboard::R:
+                    _sidebar[SB_KEY_PRESSED] = "R";
+                    _sidebar[SB_COMMAND_NAME] = "RESET";
+                    _command=RESET;
+                    break;
+                case sf::Keyboard::H:
+                case sf::Keyboard::C:
+                    _sidebar[SB_KEY_PRESSED] = "C";
+                    _sidebar[SB_COMMAND_NAME] = "RESET";
+                    _command=CENTER;
+                    break;
+                case sf::Keyboard::I:
+                    _sidebar[SB_KEY_PRESSED] = "I";
+                    _sidebar[SB_COMMAND_NAME] = "GRAPH INFO";
+                    _command=INFO_LABEL;
+                    break;
+                case sf::Keyboard::F:
+                    _sidebar[SB_KEY_PRESSED] = "F";
+                    _sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
+                    _command=FORCE_UPDATE;
+                    break;
+                
+                //PANNING/ARROW KEYS===============================================
+                case sf::Keyboard::Right:
+                    _sidebar[SB_KEY_PRESSED] = "RIGHT ARROW";    //use to pan
+                    _sidebar[SB_COMMAND_NAME] = "PAN RIGHT";
+                    _command=PAN_RIGHT;
+                    break;
+                case sf::Keyboard::Left:
+                    _sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan
+                    _sidebar[SB_COMMAND_NAME] = "PAN LEFT";
+                    _command=PAN_LEFT;
+                    break;
+                case sf::Keyboard::Up:
+                    _sidebar[SB_KEY_PRESSED] = "UP ARROW";       //use to pan
+                    _sidebar[SB_COMMAND_NAME] = "PAN UP";
+                    _command=PAN_UP;
+                    break;
+                case sf::Keyboard::Down:
+                    _sidebar[SB_KEY_PRESSED] = "DOWN ARROW";     //use to pan
+                    _sidebar[SB_COMMAND_NAME] = "PAN DOWN";
+                    _command=PAN_DOWN;
+                    break;
+                
+                //ZOOMING==========================================================
+                case sf::Keyboard::Equal:
+                    _sidebar[SB_KEY_PRESSED] = "PLUS";           //zoom in
+                    _sidebar[SB_COMMAND_NAME] = "ZOOM IN";
+                    _command=ZOOM_IN;
+                    break;
+                case sf::Keyboard::Hyphen:
+                    _sidebar[SB_KEY_PRESSED] = "MINUS";          //zoom out
+                    _sidebar[SB_COMMAND_NAME] = "ZOOM OUT";
+                    _command=ZOOM_OUT;
+                    break;
 
-            //LETTERS==========================================================
-            case sf::Keyboard::R:
-                _sidebar[SB_KEY_PRESSED] = "R";
-                _sidebar[SB_COMMAND_NAME] = "RESET";
-                _command=RESET;
-                break;
-            case sf::Keyboard::H:
-            case sf::Keyboard::C:
-                _sidebar[SB_KEY_PRESSED] = "C";
-                _sidebar[SB_COMMAND_NAME] = "RESET";
-                _command=CENTER;
-                break;
-            case sf::Keyboard::I:
-                _sidebar[SB_KEY_PRESSED] = "I";
-                _sidebar[SB_COMMAND_NAME] = "GRAPH INFO";
-                _command=INFO_LABEL;
-                break;
-            case sf::Keyboard::F:
-                _sidebar[SB_KEY_PRESSED] = "F";
-                _sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
-                _command=FORCE_UPDATE;
-                break;
-            
-            //PANNING/ARROW KEYS===============================================
-            case sf::Keyboard::Right:
-                _sidebar[SB_KEY_PRESSED] = "RIGHT ARROW";    //use to pan
-                _sidebar[SB_COMMAND_NAME] = "PAN RIGHT";
-                _command=PAN_RIGHT;
-                break;
-            case sf::Keyboard::Left:
-                _sidebar[SB_KEY_PRESSED] = "LEFT ARROW";     //use to pan
-                _sidebar[SB_COMMAND_NAME] = "PAN LEFT";
-                _command=PAN_LEFT;
-                break;
-            case sf::Keyboard::Up:
-                _sidebar[SB_KEY_PRESSED] = "UP ARROW";       //use to pan
-                _sidebar[SB_COMMAND_NAME] = "PAN UP";
-                _command=PAN_UP;
-                break;
-            case sf::Keyboard::Down:
-                _sidebar[SB_KEY_PRESSED] = "DOWN ARROW";     //use to pan
-                _sidebar[SB_COMMAND_NAME] = "PAN DOWN";
-                _command=PAN_DOWN;
-                break;
-            
-            //ZOOMING==========================================================
-            case sf::Keyboard::Equal:
-                _sidebar[SB_KEY_PRESSED] = "PLUS";           //zoom in
-                _sidebar[SB_COMMAND_NAME] = "ZOOM IN";
-                _command=ZOOM_IN;
-                break;
-            case sf::Keyboard::Hyphen:
-                _sidebar[SB_KEY_PRESSED] = "MINUS";          //zoom out
-                _sidebar[SB_COMMAND_NAME] = "ZOOM OUT";
-                _command=ZOOM_OUT;
-                break;
+                //POINTS PLOTTED===================================================
+                case sf::Keyboard::RBracket:
+                    _sidebar[SB_KEY_PRESSED] = "RBRACKET";       //increase # pts
+                    _sidebar[SB_COMMAND_NAME] = "INCREASE POINTS";
+                    _command=INC_PTS;
+                    break;
+                case sf::Keyboard::LBracket:
+                    _sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
+                    _sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
+                    _command=DEC_PTS;
+                    break;
+                
+                //OTHER============================================================
+                case sf::Keyboard::Enter:{
+                    _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
+                    _sidebar[SB_COMMAND_NAME] = "ENTER";
+                    _command=ENTER;
 
-            //POINTS PLOTTED===================================================
-            case sf::Keyboard::RBracket:
-                _sidebar[SB_KEY_PRESSED] = "RBRACKET";       //increase # pts
-                _sidebar[SB_COMMAND_NAME] = "INCREASE POINTS";
-                _command=INC_PTS;
-                break;
-            case sf::Keyboard::LBracket:
-                _sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
-                _sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
-                _command=DEC_PTS;
-                break;
-            
-            //OTHER============================================================
-            case sf::Keyboard::Enter:{
-                _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
-                _sidebar[SB_COMMAND_NAME] = "ENTER";
-                _command=ENTER;
+                    _textbox.select();
+                    cout<<"_textbook selected bool: "<<boolalpha<<_textbox.isSelected()<<endl;
+                    // _textbox._sort_input(event);
+                    // _textbox.Draw(_window);
+                    //insta exits --> update last event?
 
-            /*
-                string strInput="";
-                while(_window.pollEvent(event)){
-                    if(event.type==sf::Event::TextEntered && event.text.unicode<128){
-                        strInput+=static_cast<char>(event.text.unicode);
-                        cout<<"strinput: ["<<strInput<<"]"<<endl;
+                /*
+                    string strInput="";
+                    while(_window.pollEvent(event)){
+                        if(event.type==sf::Event::TextEntered && event.text.unicode<128){
+                            strInput+=static_cast<char>(event.text.unicode);
+                            cout<<"strinput: ["<<strInput<<"]"<<endl;
 
-                        if(event.text.unicode==13)
-                            cout<<"should exit"<<endl;
+                            if(event.text.unicode==13)
+                                cout<<"should exit"<<endl;
+                        }
+                        if(event.type==sf::Event::MouseButtonPressed)
+                            cout<<"MOUSE"<<endl;
                     }
-                    if(event.type==sf::Event::MouseButtonPressed)
-                        cout<<"MOUSE"<<endl;
-                }
-                cout<<"exit strinput: ["<<strInput<<"]"<<endl;
-            */
-            /*
-                //entering a "function mode" --> should not leave this case
+                    cout<<"exit strinput: ["<<strInput<<"]"<<endl;
+                */
+                /*
+                    //entering a "function mode" --> should not leave this case
 
-                //print prompt (revisit later)
-                //create a new box (input display) to house all of this in
+                    //print prompt (revisit later)
+                    //create a new box (input display) to house all of this in
 
-                //create a new event object????????
-                //create a string to hold user input 
-                //use sf::Event::TextEntered to get user input?
-                //replace eq string :) (within System::Step) 
+                    //create a new event object????????
+                    //create a string to hold user input 
+                    //use sf::Event::TextEntered to get user input?
+                    //replace eq string :) (within System::Step) 
 
-                //if statements to exit textEntered?
+                    //if statements to exit textEntered?
 
-                sf::Event textInput;
-                string strInput="";
-                do{
-                    while(_window.pollEvent(textInput) && textInput.type==sf::Event::TextEntered){
-                        if(textInput.text.unicode<128){
-                            strInput+=static_cast<char>(textInput.text.unicode);
-                            cout<<strInput<<endl;
+                    sf::Event textInput;
+                    string strInput="";
+                    do{
+                        while(_window.pollEvent(textInput) && textInput.type==sf::Event::TextEntered){
+                            if(textInput.text.unicode<128){
+                                strInput+=static_cast<char>(textInput.text.unicode);
+                                cout<<strInput<<endl;
+                            }
+                        }
+                    }while(textInput.type==sf::Event::KeyPressed && textInput.key.code!=sf::Keyboard::Enter);
+                    cout<<strInput<<endl;
+
+                    //if function not changed (new str==old str) --> no need to update
+                */
+                /*
+                //enter a loop that gets each letter until enter is hit again
+                    sf::Event input;
+                    string input_eq;
+                    char get;
+                    while(_window.pollEvent(input)){
+                        if(input.type==sf::Event::KeyPressed && input.key.code!=sf::Keyboard::Enter){
+                            get==
                         }
                     }
-                }while(textInput.type==sf::Event::KeyPressed && textInput.key.code!=sf::Keyboard::Enter);
-                cout<<strInput<<endl;
+                */
 
-                //if function not changed (new str==old str) --> no need to update
-            */
-            /*
-            //enter a loop that gets each letter until enter is hit again
-                sf::Event input;
-                string input_eq;
-                char get;
-                while(_window.pollEvent(input)){
-                    if(input.type==sf::Event::KeyPressed && input.key.code!=sf::Keyboard::Enter){
-                        get==
-                    }
+                    cout<<"exiting case enter"<<endl;
+                    break;
                 }
-            */
-
+                case sf::Keyboard::Escape:
+                    _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
+                    _window.close();
+                    _command=ESCAPE;
+                    break;
+                }
                 break;
             }
-            case sf::Keyboard::Escape:
-                _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
-                _window.close();
-                _command=ESCAPE;
+
+            //MOUSE INPUT==========================================================
+            case sf::Event::MouseEntered:
+                _mouse_in=true;
+                break;
+            case sf::Event::MouseLeft:
+                _mouse_in=false;
+                break;
+            case sf::Event::MouseMoved:
+                mouseX=event.mouseMove.x;
+                mouseY=event.mouseMove.y;
+                break;
+            case sf::Event::MouseButtonReleased:
+                if(event.mouseButton.button == sf::Mouse::Right){
+                    _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
+                else{
+                    _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);}
+                break;
+            
+            //=====================================================================
+            default:
                 break;
             }
-            break;
-        }
-
-        //MOUSE INPUT==========================================================
-        case sf::Event::MouseEntered:
-            _mouse_in=true;
-            break;
-        case sf::Event::MouseLeft:
-            _mouse_in=false;
-            break;
-        case sf::Event::MouseMoved:
-            mouseX=event.mouseMove.x;
-            mouseY=event.mouseMove.y;
-            break;
-        case sf::Event::MouseButtonReleased:
-            if(event.mouseButton.button == sf::Mouse::Right){
-                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
-            else{
-                _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);}
-            break;
-        
-        //=====================================================================
-        default:
-            break;
         }
     }
 }

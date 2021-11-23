@@ -1,12 +1,22 @@
 #include "textbox.h"
 
 Textbox::Textbox():_selected(false){
-    _text="INPUT TEXT DISPLAY";
+    _text="";
     _init_sfml();
     cout<<"Textbox instantiated successfully"<<endl;
 }
 void Textbox::Draw(sf::RenderWindow& window){
+    _text_display.setString(_text);
     window.draw(_text_display);
+}
+void Textbox::select(){
+    _selected=!_selected;
+}
+bool Textbox::isSelected() const{
+    return _selected;
+}
+string Textbox::getText() const{
+    return _text;
 }
 void Textbox::_init_sfml(){
     //init font
@@ -22,4 +32,39 @@ void Textbox::_init_sfml(){
     _text_display.setStyle(sf::Text::Bold);
     _text_display.setFillColor(sf::Color::White);
     _text_display.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_text_display.getLocalBounds().height-10));
+}
+void Textbox::_sort_input(sf::Event input){
+    cout<<"enter sort input. ";
+
+    //create checks that input in IS text
+    int unicode=input.text.unicode;
+    // cout<<unicode<<endl;
+    if(unicode<128){
+         if(unicode==8 && !_text.empty())       //backspace
+            _text.pop_back();
+        // else if(unicode==13 && !_text.empty())  //enter -- currently exits instantly after any text is in the string --> function within class to determine if changed && if valid?
+        //     _selected=false;
+        else if(unicode==27)                    //escape
+            _selected=false;
+        else
+            _text+=static_cast<char>(unicode);
+    
+
+        cout<<"unicode: "<<unicode<<endl;
+        cout<<"char: "<<static_cast<char>(unicode)<<endl;
+        if(_selected==false)
+            cout<<"SELECTED FALSE: EXIT============================="<<endl;
+
+        /*
+        if(unicode==8 && !_text.empty())        //delete key
+            _text.pop_back();
+        else if(unicode==13)    //enter key
+            _selected=false;    //unselect envt
+        else if(unicode==27)    //escape key    --> don't save changes?
+            _selected=false;    //unselect envt
+        else
+            _text+=static_cast<char>(unicode);
+        */
+    }
+    cout<<"_text: "<<_text<<endl;
 }
