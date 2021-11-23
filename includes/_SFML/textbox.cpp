@@ -1,6 +1,7 @@
 #include "textbox.h"
 
-Textbox::Textbox():_selected(false){
+Textbox::Textbox(GraphInfo* info):_info(info){
+    _selected=false;
     _text="";
     _prev="";
     _init_sfml();

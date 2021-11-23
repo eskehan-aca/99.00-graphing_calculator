@@ -144,8 +144,20 @@ void System::Step(int command, GraphInfo* info){
 
     //OTHER====================================================================
     case ENTER_EQ:
-        //revisit 
-        cout<<"press enter: nothing happens :)"<<endl;
+        //_info->_user_input=_textbox.getText();
+        //how to access textbox from system???????????
+
+        //info->_user_input?
+        //info->_equation=//whatever textbox contains??
+        //confirm that textbox container is 
+        //2. valid eq
+        //1. diff than prev --> update graph
+        // cout<<"info->_user_input: "<<info->_user_input<<endl;
+        // cout<<"press enter: nothing happens :)"<<endl;
+
+        //the same as if the equation was changed --> update graphinfo & get pts
+        _calculate_graph_info(info);
+        _g.update();
         break;
     case ESCAPE:
         cout<<"SYSTEM::STEP() switch ESCAPE: you should not be here!"<<endl; 
@@ -167,6 +179,7 @@ void System::_init_graph_info(GraphInfo* info){
     cout<<"System: initializing GraphInfo"<<endl;
 
     info->_equation=DEFAULT_EQUATION0;
+    // info->_user_input="";
     info->_graph_info=false;
 
     //CHANGING THESE MEANS WE HAVE TO RECALCULATE GRAPH INFO (call funct)

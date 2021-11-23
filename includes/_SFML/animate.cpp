@@ -1,6 +1,6 @@
 #include "animate.h"
 
-Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info),_textbox(){
+Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info),_textbox(_info){
     cout<<"Animate CTOR: TOP"<<endl;
     _window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GRAPHING CALCULATOR");
     _window.setFramerateLimit(15);
@@ -151,9 +151,9 @@ void Animate::processEvents(){
                 case sf::Keyboard::Enter:{
                     _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
                     _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
-                    _command=ENTER_EQ;
-                    _textbox.select();
                     _sidebar[SB_FUNCTION_MODE]="IN FUNCTION MODE";
+                    _textbox.select();
+                    _command=ENTER_EQ;
                     cout<<"exiting case enter"<<endl;
                     break;
                 }

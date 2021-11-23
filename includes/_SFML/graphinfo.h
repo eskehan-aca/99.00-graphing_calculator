@@ -5,6 +5,7 @@
 using namespace std;
 struct GraphInfo{
     string _equation;                   //equation string (infix)
+    // string _user_input;                 //equation string (infix)
 
     //recall _calculate_graph_info()
     sf::Vector2f _window_dimensions;    //600x600? for rn
