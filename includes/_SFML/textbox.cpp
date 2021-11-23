@@ -10,7 +10,7 @@ void Textbox::Draw(sf::RenderWindow& window){
     window.draw(_text_display);
 }
 void Textbox::select(){
-    _selected=!_selected;
+    _selected=true;
 }
 bool Textbox::isSelected() const{
     return _selected;
@@ -33,7 +33,7 @@ void Textbox::_init_sfml(){
     _text_display.setFillColor(sf::Color::White);
     _text_display.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_text_display.getLocalBounds().height-10));
 }
-void Textbox::_sort_input(sf::Event input){
+void Textbox::_sort_input(sf::Event input, string prev){
     cout<<"enter sort input. ";
 
     //create checks that input in IS text
@@ -42,8 +42,8 @@ void Textbox::_sort_input(sf::Event input){
     if(unicode<128){
          if(unicode==8 && !_text.empty())       //backspace
             _text.pop_back();
-        // else if(unicode==13 && !_text.empty())  //enter -- currently exits instantly after any text is in the string --> function within class to determine if changed && if valid?
-        //     _selected=false;
+        else if(unicode==13 && _text!=prev)     //enter -- currently exits instantly after any text is in the string --> function within class to determine if changed && if valid?
+            _selected=false;
         else if(unicode==27)                    //escape
             _selected=false;
         else

@@ -12,6 +12,8 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _cursor.setRadius(2.5);
     _cursor.setFillColor(sf::Color::Red);
 
+    _prev=_textbox.getText();
+
     cout<<"Animate instantiated successfully."<<endl;
 }
 void Animate::run(){ 
@@ -35,15 +37,21 @@ void Animate::processEvents(){
         
         if(_textbox.isSelected()){
             _sidebar[7]="IN FUNCTION MODE";
-            string prev=_textbox.getText();
             if(event.type==sf::Event::TextEntered){
-                _textbox._sort_input(event);
+                _textbox._sort_input(event, _prev);
+                //enter + has text will exit
                 cout<<"exiting if statement"<<endl;
             }
-            //if prev!=current text && current is valid (check w/ tokenize) 
-            //--> set eq --> return command code to update graph
-            //THIS OCCURS IN THE SWITCH BELOW (when toggled)               
+            //if prev!=current text && hit enter --> exit X
+            //if prev==current text && hit enter --> reenter
+            //put this into the textbox class??
+            // if(prev==_textbox.getText() && event.KeyPressed==sf::Keyboard::Enter)
+            //     _textbox.select();
         }
+        //THIS OCCURS IN THE SWITCH BELOW (when toggled)               
+        //confirm new text is valid (check w/ tokenize) 
+        //--> set eq --> return command code to update graph
+
         
         else{
             _sidebar[7]="NOT IN FUNCTION MODE";
@@ -159,69 +167,11 @@ void Animate::processEvents(){
                 //OTHER============================================================
                 case sf::Keyboard::Enter:{
                     _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
-                    _sidebar[SB_COMMAND_NAME] = "ENTER";
-                    _command=ENTER;
-
+                    _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
+                    _command=ENTER_EQ;
                     _textbox.select();
+                    _prev=_textbox.getText();
                     cout<<"_textbook selected bool: "<<boolalpha<<_textbox.isSelected()<<endl;
-                    // _textbox._sort_input(event);
-                    // _textbox.Draw(_window);
-                    //insta exits --> update last event?
-
-                /*
-                    string strInput="";
-                    while(_window.pollEvent(event)){
-                        if(event.type==sf::Event::TextEntered && event.text.unicode<128){
-                            strInput+=static_cast<char>(event.text.unicode);
-                            cout<<"strinput: ["<<strInput<<"]"<<endl;
-
-                            if(event.text.unicode==13)
-                                cout<<"should exit"<<endl;
-                        }
-                        if(event.type==sf::Event::MouseButtonPressed)
-                            cout<<"MOUSE"<<endl;
-                    }
-                    cout<<"exit strinput: ["<<strInput<<"]"<<endl;
-                */
-                /*
-                    //entering a "function mode" --> should not leave this case
-
-                    //print prompt (revisit later)
-                    //create a new box (input display) to house all of this in
-
-                    //create a new event object????????
-                    //create a string to hold user input 
-                    //use sf::Event::TextEntered to get user input?
-                    //replace eq string :) (within System::Step) 
-
-                    //if statements to exit textEntered?
-
-                    sf::Event textInput;
-                    string strInput="";
-                    do{
-                        while(_window.pollEvent(textInput) && textInput.type==sf::Event::TextEntered){
-                            if(textInput.text.unicode<128){
-                                strInput+=static_cast<char>(textInput.text.unicode);
-                                cout<<strInput<<endl;
-                            }
-                        }
-                    }while(textInput.type==sf::Event::KeyPressed && textInput.key.code!=sf::Keyboard::Enter);
-                    cout<<strInput<<endl;
-
-                    //if function not changed (new str==old str) --> no need to update
-                */
-                /*
-                //enter a loop that gets each letter until enter is hit again
-                    sf::Event input;
-                    string input_eq;
-                    char get;
-                    while(_window.pollEvent(input)){
-                        if(input.type==sf::Event::KeyPressed && input.key.code!=sf::Keyboard::Enter){
-                            get==
-                        }
-                    }
-                */
-
                     cout<<"exiting case enter"<<endl;
                     break;
                 }

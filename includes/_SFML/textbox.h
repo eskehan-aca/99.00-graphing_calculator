@@ -8,7 +8,7 @@ public:
     Textbox();
 
     void select();
-    void _sort_input(sf::Event input);
+    void _sort_input(sf::Event input, string prev);
 
     void Draw(sf::RenderWindow& window);
 

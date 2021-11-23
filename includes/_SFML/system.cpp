@@ -143,7 +143,7 @@ void System::Step(int command, GraphInfo* info){
         break;
 
     //OTHER====================================================================
-    case ENTER:
+    case ENTER_EQ:
         //revisit 
         cout<<"press enter: nothing happens :)"<<endl;
         break;

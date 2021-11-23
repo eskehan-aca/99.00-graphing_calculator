@@ -109,7 +109,7 @@ enum COMMANDS{
     INC_PTS,   //increase # pts     ]
     DEC_PTS,   //decrease # pts     [
 
-    ENTER,  //?????????????? get equation maybe    
+    ENTER_EQ,  //?????????????? get equation maybe    
     ESCAPE, //exit (no command # associated, just here for reference) --> should not *do* anything?
 
     //MOUSE COMMANDS
