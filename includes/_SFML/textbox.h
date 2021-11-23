@@ -7,7 +7,7 @@ class Textbox{
 public:
     Textbox();
 
-    void select(string prev);
+    void select();
     void _sort_input(sf::Event input);
 
     void Draw(sf::RenderWindow& window);

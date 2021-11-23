@@ -12,8 +12,6 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _cursor.setRadius(2.5);
     _cursor.setFillColor(sf::Color::Red);
 
-    _prev=_textbox.getText();
-
     cout<<"Animate instantiated successfully."<<endl;
 }
 void Animate::run(){ 
@@ -169,9 +167,7 @@ void Animate::processEvents(){
                     _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
                     _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                     _command=ENTER_EQ;
-                    _prev=_textbox.getText();
-                    _textbox.select(_prev);
-                    cout<<"prev1: "<<_prev<<endl;
+                    _textbox.select();
                     cout<<"_textbox selected?: "<<boolalpha<<_textbox.isSelected()<<endl;
                     cout<<"exiting case enter"<<endl;
                     break;

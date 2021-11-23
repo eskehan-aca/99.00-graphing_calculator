@@ -18,8 +18,6 @@ private:
     Sidebar _sidebar;                   //rectangular message sidebar
     Textbox _textbox;                   //textbox for user input
     
-    string _prev;                       //temp
-
     sf::RenderWindow _window;           //sfml window
     sf::CircleShape _cursor;            //dot to follow cursor movement
         

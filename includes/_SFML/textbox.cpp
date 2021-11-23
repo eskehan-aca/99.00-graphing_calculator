@@ -10,10 +10,10 @@ void Textbox::Draw(sf::RenderWindow& window){
     _text_display.setString(_text);
     window.draw(_text_display);
 }
-void Textbox::select(string prev){
+void Textbox::select(){
     cout<<"enter Textbox select function";
     _selected=true;
-    _prev=prev;
+    _prev=_text;
 }
 bool Textbox::isSelected() const{
     return _selected;
