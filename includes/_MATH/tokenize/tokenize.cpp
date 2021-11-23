@@ -1,6 +1,7 @@
 #include "tokenize.h"
 
-Tokenize::Tokenize(string input):_valid(false){
+Tokenize::Tokenize(string input){
+    _converted=false;
     _cstr=new char[input.length()+1];
     strcpy(_cstr, input.c_str());
     _token_queue=Queue<Token*>();
@@ -8,7 +9,7 @@ Tokenize::Tokenize(string input):_valid(false){
 
 Queue<Token*>& Tokenize::get_token_queue(){
     _convert_queue();
-    assert(_valid);
+    assert(_converted);
     return _token_queue;
 }
 
@@ -51,7 +52,7 @@ Token* Tokenize::_convert_token(char* charToken){
     return nullptr;
 }
 void Tokenize::_convert_queue(){
-    if(_valid)
+    if(_converted)
         return;
 
     assert(_token_queue.empty());
@@ -64,7 +65,7 @@ void Tokenize::_convert_queue(){
         charToken=strtok(NULL," ");
     }
     if(tokenizeDebug){cout<<_token_queue<<endl;}
-    _valid=true;
+    _converted=true;
 }
 int Tokenize::_token_type(const char* token){
     //check if double
@@ -95,6 +96,7 @@ int Tokenize::_token_type(const char* token){
     if(_is_funct(tokstr))
         return FUNCTION;
 
+    cout<<"UNKNOWN STRING: ["<<tokstr<<"]"<<endl;
     assert(false);
     return -1;
 }

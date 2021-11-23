@@ -17,13 +17,13 @@
 
 class Tokenize{
 public:
-    Tokenize(string input);
+    Tokenize(string input);     //2 params --> default to skip validating string
     Queue<Token*>& get_token_queue();
 
 private:
     //VARIABLES
     char* _cstr;
-    bool _valid;
+    bool _converted;
     Queue<Token*> _token_queue;
     
     //FUNCTIONS
