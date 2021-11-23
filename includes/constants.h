@@ -79,6 +79,7 @@ const int SB_MOUSE_CLICKED = SB_MOUSE_POSITION+1;
 const int SB_KEY_PRESSED = SB_MOUSE_CLICKED+1;
 const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
 const int SB_EQUATION_LABEL = SB_COMMAND_NAME+2;
+const int SB_FUNCTION_MODE = SB_EQUATION_LABEL+1;
 
 ///////////////////////////////////
 

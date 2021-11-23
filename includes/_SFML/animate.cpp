@@ -33,26 +33,10 @@ void Animate::processEvents(){
     float mouseX, mouseY;
     while(_window.pollEvent(event)){//or waitEvent
         
-        if(_textbox.isSelected()){
-            _sidebar[7]="IN FUNCTION MODE";
-            if(event.type==sf::Event::TextEntered){
-                _textbox._sort_input(event);
-                //enter + has text will exit
-                cout<<"exiting if statement"<<endl;
-            }
-            //if prev!=current text && hit enter --> exit X
-            //if prev==current text && hit enter --> reenter
-            //put this into the textbox class??
-            // if(prev==_textbox.getText() && event.KeyPressed==sf::Keyboard::Enter)
-            //     _textbox.select();
-        }
-        //THIS OCCURS IN THE SWITCH BELOW (when toggled)               
-        //confirm new text is valid (check w/ tokenize) 
-        //--> set eq --> return command code to update graph
+        if(_textbox.isSelected())
+            _textbox._sort_input(event);
 
-        
         else{
-            _sidebar[7]="NOT IN FUNCTION MODE";
             switch (event.type){        //check the type of event
             case sf::Event::Closed:     // _window closed
                 _window.close();
@@ -60,6 +44,7 @@ void Animate::processEvents(){
             //KEYBOARD INPUT=======================================================
             {
             case sf::Event::KeyPressed:
+                _sidebar[SB_FUNCTION_MODE]="NOT IN FUNCTION MODE";     //clean this later
                 switch(event.key.code){
                 //NUMERS (default equations)=======================================
                 case sf::Keyboard::Num0:
@@ -168,7 +153,7 @@ void Animate::processEvents(){
                     _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                     _command=ENTER_EQ;
                     _textbox.select();
-                    cout<<"_textbox selected?: "<<boolalpha<<_textbox.isSelected()<<endl;
+                    _sidebar[SB_FUNCTION_MODE]="IN FUNCTION MODE";
                     cout<<"exiting case enter"<<endl;
                     break;
                 }
