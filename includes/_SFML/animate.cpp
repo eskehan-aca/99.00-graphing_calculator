@@ -33,7 +33,7 @@ void Animate::processEvents(){
     float mouseX, mouseY;
     while(_window.pollEvent(event)){//or waitEvent
         
-        if(_textbox.isSelected())
+        if(_textbox.selected())
             _textbox._sort_input(event);
 
         else{

@@ -12,8 +12,8 @@ public:
 
     void Draw(sf::RenderWindow& window);
 
-    bool isSelected() const;
-    string getText() const;
+    bool selected() const;
+    string text() const;
 
 private:
     GraphInfo* _info;
@@ -26,6 +26,7 @@ private:
     bool _selected;
 
     void _init_sfml();
+    void _modify_graph_info();
 };
 
 #endif //TEXTBOX

@@ -16,10 +16,10 @@ void Textbox::select(){
     _selected=true;
     _prev=_text;
 }
-bool Textbox::isSelected() const{
+bool Textbox::selected() const{
     return _selected;
 }
-string Textbox::getText() const{
+string Textbox::text() const{
     return _text;
 }
 void Textbox::_init_sfml(){
@@ -55,6 +55,12 @@ void Textbox::_sort_input(sf::Event input){
         }
         cout<<"_text: "<<_text<<endl;
     }
-    if(_selected==false)
+    if(_selected==false){
         cout<<"SELECTED FALSE: EXIT============================="<<endl;
+        _modify_graph_info();
+    }
+}
+void Textbox::_modify_graph_info(){
+    //check if strings are diff?
+    //check if text is legal
 }

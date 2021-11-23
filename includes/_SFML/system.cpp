@@ -144,7 +144,7 @@ void System::Step(int command, GraphInfo* info){
 
     //OTHER====================================================================
     case ENTER_EQ:
-        //_info->_user_input=_textbox.getText();
+        //_info->_user_input=_textbox.text();
         //how to access textbox from system???????????
 
         //info->_user_input?
