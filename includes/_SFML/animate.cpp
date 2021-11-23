@@ -38,7 +38,7 @@ void Animate::processEvents(){
         if(_textbox.isSelected()){
             _sidebar[7]="IN FUNCTION MODE";
             if(event.type==sf::Event::TextEntered){
-                _textbox._sort_input(event, _prev);
+                _textbox._sort_input(event);
                 //enter + has text will exit
                 cout<<"exiting if statement"<<endl;
             }
@@ -169,9 +169,10 @@ void Animate::processEvents(){
                     _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
                     _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                     _command=ENTER_EQ;
-                    _textbox.select();
                     _prev=_textbox.getText();
-                    cout<<"_textbook selected bool: "<<boolalpha<<_textbox.isSelected()<<endl;
+                    _textbox.select(_prev);
+                    cout<<"prev1: "<<_prev<<endl;
+                    cout<<"_textbox selected?: "<<boolalpha<<_textbox.isSelected()<<endl;
                     cout<<"exiting case enter"<<endl;
                     break;
                 }

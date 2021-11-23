@@ -7,8 +7,8 @@ class Textbox{
 public:
     Textbox();
 
-    void select();
-    void _sort_input(sf::Event input, string prev);
+    void select(string prev);
+    void _sort_input(sf::Event input);
 
     void Draw(sf::RenderWindow& window);
 
@@ -19,6 +19,7 @@ private:
     sf::Text _text_display;
     sf::Font _font;
     
+    string _prev;
     string _text;
     bool _selected;
 
