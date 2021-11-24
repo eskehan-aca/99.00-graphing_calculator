@@ -62,5 +62,12 @@ void Textbox::_sort_input(sf::Event input){
 }
 void Textbox::_modify_graph_info(){
     //check if strings are diff?
-    //check if text is legal
+    //check if text is legal --> funct to validate string?
+    //  if valid --> set as graphinfo _equation
+    
+    cout<<"text: ["<<string(_text)<<"]"<<endl;
+
+    //currently assumes that the inputted eq is valid (add funt to check later)
+    if(_prev!=_text)
+        _info->_equation=_text;
 }
