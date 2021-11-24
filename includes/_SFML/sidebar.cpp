@@ -46,15 +46,16 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
 
 void Sidebar::Draw(sf::RenderWindow& window){
     //move to constants.h
-    window.draw(_sb_rect);
-
     float height=SB_VERTICAL_MARGIN;
+    window.draw(_sb_rect);
     _sb_text.setFillColor(sf::Color::White);
 
     //CAN SPLIT THIS INTO INDIVIDUAL FUNCTIONS IN THE FUTURE, pass height as param 
 
-    //drawing equation label
     string eqLabel="Graphing y = [ "+_items[SB_EQUATION_LABEL]+" ]";
+    //drawing equation label
+    if(_items[SB_FUNCTION_MODE]=="in function mode")
+        eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
     _sb_text.setString(eqLabel);
     _sb_text.setStyle(sf::Text::Bold);
     _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));

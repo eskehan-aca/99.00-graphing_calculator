@@ -34,8 +34,15 @@ void Animate::processEvents(){
     while(_window.pollEvent(event)){
         
         if(_textbox.selected()){
+            cout<<"loop?"<<endl;
+            if(event.key.code==sf::Keyboard::Enter)
+                cout<<"TOP detected press entr"<<endl;
+
             _textbox._sort_input(event);
             _sidebar[SB_EQUATION_LABEL]=_textbox.text();
+            
+            if(event.key.code==sf::Keyboard::Enter)
+                cout<<"BOT detected press entr"<<endl;
         }
 
         else{
