@@ -64,11 +64,11 @@ const float RANGE_MAX = 10;
 
 const int NUM_POINTS = 21;
 
-const string DEFAULT_EQUATION0 = "";    //MODIFY ME!!
-const string DEFAULT_EQUATION1 = "log x";
+const string DEFAULT_EQUATION0 = "x";    //MODIFY ME!!
+const string DEFAULT_EQUATION1 = "1 / x";
 const string DEFAULT_EQUATION2 = "sec ( x )";
 const string DEFAULT_EQUATION3 = "sqrt ( x )";
-const string DEFAULT_EQUATION4 = "arcsin ( x )";
+const string DEFAULT_EQUATION4 = "3 * sin ( x )";
 
 ///////////////////////////////////
 
@@ -96,8 +96,8 @@ enum COMMANDS{
     
     RESET,  //reset origin          R
     CENTER, //center origin         C, H
-    INFO_LABEL, //toggle graph info     I
-    FORCE_UPDATE,//recalculate      F
+    INFO_LABEL, //toggle graph info I
+    FORCE_UPDATE,//recalculate      F, U
 
     PAN_RIGHT,  //pan right         arrow keys
     PAN_LEFT,   //pan left
@@ -132,9 +132,13 @@ enum COMMANDS{
 //  - display grid lines                    'g'
 //  - show graph info                       'i'
 
+// selecting functs to draw from sidebar 
 // revisit zoom --> zoom in based on cursor location??
 // hiding sidebar?
 // funct sqrt
 // plot multiple eqs?
+
+
+//animate enter cmd : textbox --> write eq to sidebar, not graphinfo
 
 #endif //CONSTANTS_H
