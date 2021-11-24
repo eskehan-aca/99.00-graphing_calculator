@@ -23,6 +23,7 @@ private:
         
     int _command;                       //command to send to system
     bool _mouse_in;                     //if mouse is in the screen
+    //bool _sidebar_open;               // use to display graph eq
 
     //FUNCTIONS
     void processEvents();               //processing mouse movement, clicks, etc, modifies command int

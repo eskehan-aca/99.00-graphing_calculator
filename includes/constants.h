@@ -72,14 +72,25 @@ const string DEFAULT_EQUATION4 = "3 * sin ( x )";
 
 ///////////////////////////////////
 
-const float SB_SPACING = 10;
+//SB SPACING 
+const float SB_LEFT_MARGIN = 15;
+const float SB_VERTICAL_MARGIN = 15;
+const float SB_VERTICAL_LINE_SPACING = 10;
 
-const int SB_MOUSE_POSITION = 1;
+//SB MESSAGES
+const int SB_EQUATION_LABEL = 0;
+const int SB_FUNCTION_MODE = SB_EQUATION_LABEL+1;
+
+const int SB_EQ_HIST_HEADER = SB_EQUATION_LABEL+3;
+const int SB_EQ_HIST_1 = SB_EQ_HIST_HEADER+1;
+const int SB_EQ_HIST_2 = SB_EQ_HIST_HEADER+2;
+const int SB_EQ_HIST_3 = SB_EQ_HIST_HEADER+3;
+const int SB_EQ_HIST_4 = SB_EQ_HIST_HEADER+4;
+
+const int SB_MOUSE_POSITION = 10;
 const int SB_MOUSE_CLICKED = SB_MOUSE_POSITION+1;
 const int SB_KEY_PRESSED = SB_MOUSE_CLICKED+1;
 const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
-const int SB_EQUATION_LABEL = SB_COMMAND_NAME+2;
-const int SB_FUNCTION_MODE = SB_EQUATION_LABEL+1;
 
 ///////////////////////////////////
 
@@ -88,14 +99,14 @@ enum COMMANDS{
     //KEYBOARD COMMANDS
     //-1 = no command
         
-    NUM_0,  //default equation 0
-    NUM_1,  //default equation 1
-    NUM_2,  //default equation 2
-    NUM_3,  //default equation 3
-    NUM_4,  //default equation 4
+    NUM_0,      //default equation 0
+    NUM_1,      //default equation 1
+    NUM_2,      //default equation 2
+    NUM_3,      //default equation 3
+    NUM_4,      //default equation 4
     
-    RESET,  //reset origin          R
-    CENTER, //center origin         C, H
+    RESET,      //reset origin      R
+    CENTER,     //center origin     C, H
     INFO_LABEL, //toggle graph info I
     FORCE_UPDATE,//recalculate      F, U
 
@@ -114,33 +125,20 @@ enum COMMANDS{
     ESCAPE, //exit (no command # associated, just here for reference) --> should not *do* anything?
 
     //MOUSE COMMANDS
+    RIGHT_CLICK,
+    LEFT_CLICK,
 };
 
-//functionalities:
-//  - default eqs                           0-4
-//  - escape                                esc
-
-//  - zoom                                  plus minus
-//  - pan                                   arrow keys
-
-//  - increase num pts?                     brackets
-//  - force update                          'f'
-//  - reset origin                          'r'
-
-//  - enter equation                        'enter'?
-//  - change colors :) (pts,background)     'c'
-//  - display grid lines                    'g'?
-//  - show graph info                       'i'
-
+//funct:
+// change colors :) (pts,background)     'c'
+// display grid lines                    'g'?
 // selecting functs to draw from sidebar 
 // revisit zoom --> zoom in based on cursor location??
 // hiding sidebar?
-// funct sqrt
 // plot multiple eqs?
 // process click --> pass location to sidebar class (similar to what textbox class does)
 // revisit & reformat textbox class --> screen overlay (transparency?)
 // add funciton mode to switch statement --> allow closing tab while typing
-
-//animate enter cmd : textbox --> write eq to sidebar, not graphinfo
+// animate enter cmd : textbox --> write eq to sidebar, not graphinfo
 
 #endif //CONSTANTS_H
