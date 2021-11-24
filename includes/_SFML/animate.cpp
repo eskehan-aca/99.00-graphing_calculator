@@ -31,12 +31,22 @@ void Animate::render(){
 void Animate::processEvents(){
     sf::Event event;
     float mouseX, mouseY;
-    while(_window.pollEvent(event)){//or waitEvent
+    while(_window.pollEvent(event)){
         
         if(_textbox.selected())
             _textbox._sort_input(event);
 
         else{
+            //REENTERING FROM TEXTBOX SELECTION?===================================
+            _sidebar[SB_FUNCTION_MODE]="NOT IN FUNCTION MODE";     //clean this later
+            // if(_textbox.modified()){
+            //     cout<<"textbox was modified. entering cmd to update graph"<<endl;
+            //     _command=ENTER_EQ;  //did not previously get passed to system
+            // }
+            // need to figure out a flag (within textbox class?) indicating to pass new eq w/ cmd to update graph 
+
+            //=====================================================================
+            
             switch (event.type){        //check the type of event
             case sf::Event::Closed:     // _window closed
                 _window.close();
@@ -44,9 +54,22 @@ void Animate::processEvents(){
             //KEYBOARD INPUT=======================================================
             {
             case sf::Event::KeyPressed:
-                _sidebar[SB_FUNCTION_MODE]="NOT IN FUNCTION MODE";     //clean this later
                 switch(event.key.code){
-                //NUMERS (default equations)=======================================
+                //OTHER============================================================
+                case sf::Keyboard::Enter:
+                    _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
+                    _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
+                    _sidebar[SB_FUNCTION_MODE]="IN FUNCTION MODE";
+                    _textbox.select();
+                    cout<<"exiting case enter"<<endl;
+                    break;
+                case sf::Keyboard::Escape:
+                    _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
+                    _window.close();
+                    _command=ESCAPE;
+                    break;
+                    
+                //NUMBERS (default equations)=======================================
                 case sf::Keyboard::Num0:
                     _sidebar[SB_KEY_PRESSED] = "NUM 0";
                     _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
@@ -86,8 +109,8 @@ void Animate::processEvents(){
                     break;
                 case sf::Keyboard::H:
                 case sf::Keyboard::C:
-                    _sidebar[SB_KEY_PRESSED] = "C";
-                    _sidebar[SB_COMMAND_NAME] = "RESET";
+                    _sidebar[SB_KEY_PRESSED] = "C/H";
+                    _sidebar[SB_COMMAND_NAME] = "CENTER";
                     _command=CENTER;
                     break;
                 case sf::Keyboard::I:
@@ -95,8 +118,9 @@ void Animate::processEvents(){
                     _sidebar[SB_COMMAND_NAME] = "GRAPH INFO";
                     _command=INFO_LABEL;
                     break;
+                case sf::Keyboard::U:
                 case sf::Keyboard::F:
-                    _sidebar[SB_KEY_PRESSED] = "F";
+                    _sidebar[SB_KEY_PRESSED] = "F/U";
                     _sidebar[SB_COMMAND_NAME] = "FORCE UPDATE";
                     _command=FORCE_UPDATE;
                     break;
@@ -145,22 +169,6 @@ void Animate::processEvents(){
                     _sidebar[SB_KEY_PRESSED] = "LEFT BRACKET";   //decrease # pts
                     _sidebar[SB_COMMAND_NAME] = "DECREASE POINTS";
                     _command=DEC_PTS;
-                    break;
-                
-                //OTHER============================================================
-                case sf::Keyboard::Enter:{
-                    _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
-                    _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
-                    _sidebar[SB_FUNCTION_MODE]="IN FUNCTION MODE";
-                    _textbox.select();
-                    _command=ENTER_EQ;
-                    cout<<"exiting case enter"<<endl;
-                    break;
-                }
-                case sf::Keyboard::Escape:
-                    _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
-                    _window.close();
-                    _command=ESCAPE;
                     break;
                 }
                 break;

@@ -12,6 +12,7 @@ public:
 
     void Draw(sf::RenderWindow& window);
 
+    bool modified() const;
     bool selected() const;
     string text() const;
 

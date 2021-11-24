@@ -156,6 +156,7 @@ void System::Step(int command, GraphInfo* info){
         // cout<<"press enter: nothing happens :)"<<endl;
 
         //the same as if the equation was changed --> update graphinfo & get pts
+        cout<<"IN SYSTEM: ENTER EQ"<<endl;
         _calculate_graph_info(info);
         _g.update();
         break;

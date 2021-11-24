@@ -19,6 +19,9 @@ void Textbox::select(){
 bool Textbox::selected() const{
     return _selected;
 }
+bool Textbox::modified() const{
+    return _prev!=_text;
+}
 string Textbox::text() const{
     return _text;
 }
@@ -42,22 +45,25 @@ void Textbox::_sort_input(sf::Event input){
     if(input.type==sf::Event::TextEntered){
         int unicode=input.text.unicode;
         if(unicode<128){
-            if(unicode==8 && !_text.empty())       //backspace
-                _text.pop_back();
-            else if(unicode==13 && _text!=_prev)    //enter -- currently exits instantly after any text is in the string --> function within class to determine if changed && if valid?
-                _selected=false;
-            else if(unicode==27){
-                _text=_prev;                       //reset changes
-                _selected=false;
-            }                    //escape
-            else
+            if(unicode!=8 && unicode!=13 && unicode!=27)
                 _text+=static_cast<char>(unicode);
-        }
+            else if(unicode==8)
+                _text.pop_back();
+            else if(unicode==13 && modified())
+                _selected=false;    //enter if new eq
+            else if(unicode==27){
+                _text=_prev;        //reset text
+                _selected=false;    //unselect
+            }
+            else
+                cout<<"hit enter but no changes to string --> nothing happens"<<endl;
         cout<<"_text: "<<_text<<endl;
+        }
     }
     if(_selected==false){
         cout<<"SELECTED FALSE: EXIT============================="<<endl;
         _modify_graph_info();
+        //unsure if this should be handled by system --> then textbox class doesn't need graphinfo ptr 
     }
 }
 void Textbox::_modify_graph_info(){
@@ -65,9 +71,9 @@ void Textbox::_modify_graph_info(){
     //check if text is legal --> funct to validate string?
     //  if valid --> set as graphinfo _equation
     
-    cout<<"text: ["<<string(_text)<<"]"<<endl;
+    cout<<"textbox modifying graph info eq: ["<<_text<<"]"<<endl;
 
     //currently assumes that the inputted eq is valid (add funt to check later)
-    if(_prev!=_text)
+    if(modified())
         _info->_equation=_text;
 }
