@@ -213,8 +213,6 @@ void Animate::update(){
 void Animate::Draw(){
     _system.Draw(_window);
     _sidebar.Draw(_window); 
-    
-    //TEMPORARY HERE --> later move to either within sidebar or system
     _textbox.Draw(_window);
 
     if(_mouse_in){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   

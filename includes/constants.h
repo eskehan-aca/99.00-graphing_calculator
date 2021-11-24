@@ -129,7 +129,7 @@ enum COMMANDS{
 
 //  - enter equation                        'enter'?
 //  - change colors :) (pts,background)     'c'
-//  - display grid lines                    'g'
+//  - display grid lines                    'g'?
 //  - show graph info                       'i'
 
 // selecting functs to draw from sidebar 
@@ -137,7 +137,9 @@ enum COMMANDS{
 // hiding sidebar?
 // funct sqrt
 // plot multiple eqs?
-
+// process click --> pass location to sidebar class (similar to what textbox class does)
+// revisit & reformat textbox class --> screen overlay (transparency?)
+// add funciton mode to switch statement --> allow closing tab while typing
 
 //animate enter cmd : textbox --> write eq to sidebar, not graphinfo
 

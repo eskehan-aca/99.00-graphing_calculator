@@ -36,25 +36,42 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
 }
 
 void Sidebar::Draw(sf::RenderWindow& window){
+    //move to constants.h
     const double VERTICAL_LINE_SPACING = 5.0;
     const double LEFT_MARGIN = 10.0;
 
     window.draw(_sb_rect);
-    float height = SB_SPACING;  //??idk what this is
+    float height = SB_SPACING;  //starting point --> text padding from the top 
 
     for (vector<string>::iterator it = _items.begin(); it!= _items.end(); it++){
+        //empty rows must be taken into account (getLocalBounds()) but not drawn
         bool blank=false;
         if(it->length()==0){
-            //empty rows must be taken into account (getLocalBounds()) but not drawn
             blank=true;
-            _sb_text.setString("BLANK");
+            _sb_text.setString("BLANK");    //later replace w/ "no equation"?
         }
-        else{_sb_text.setString(it->c_str());}
+        else{
+            _sb_text.setString(it->c_str());
+        }
+
         _sb_text.setPosition(sf::Vector2f(_height+LEFT_MARGIN,height));
         height+=_sb_text.getLocalBounds().height+VERTICAL_LINE_SPACING;
+        //first text @ height var (SB_SPACING)
+        //second text @ height var + (textbox height + vertical line spacing var)
+
+        //y coord --> subtract height var, div by () to find which it is referring to
+        //if --> holding var
         
         if(!blank)
             window.draw(_sb_text);
+        
+        /*
+        _sb_text.setString(it->c_str());
+        _sb_text.setPosition(sf::Vector2f(_height+LEFT_MARGIN,height));
+        height+=_sb_text.getLocalBounds().height+VERTICAL_LINE_SPACING;
+        window.draw(_sb_text);
+        cout<<"SIDEBAR DRAW: height: "<<height<<endl;
+        */
     }
 }
 
