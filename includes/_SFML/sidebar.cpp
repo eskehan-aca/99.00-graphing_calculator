@@ -32,10 +32,9 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
     _items[SB_FUNCTION_MODE]="function mode?";
 
     _items[SB_EQ_HIST_HEADER]="EQUATION HISTORY:";
-    _items[SB_EQ_HIST_1]=DEFAULT_EQUATION1;
-    _items[SB_EQ_HIST_2]=DEFAULT_EQUATION2;
-    _items[SB_EQ_HIST_3]=DEFAULT_EQUATION3;
-    _items[SB_EQ_HIST_4]=DEFAULT_EQUATION4;
+    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
+        _items[SB_EQ_HIST_HEADER+i+1]="";  //add 1 : ignoring the header itself
+    }
 
     _items[SB_MOUSE_POSITION]="MOUSE POSITION";
     _items[SB_MOUSE_CLICKED]="MOUSE COMMAND";
@@ -73,7 +72,7 @@ void Sidebar::Draw(sf::RenderWindow& window){
 
     height+=3*SB_VERTICAL_LINE_SPACING;
     //drawing history section
-    for(int i=0; i<=SB_EQ_HIST_4-SB_EQ_HIST_HEADER; i++){
+    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
         string eq;
         if(i==0){
             _sb_text.setStyle(sf::Text::Underlined);

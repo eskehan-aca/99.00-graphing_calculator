@@ -65,6 +65,7 @@ const float RANGE_MAX = 10;
 const int NUM_POINTS = 21;
 
 const int HISTORY_LIMIT = 40;
+const int DISPLAYED_HISTORY_ITEMS = 4;
 const string DEFAULT_EQUATION0 = "";    //MODIFY ME!!
 const string DEFAULT_EQUATION1 = "1 / x";
 const string DEFAULT_EQUATION2 = "sec ( x )";
@@ -105,7 +106,9 @@ enum COMMANDS{
     NUM_2,      //default equation 2
     NUM_3,      //default equation 3
     NUM_4,      //default equation 4
+    HISTORY,    //accessing history - CURRENTLY DOESN'T WORK
     
+    SAVE,       //save file         S
     RESET,      //reset origin      R
     CENTER,     //center origin     C, H
     INFO_LABEL, //toggle graph info I

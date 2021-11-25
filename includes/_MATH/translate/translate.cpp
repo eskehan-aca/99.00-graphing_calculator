@@ -17,7 +17,6 @@ vector<sf::Vector2f>& Translate::translate(vector<sf::Vector2f>& coords){
     for(int i=0; i<coords.size(); i++){
         if(translateDebug){
             cout<<"standardCoords["<<i<<"]=("<<coords[i].x<<","<<coords[i].y<<")\n";
-
         }
 
         float x,y;

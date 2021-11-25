@@ -10,6 +10,12 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _cursor.setFillColor(sf::Color::Red);
 
     _history.reserve(HISTORY_LIMIT);
+    for(int i=0; i<HISTORY_LIMIT; i++)
+        _history.push_back("");
+    _history[0]=DEFAULT_EQUATION1;
+    _history[1]=DEFAULT_EQUATION2;
+    _history[2]=DEFAULT_EQUATION3;
+    _history[3]=DEFAULT_EQUATION4;
 
     _command=-1;
     _mouse_in=true;
@@ -32,16 +38,20 @@ void Animate::render(){
 
 void Animate::processEvents(){
     sf::Event event;
-    float mouseX, mouseY;
+    float mouseX, mouseY, temp;
+
     while(_window.pollEvent(event)){
     if(_textbox.selected()){
         _textbox.sort_input(event);
         _sidebar[SB_EQUATION_LABEL]=_textbox.text();
         bool exit=_textbox.selected();
-        if(!exit){
+        if(!exit && _textbox.modified()){   //only need to modify/update eq if it is diff from prev
             _command=ENTER_EQ;
-            _sidebar[SB_FUNCTION_MODE]="not in function mode";
             _info->_equation=_textbox.text();
+            _sidebar[SB_FUNCTION_MODE]="not in function mode";
+            _history.insert(_history.begin(),_textbox.text());
+            for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++)
+                _sidebar[SB_EQ_HIST_HEADER+i+1]=_history[i+1];  //add 1 : ignoring the header itself
         }
     }
     else{
@@ -67,7 +77,23 @@ void Animate::processEvents(){
                 _command=ESCAPE;
                 break;
                 
+            //ACCESS HISTORY====================================================
+            /*
+            //CURRENTLY DOESN'T WORK
+            case sf::Keyboard::Num1:    temp=1;
+            case sf::Keyboard::Num2:    temp=2;
+            case sf::Keyboard::Num3:    temp=3;
+            case sf::Keyboard::Num4:    temp=4;
+                assert(temp!=0 && temp<=DISPLAYED_HISTORY_ITEMS);
+                _sidebar[SB_KEY_PRESSED] = "NUM "+to_string(temp);
+                _sidebar[SB_COMMAND_NAME] = "ACCESS SIDEBAR HISTORY "+to_string(temp);
+                _sidebar[SB_EQUATION_LABEL] = _sidebar[SB_EQ_HIST_HEADER+temp];
+                _info->_equation=_sidebar[SB_EQ_HIST_HEADER+temp];
+                _command=HISTORY;
+                break;
+            */
             //NUMBERS (default equations)=======================================
+            /*
             case sf::Keyboard::Num0:
                 _sidebar[SB_KEY_PRESSED] = "NUM 0";
                 _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
@@ -98,8 +124,14 @@ void Animate::processEvents(){
                 _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION4;
                 _command=NUM_4;
                 break;
+            */
 
             //LETTERS==========================================================
+            case sf::Keyboard::S:
+                if(save_file("test.txt",_history))
+                    cout<<"file saved successfully"<<endl;
+                _command=SAVE;
+                break;
             case sf::Keyboard::R:
                 _sidebar[SB_KEY_PRESSED] = "R";
                 _sidebar[SB_COMMAND_NAME] = "RESET";

@@ -11,6 +11,13 @@ void System::Step(int command, GraphInfo* info){
     switch(command){
     case -1: break;     //not a command
     float prevMin, prevMax, temp;
+    
+    //ACCESS HISTORY===========================================================
+    case HISTORY:       //CURRENTLY DOESN'T WORK
+        _calculate_graph_info(info);    //unsure if this is necessary?
+        _g.update();
+        break;
+    /*
     //DEFAULT EQUATIONS========================================================
     case NUM_0:
         info->_equation=DEFAULT_EQUATION0;
@@ -32,12 +39,11 @@ void System::Step(int command, GraphInfo* info){
         info->_equation=DEFAULT_EQUATION4;
         _g.update();
         break;
-
+    */
     //LETTERS==================================================================
     case RESET:
         info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
         info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
-        _calculate_graph_info(info);
         _g.update();
         break;
     case CENTER:
