@@ -9,6 +9,7 @@ Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
 void Graph::update(){    //UPDATE IS CALLED WHENEVER POINTS TO PLOT CHANGES
     if(_info->_equation.empty()){
         cout<<"no equation!!"<<endl;
+        _screen_points.clear();
     }
     else
         _screen_points=_plotter();
