@@ -9,7 +9,9 @@ System::System(GraphInfo* info):_g(info){
 
 void System::Step(int command, GraphInfo* info){
     switch(command){
-    case -1: break;     //not a command
+    case -1:
+    case SAVE: 
+        break;     //unused commands
     float prevMin, prevMax, temp;
     
     //ACCESS HISTORY===========================================================
@@ -170,7 +172,6 @@ void System::_init_graph_info(GraphInfo* info){
     cout<<"System: initializing GraphInfo"<<endl;
 
     info->_equation=DEFAULT_EQUATION0;
-    // info->_user_input="";
     info->_graph_info=false;
 
     //CHANGING THESE MEANS WE HAVE TO RECALCULATE GRAPH INFO (call funct)

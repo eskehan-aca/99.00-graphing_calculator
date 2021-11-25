@@ -10,12 +10,16 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _cursor.setFillColor(sf::Color::Red);
 
     _history.reserve(HISTORY_LIMIT);
-    for(int i=0; i<HISTORY_LIMIT; i++)
-        _history.push_back("");
-    _history[0]=DEFAULT_EQUATION1;
-    _history[1]=DEFAULT_EQUATION2;
-    _history[2]=DEFAULT_EQUATION3;
-    _history[3]=DEFAULT_EQUATION4;
+
+    cout<<"load file"<<endl;
+    load_file("defaults.txt",_history);
+    for(int i=0; i<_history.size(); i++)
+        cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
+
+    cout<<"update history"<<endl;
+    _sidebar.updateHistory(_history);
+    for(int i=0; i<_history.size(); i++)
+        cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
 
     _command=-1;
     _mouse_in=true;
@@ -45,13 +49,15 @@ void Animate::processEvents(){
         _textbox.sort_input(event);
         _sidebar[SB_EQUATION_LABEL]=_textbox.text();
         bool exit=_textbox.selected();
-        if(!exit && _textbox.modified()){   //only need to modify/update eq if it is diff from prev
-            _command=ENTER_EQ;
-            _info->_equation=_textbox.text();
-            _sidebar[SB_FUNCTION_MODE]="not in function mode";
-            _history.insert(_history.begin(),_textbox.text());
-            for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++)
-                _sidebar[SB_EQ_HIST_HEADER+i+1]=_history[i+1];  //add 1 : ignoring the header itself
+        if(!exit){
+            _sidebar[SB_FUNCTION_MODE]="not in function mode";  //CLEAN
+            if(_textbox.modified()){
+                _command=ENTER_EQ;
+                _info->_equation=_textbox.text();
+                _sidebar[SB_FUNCTION_MODE]="not in function mode";
+                _history.insert(_history.begin(),_textbox.text());
+                _sidebar.updateHistory(_history);
+            }
         }
     }
     else{

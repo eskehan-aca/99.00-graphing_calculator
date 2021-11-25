@@ -7,6 +7,7 @@ using namespace std;
 class Sidebar{
 public:
     Sidebar(float height, float width);
+    void updateHistory(vector<string>& history);
     void Draw(sf::RenderWindow& window);
     string& operator [](int index);
 

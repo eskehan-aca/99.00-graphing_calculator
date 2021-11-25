@@ -1,8 +1,6 @@
 #include "sidebar.h"
 
 Sidebar::Sidebar(float height, float width):_height(height), _width(width){
-    _items.reserve(50);
-
     //set up the sidebar rectangle:
     _sb_rect.setFillColor(sf::Color(105,105,105)); //(192,192,192)); //silver
     _sb_rect.setPosition(sf::Vector2f(height, 0));
@@ -23,23 +21,24 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
     _sb_text.setFillColor(sf::Color::White);
     //_sb_text.setPosition(sf::Vector2f(10, SCREEN_HEIGHT-_sb_text.getLocalBounds().height-5));
 
+
     //fill the _items vector with index (or empty string) so we can use []
-    for(int i=0 ; i<40; i++){
-        _items.push_back(to_string(i));
+    _items.reserve(50);
+    for(int i=0; i<40; i++){
+        _items.push_back("");
     }
 
-    _items[SB_EQUATION_LABEL]="";
     _items[SB_FUNCTION_MODE]="function mode?";
-
     _items[SB_EQ_HIST_HEADER]="EQUATION HISTORY:";
-    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
-        _items[SB_EQ_HIST_HEADER+i+1]="";  //add 1 : ignoring the header itself
-    }
-
     _items[SB_MOUSE_POSITION]="MOUSE POSITION";
     _items[SB_MOUSE_CLICKED]="MOUSE COMMAND";
     _items[SB_KEY_PRESSED]="KEYBOARD COMMAND";
     _items[SB_COMMAND_NAME]="COMMAND NAME";
+
+    cout<<"items"<<endl;
+    for(int i=0; i<_items.size(); i++)
+        cout<<"["<<i+1<<"]: "<<_items[i]<<endl;
+
     cout<<"Sidebar instantiated successfully"<<endl;
 }
 
@@ -98,7 +97,6 @@ void Sidebar::Draw(sf::RenderWindow& window){
     //     else
     //         _sb_text.setString(it->c_str());
         
-
     //     //bold the first index (will house equation currently being graphed)
     //     if(it==_items.begin())
     //         _sb_text.setStyle(sf::Text::Bold);
@@ -124,8 +122,14 @@ void Sidebar::Draw(sf::RenderWindow& window){
     //     cout<<"SIDEBAR DRAW: height: "<<height<<endl;
     //     */
     // }
-    
 }
+
+void Sidebar::updateHistory(vector<string>& history){
+    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
+        _items[SB_EQ_HIST_HEADER+i+1]=history[i];
+    }
+}
+
 
 string& Sidebar::operator [](int index){
     return _items[index];
