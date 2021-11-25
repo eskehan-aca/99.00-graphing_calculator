@@ -8,7 +8,6 @@ System::System(GraphInfo* info):_g(info){
 //------------------------------------------------------------------
 
 void System::Step(int command, GraphInfo* info){
-    //confirm if these need to each have _g.update()???
     switch(command){
     case -1: break;     //not a command
     float prevMin, prevMax, temp;
@@ -42,7 +41,6 @@ void System::Step(int command, GraphInfo* info){
         _g.update();
         break;
     case CENTER:
-        //revisit --> preserve scale and delta x? just shift (center) domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/2;
@@ -52,7 +50,6 @@ void System::Step(int command, GraphInfo* info){
         temp=(prevMax-prevMin)/2;
         info->_range=sf::Vector2f(-temp,temp);
         _calculate_graph_info(info);
-        // assert(info->_origin_centered); //LOL IDK
         cout<<"origin centered: "<<boolalpha<<info->_origin_centered<<endl;
         _g.update();
         break;
@@ -144,30 +141,17 @@ void System::Step(int command, GraphInfo* info){
 
     //OTHER====================================================================
     case ENTER_EQ:
-        //_info->_user_input=_textbox.text();
-        //how to access textbox from system???????????
-
-        //info->_user_input?
-        //info->_equation=//whatever textbox contains??
-        //confirm that textbox container is 
-        //2. valid eq
-        //1. diff than prev --> update graph
-        // cout<<"info->_user_input: "<<info->_user_input<<endl;
-        // cout<<"press enter: nothing happens :)"<<endl;
-
-        //the same as if the equation was changed --> update graphinfo & get pts
-        cout<<"IN SYSTEM: ENTER EQ"<<endl;
+        cout<<"SYSTEM::STEP() switch ENTER_EQ"<<endl;
         _calculate_graph_info(info);
         _g.update();
         break;
     case ESCAPE:
-        cout<<"SYSTEM::STEP() switch ESCAPE: you should not be here!"<<endl; 
+        cout<<"SYSTEM::STEP() switch ESCAPE"<<endl; 
         break;
 
     //=========================================================================
-    default:    //??????????
-        cout<<"SYSTEM::STEP(): unknown command input ["<<command<<"], updating graph object"<<endl;
-        _g.update();
+    default:
+        cout<<"SYSTEM::STEP(): switch UNKNOWN ["<<command<<"]"<<endl;
         break;
     }
 }

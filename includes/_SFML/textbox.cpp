@@ -1,6 +1,6 @@
 #include "textbox.h"
 
-Textbox::Textbox(GraphInfo* info):_info(info){
+Textbox::Textbox(){
     _selected=false;
     _text="";
     _prev="";
@@ -40,7 +40,7 @@ void Textbox::_init_sfml(){
     _text_display.setFillColor(sf::Color::White);
     _text_display.setPosition(sf::Vector2f(10, GRAPH_HEIGHT-_text_display.getLocalBounds().height-10));
 }
-void Textbox::_sort_input(sf::Event input){
+void Textbox::sort_input(sf::Event input){
     //check that event is text input
     if(input.type==sf::Event::TextEntered){
         int unicode=input.text.unicode;
@@ -60,20 +60,6 @@ void Textbox::_sort_input(sf::Event input){
         cout<<"_text: "<<_text<<endl;
         }
     }
-    if(_selected==false){
+    if(_selected==false)
         cout<<"SELECTED FALSE: EXIT============================="<<endl;
-        _modify_graph_info();
-        //unsure if this should be handled by system --> then textbox class doesn't need graphinfo ptr 
-    }
-}
-void Textbox::_modify_graph_info(){
-    //check if strings are diff?
-    //check if text is legal --> funct to validate string?
-    //  if valid --> set as graphinfo _equation
-    
-    cout<<"textbox modifying graph info eq: ["<<_text<<"]"<<endl;
-
-    //currently assumes that the inputted eq is valid (add funt to check later)
-    if(modified())
-        _info->_equation=_text;
 }

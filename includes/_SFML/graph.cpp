@@ -80,11 +80,6 @@ void Graph::_draw_labels(sf::RenderWindow& window){
     }
 }
 
-void Graph::printpts(){
-    for(int i=0; i<_screen_points.size(); i++){
-        cout<<"("<<_screen_points[i].x<<", "<<_screen_points[i].y<<") ";}
-}
-
 void Graph::_init_sfml(){
     //init font
     if(!_font.loadFromFile("arial.ttf")){

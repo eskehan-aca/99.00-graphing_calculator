@@ -10,7 +10,6 @@ public:
 
     void update();                          //update vector of screenpts!
     void draw(sf::RenderWindow& window);    //main part
-    void printpts();                        //temp accessor
 
 private:
     GraphInfo* _info;

@@ -5,10 +5,10 @@
 using namespace std;
 class Textbox{
 public:
-    Textbox(GraphInfo* info);
+    Textbox();
 
     void select();
-    void _sort_input(sf::Event input);
+    void sort_input(sf::Event input);
 
     void Draw(sf::RenderWindow& window);
 
@@ -17,8 +17,6 @@ public:
     string text() const;
 
 private:
-    GraphInfo* _info;
-
     sf::Text _text_display;
     sf::Font _font;
     

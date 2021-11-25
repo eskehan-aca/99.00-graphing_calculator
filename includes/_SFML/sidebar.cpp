@@ -23,7 +23,7 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
     _sb_text.setFillColor(sf::Color::White);
     //_sb_text.setPosition(sf::Vector2f(10, SCREEN_HEIGHT-_sb_text.getLocalBounds().height-5));
 
-    //Fill the _items vector with empty strings so that we can use [] to read them:
+    //fill the _items vector with index (or empty string) so we can use []
     for(int i=0 ; i<40; i++){
         _items.push_back(to_string(i));
     }
@@ -45,7 +45,6 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
 }
 
 void Sidebar::Draw(sf::RenderWindow& window){
-    //move to constants.h
     float height=SB_VERTICAL_MARGIN;
     window.draw(_sb_rect);
     _sb_text.setFillColor(sf::Color::White);
@@ -90,8 +89,6 @@ void Sidebar::Draw(sf::RenderWindow& window){
         height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
         window.draw(_sb_text);
     }
-
-
     
     // for (vector<string>::iterator it = _items.begin(); it!= _items.end(); it++){
     //     //empty rows must be taken into account (getLocalBounds()) but not drawn
