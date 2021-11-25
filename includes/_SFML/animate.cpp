@@ -34,36 +34,22 @@ void Animate::processEvents(){
     while(_window.pollEvent(event)){
         
         if(_textbox.selected()){
-            cout<<"loop?"<<endl;
-            if(event.key.code==sf::Keyboard::Enter)
-                cout<<"TOP detected press entr"<<endl;
-
             _textbox._sort_input(event);
             _sidebar[SB_EQUATION_LABEL]=_textbox.text();
-            
-            if(event.key.code==sf::Keyboard::Enter)
-                cout<<"BOT detected press entr"<<endl;
+            bool exit=_textbox.selected();
+            if(!exit){
+                _command=ENTER_EQ;
+                _sidebar[SB_FUNCTION_MODE]="not in function mode";
+                _info->_equation=_textbox.text();
+            }
         }
 
         else{
-            //REENTERING FROM TEXTBOX SELECTION?===================================
-            _sidebar[SB_FUNCTION_MODE]="not in function mode";     //clean this later
-
-
             switch (event.type){        //check the type of event
             case sf::Event::Closed:     // _window closed
                 _window.close();
-                break;
-            
-            //REENTERING FROM TEXTBOX SELECTION?===================================
-            // if(_sidebar[SB_FUNCTION_MODE]=="in function mode"){
-            //     _sidebar[SB_FUNCTION_MODE]="not in function mode";     //clean this later
-            //     _command=ENTER_EQ; //if modified
-            // }
-            //=====================================================================
-            
+                break;            
             //KEYBOARD INPUT=======================================================
-            {
             case sf::Event::KeyPressed:
                 switch(event.key.code){
                 //OTHER============================================================
@@ -109,7 +95,7 @@ void Animate::processEvents(){
                 case sf::Keyboard::Num4:
                     _sidebar[SB_KEY_PRESSED] = "NUM 4";
                     _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
-                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
+                    _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION4;
                     _command=NUM_4;
                     break;
 
@@ -186,7 +172,6 @@ void Animate::processEvents(){
                     break;
                 }
                 break;
-            }
 
             //MOUSE INPUT==========================================================
             case sf::Event::MouseEntered:
