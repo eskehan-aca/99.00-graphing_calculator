@@ -64,6 +64,7 @@ const float RANGE_MAX = 10;
 
 const int NUM_POINTS = 21;
 
+const int HISTORY_LIMIT = 40;
 const string DEFAULT_EQUATION0 = "";    //MODIFY ME!!
 const string DEFAULT_EQUATION1 = "1 / x";
 const string DEFAULT_EQUATION2 = "sec ( x )";

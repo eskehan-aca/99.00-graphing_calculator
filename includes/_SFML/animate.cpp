@@ -5,12 +5,14 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GRAPHING CALCULATOR");
     _window.setFramerateLimit(15);
 
-    _command=-1;
-    _mouse_in=true;
-
     _cursor=sf::CircleShape();
     _cursor.setRadius(2.5);
     _cursor.setFillColor(sf::Color::Red);
+
+    _history.reserve(HISTORY_LIMIT);
+
+    _command=-1;
+    _mouse_in=true;
 
     cout<<"Animate instantiated successfully."<<endl;
 }
@@ -218,4 +220,32 @@ void Animate::Draw(){
 
 string mouse_pos_string(sf::RenderWindow& _window){
     return "("+to_string(sf::Mouse::getPosition(_window).x)+", "+to_string(sf::Mouse::getPosition(_window).y)+")";
+}
+bool save_file(string filename, const vector<string>& history){
+    ofstream outs;
+    outs.open(filename);
+    if(outs.fail()){
+        cout<<"opening file "<<filename<<" failed"<<endl;
+        return false;
+    }
+    for(int i=0; i<history.size(); i++){
+        outs<<history[i]<<endl;
+    }
+    outs.close();
+    return true;
+}
+bool load_file(string filename, vector<string>& history){
+    ifstream ins;
+    ins.open(filename);
+    if(ins.fail()){
+        cout<<"opening file "<<filename<<" failed"<<endl;
+        return false;
+    }
+    string temp;
+    while(getline(ins, temp)){
+        if(!temp.empty())
+            history.push_back(temp);
+    }
+    ins.close();
+    return true;
 }

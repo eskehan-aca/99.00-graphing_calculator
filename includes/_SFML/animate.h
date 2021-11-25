@@ -1,5 +1,6 @@
 #ifndef ANIMATE_H
 #define ANIMATE_H
+#include <fstream>
 #include "../constants.h"
 #include "sidebar.h"
 #include "textbox.h"
@@ -18,6 +19,8 @@ private:
     Sidebar _sidebar;                   //rectangular message sidebar
     Textbox _textbox;                   //textbox for user input
     
+    vector<string> _history;            //vector to save function history
+
     sf::RenderWindow _window;           //sfml window
     sf::CircleShape _cursor;            //dot to follow cursor movement
         
@@ -33,5 +36,7 @@ private:
 };
 
 string mouse_pos_string(sf::RenderWindow& _window);
+bool save_file(string filename, const vector<string>& history);
+bool load_file(string filename, vector<string>& history);
 
 #endif // ANIMATE_H
