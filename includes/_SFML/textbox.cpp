@@ -47,7 +47,7 @@ void Textbox::sort_input(sf::Event input){
         if(unicode<128){
             if(unicode!=8 && unicode!=13 && unicode!=27)
                 _text+=static_cast<char>(unicode);
-            else if(unicode==8)
+            else if(unicode==8 && !_text.empty())
                 _text.pop_back();
             else if(unicode==13 && modified())
                 _selected=false;    //enter if new eq
