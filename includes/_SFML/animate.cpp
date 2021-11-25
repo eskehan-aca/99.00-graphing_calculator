@@ -98,39 +98,54 @@ void Animate::processEvents(){
                 _command=HISTORY;
                 break;
             */
-            //NUMBERS (default equations)=======================================
+            //NUMBERS (access history)=======================================
             /*
-            case sf::Keyboard::Num0:
-                _sidebar[SB_KEY_PRESSED] = "NUM 0";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
-                _command=NUM_0;
-                break;
             case sf::Keyboard::Num1:
                 _sidebar[SB_KEY_PRESSED] = "NUM 1";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 1";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION1;
-                _command=NUM_1;
+                _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 1";
+                if(_sidebar[SB_EQUATION_LABEL]!=_history[0] && _history[0]!=_history[1]){
+                    _info->_equation=_history[0];
+                    _sidebar[SB_EQUATION_LABEL] = _history[0];
+                    // _history.insert(_history.begin(),_history[0]);
+                    _sidebar.updateHistory(_history);
+                    _command=HISTORY;
+                }
                 break;
             case sf::Keyboard::Num2:
                 _sidebar[SB_KEY_PRESSED] = "NUM 2";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 2";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION2;
-                _command=NUM_2;
+                _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 2";
+                _sidebar[SB_EQUATION_LABEL] = _history[1];
+                _info->_equation=_history[1];
+                _history.insert(_history.begin(),_history[1]);
+                _sidebar.updateHistory(_history);
+                _command=HISTORY;
                 break;
             case sf::Keyboard::Num3:
                 _sidebar[SB_KEY_PRESSED] = "NUM 3";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 3";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION3;
-                _command=NUM_3;
+                _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 3";
+                _sidebar[SB_EQUATION_LABEL] = _history[2];
+                _info->_equation=_history[2];
+                _history.insert(_history.begin(),_history[2]);
+                _sidebar.updateHistory(_history);
+                _command=HISTORY;
                 break;
             case sf::Keyboard::Num4:
                 _sidebar[SB_KEY_PRESSED] = "NUM 4";
-                _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 4";
-                _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION4;
-                _command=NUM_4;
+                _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 4";
+                _sidebar[SB_EQUATION_LABEL] = _history[3];
+                _info->_equation=_history[3];
+                _history.insert(_history.begin(),_history[3]);
+                _sidebar.updateHistory(_history);
+                _command=HISTORY;
                 break;
             */
+           
+            // case sf::Keyboard::Num0:
+            //     _sidebar[SB_KEY_PRESSED] = "NUM 0";
+            //     _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
+            //     _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
+            //     _command=NUM_0;
+            //     break;
 
             //LETTERS==========================================================
             case sf::Keyboard::S:
