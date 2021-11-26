@@ -99,7 +99,7 @@ void Animate::processEvents(){
                 break;
             */
             //NUMBERS (access history)=======================================
-            /*
+            
             case sf::Keyboard::Num1:
                 _sidebar[SB_KEY_PRESSED] = "NUM 1";
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 1";
@@ -116,8 +116,10 @@ void Animate::processEvents(){
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 2";
                 _sidebar[SB_EQUATION_LABEL] = _history[1];
                 _info->_equation=_history[1];
-                _history.insert(_history.begin(),_history[1]);
-                _sidebar.updateHistory(_history);
+                if(_history[0]!=_history[1]){
+                    _history.insert(_history.begin(),_history[1]);
+                    _sidebar.updateHistory(_history);
+                }
                 _command=HISTORY;
                 break;
             case sf::Keyboard::Num3:
@@ -125,8 +127,10 @@ void Animate::processEvents(){
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 3";
                 _sidebar[SB_EQUATION_LABEL] = _history[2];
                 _info->_equation=_history[2];
-                _history.insert(_history.begin(),_history[2]);
-                _sidebar.updateHistory(_history);
+                if(_history[0]!=_history[2]){
+                    _history.insert(_history.begin(),_history[2]);
+                    _sidebar.updateHistory(_history);
+                }
                 _command=HISTORY;
                 break;
             case sf::Keyboard::Num4:
@@ -134,11 +138,13 @@ void Animate::processEvents(){
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 4";
                 _sidebar[SB_EQUATION_LABEL] = _history[3];
                 _info->_equation=_history[3];
-                _history.insert(_history.begin(),_history[3]);
-                _sidebar.updateHistory(_history);
+                if(_history[0]!=_history[3]){
+                    _history.insert(_history.begin(),_history[3]);
+                    _sidebar.updateHistory(_history);
+                }
                 _command=HISTORY;
                 break;
-            */
+            
            
             // case sf::Keyboard::Num0:
             //     _sidebar[SB_KEY_PRESSED] = "NUM 0";
