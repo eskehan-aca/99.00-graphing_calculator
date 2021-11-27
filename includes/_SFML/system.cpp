@@ -192,8 +192,8 @@ void System::_calculate_graph_info(GraphInfo* info){
     info->_delta=sf::Vector2f(x,y);
     
     //calculate _scale
-    x=GRAPH_WIDTH/(info->_num_points-1);
-    y=GRAPH_WIDTH/(info->_num_points-1);
+    x=(GRAPH_WIDTH+GRAPH_PADDING)/(info->_num_points-1);
+    y=(GRAPH_WIDTH+GRAPH_PADDING)/(info->_num_points-1);
     // currently just have the graph be square
     // y=GRAPH_HEIGHT/(info->_num_points-1);
     info->_scale=sf::Vector2f(x,y);
@@ -204,5 +204,5 @@ void System::_calculate_graph_info(GraphInfo* info){
     info->_origin=sf::Vector2f(x,y);
 
     //determine if origin centered
-    info->_origin_centered=(info->_origin==sf::Vector2f(GRAPH_WIDTH/2,GRAPH_HEIGHT/2));
+    info->_origin_centered=(info->_origin==sf::Vector2f((GRAPH_WIDTH+GRAPH_PADDING)/2,(GRAPH_HEIGHT+GRAPH_PADDING)/2));
 }

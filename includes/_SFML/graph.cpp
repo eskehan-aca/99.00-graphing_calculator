@@ -22,40 +22,49 @@ void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED
 }
 
 void Graph::_draw_background(sf::RenderWindow& window){
-    //grid background
-    sf::RectangleShape grid(sf::Vector2f(GRAPH_WIDTH,GRAPH_HEIGHT));
-    grid.setPosition(sf::Vector2f(0,0));
-    grid.setFillColor(sf::Color::Black);
-    grid.setOutlineColor(sf::Color::White);
-    grid.setOutlineThickness(LINE_WEIGHT);
-    window.draw(grid);
+    //background
+    sf::RectangleShape background(sf::Vector2f(GRAPH_WIDTH+GRAPH_PADDING,GRAPH_HEIGHT+GRAPH_PADDING));
+    background.setPosition(sf::Vector2f(0,0));
+    background.setFillColor(sf::Color::Black);
+    window.draw(background);
+
+    //grid border
+    sf::RectangleShape border(sf::Vector2f(GRAPH_WIDTH,GRAPH_HEIGHT));
+    border.setPosition(sf::Vector2f(GRAPH_PADDING/2,GRAPH_PADDING/2));
+    border.setFillColor(sf::Color::Black);
+    border.setOutlineColor(sf::Color::White);
+    border.setOutlineThickness(LINE_WEIGHT);
+    window.draw(border);
     
     //y axis
     sf::RectangleShape yaxis(sf::Vector2f(LINE_WEIGHT*2,GRAPH_HEIGHT));
-    yaxis.setPosition(sf::Vector2f(_info->_origin.x-LINE_WEIGHT,0));
+    yaxis.setPosition(sf::Vector2f(_info->_origin.x-LINE_WEIGHT+GRAPH_PADDING/2,GRAPH_PADDING/2));
     yaxis.setFillColor(sf::Color::White);
     window.draw(yaxis);
 
     //x axis
     sf::RectangleShape xaxis(sf::Vector2f(GRAPH_WIDTH,LINE_WEIGHT*2));
-    xaxis.setPosition(sf::Vector2f(0,_info->_origin.y-LINE_WEIGHT));
+    xaxis.setPosition(sf::Vector2f(GRAPH_PADDING/2,_info->_origin.y-LINE_WEIGHT+GRAPH_PADDING/2));
     xaxis.setFillColor(sf::Color::White);
     window.draw(xaxis); 
 }
 void Graph::_draw_points(sf::RenderWindow& window){
     for(int i=0; i<_screen_points.size(); i++){       
-        if(_screen_points[i].x<GRAPH_WIDTH && _screen_points[i].y<GRAPH_HEIGHT){
+        if((_screen_points[i].x>GRAPH_PADDING/2 && _screen_points[i].x<GRAPH_WIDTH+GRAPH_PADDING/2) && 
+        (_screen_points[i].y>GRAPH_PADDING/2 && _screen_points[i].y<GRAPH_HEIGHT+GRAPH_PADDING/2)){
             sf::CircleShape point(POINT_RADIUS);
             point.setPosition(_screen_points[i]);
             point.setFillColor(sf::Color::Red);
             window.draw(point);
         }
-        else if(_screen_points[i].x<SCREEN_WIDTH && _screen_points[i].y<SCREEN_HEIGHT){
+        // else if(_screen_points[i].y<GRAPH_PADDING/2 || _screen_points[i].y>SCREEN_HEIGHT+GRAPH_PADDING/2){
+        else if((_screen_points[i].x>=0 && _screen_points[i].x<=GRAPH_WIDTH+GRAPH_PADDING) && 
+        (_screen_points[i].y>=0 && _screen_points[i].y<=GRAPH_HEIGHT+GRAPH_PADDING)){
             sf::CircleShape point(POINT_RADIUS);
             point.setPosition(_screen_points[i]);
             point.setFillColor(sf::Color(255,0,0,255/4)); //red, 25% opacity
             window.draw(point);
-            if(graphDebug){cout<<"out of bounds grid: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
+            if(graphDebug){cout<<"out of bounds border: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
         }
         else if(graphDebug){cout<<"out of bounds screen: screenCoords["<<i<<"]=("<<_screen_points[i].x<<","<<_screen_points[i].y<<")\n";}
     }

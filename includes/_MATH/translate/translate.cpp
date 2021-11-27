@@ -28,6 +28,10 @@ vector<sf::Vector2f>& Translate::translate(vector<sf::Vector2f>& coords){
         x=_info->_origin.x+x;
         y=_info->_origin.y-y;
         if(translateDebug){cout<<"shift:  ("<<x<<","<<y<<")\n";}
+        //shift to accomodate graph padding
+        x=x+GRAPH_PADDING/2;
+        y=y+GRAPH_PADDING/2;
+        if(translateDebug){cout<<"shift:  ("<<x<<","<<y<<")\n";}
         //shift to accomodate point_radius
         x-=POINT_RADIUS;
         y-=POINT_RADIUS;
