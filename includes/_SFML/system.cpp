@@ -46,6 +46,7 @@ void System::Step(int command, GraphInfo* info){
     case RESET:
         info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
         info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
+        _calculate_graph_info(info);
         _g.update();
         break;
     case CENTER:
@@ -204,5 +205,5 @@ void System::_calculate_graph_info(GraphInfo* info){
     info->_origin=sf::Vector2f(x,y);
 
     //determine if origin centered
-    info->_origin_centered=(info->_origin==sf::Vector2f((GRAPH_WIDTH+GRAPH_PADDING)/2,(GRAPH_HEIGHT+GRAPH_PADDING)/2));
+    info->_origin_centered=(info->_origin==sf::Vector2f(GRAPH_WIDTH/2,GRAPH_HEIGHT/2));
 }
