@@ -18,7 +18,8 @@ void Graph::update(){    //UPDATE IS CALLED WHENEVER POINTS TO PLOT CHANGES
 void Graph::draw(sf::RenderWindow& window){    //MAKE SURE THAT UPDATE IS CALLED BEFORE DRAW!!
     _draw_background(window);
     _draw_points(window);
-    _draw_labels(window);
+    if(_info->_graph_info)
+        _draw_labels(window);
 }
 
 void Graph::_draw_background(sf::RenderWindow& window){
@@ -74,19 +75,17 @@ void Graph::_draw_labels(sf::RenderWindow& window){
     _equation_label.setString(eq);
     window.draw(_equation_label);
 
-    if(_info->_graph_info){
-        string pt="Number of points: "+to_string(_info->_num_points);
-        _point_counter.setString(pt);
-        window.draw(_point_counter);
+    string pt="Number of points: "+to_string(_info->_num_points);
+    _point_counter.setString(pt);
+    window.draw(_point_counter);
 
-        string dm="Domain: ["+to_string(_info->_domain.x)+", "+to_string(_info->_domain.y)+"]";
-        _domain_display.setString(dm);
-        window.draw(_domain_display);
+    string dm="Domain: ["+to_string(_info->_domain.x)+", "+to_string(_info->_domain.y)+"]";
+    _domain_display.setString(dm);
+    window.draw(_domain_display);
 
-        string rg="Range: ["+to_string(_info->_range.x)+", "+to_string(_info->_range.y)+"]";
-        _range_display.setString(rg);
-        window.draw(_range_display);
-    }
+    string rg="Range: ["+to_string(_info->_range.x)+", "+to_string(_info->_range.y)+"]";
+    _range_display.setString(rg);
+    window.draw(_range_display);
 }
 
 void Graph::_init_sfml(){

@@ -53,6 +53,10 @@ void Sidebar::Draw(sf::RenderWindow& window){
     _draw_history(window, height);
 
 
+    _sb_text.setString(_items[SB_MOUSE_POSITION]);
+    height+=2*SB_VERTICAL_LINE_SPACING;
+    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+    window.draw(_sb_text);
     
     // for (vector<string>::iterator it = _items.begin(); it!= _items.end(); it++){
     //     //empty rows must be taken into account (getLocalBounds()) but not drawn
