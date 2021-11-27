@@ -19,6 +19,10 @@ private:
 
     float _height;
     float _width;
+
+    void _draw_eq_label(sf::RenderWindow& window, float& height);
+    void _draw_funct_label(sf::RenderWindow& window, float& height);
+    void _draw_history(sf::RenderWindow& window, float& height);
 };
 
 #endif // SIDEBAR_H

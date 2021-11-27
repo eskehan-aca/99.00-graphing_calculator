@@ -43,50 +43,16 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
 }
 
 void Sidebar::Draw(sf::RenderWindow& window){
-    float height=SB_VERTICAL_MARGIN;
     window.draw(_sb_rect);
     _sb_text.setFillColor(sf::Color::White);
 
-    //CAN SPLIT THIS INTO INDIVIDUAL FUNCTIONS IN THE FUTURE, pass height as param 
-
-    string eqLabel="Graphing y = [ "+_items[SB_EQUATION_LABEL]+" ]";
-    //drawing equation label
-    if(_items[SB_FUNCTION_MODE]=="in function mode")
-        eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
-    _sb_text.setString(eqLabel);
-    _sb_text.setStyle(sf::Text::Bold);
-    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
-    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
-    window.draw(_sb_text);
-    //handle formatting --> diff if in function mode?
-
-    //drawing function mode label
-    _sb_text.setString(_items[SB_FUNCTION_MODE]);
-    if(_items[SB_FUNCTION_MODE]=="in function mode")
-        _sb_text.setFillColor(sf::Color::Red);
-    _sb_text.setStyle(sf::Text::Italic);
-    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
-    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
-    window.draw(_sb_text);
-
+    float height=SB_VERTICAL_MARGIN;
+    _draw_eq_label(window, height);
+    _draw_funct_label(window, height);
     height+=3*SB_VERTICAL_LINE_SPACING;
-    //drawing history section
-    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
-        string eq;
-        if(i==0){
-            _sb_text.setStyle(sf::Text::Underlined);
-        }
-        else{
-            _sb_text.setStyle(sf::Text::Regular);
-            eq="["+to_string(i)+"]: ";
-        }
-        eq+=_items[SB_EQ_HIST_HEADER+i];
-        _sb_text.setString(eq);
-        _sb_text.setFillColor(sf::Color::White);
-        _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
-        height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
-        window.draw(_sb_text);
-    }
+    _draw_history(window, height);
+
+
     
     // for (vector<string>::iterator it = _items.begin(); it!= _items.end(); it++){
     //     //empty rows must be taken into account (getLocalBounds()) but not drawn
@@ -124,12 +90,53 @@ void Sidebar::Draw(sf::RenderWindow& window){
     // }
 }
 
+void Sidebar::_draw_eq_label(sf::RenderWindow& window, float& height){
+    //drawing equation label
+    string eqLabel="Graphing y = [ "+_items[SB_EQUATION_LABEL]+" ]";
+    if(_items[SB_FUNCTION_MODE]=="in function mode")
+        eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
+    _sb_text.setString(eqLabel);
+    _sb_text.setStyle(sf::Text::Bold);
+    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+    window.draw(_sb_text);
+    //handle formatting --> diff if in function mode?
+}
+void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
+    //drawing function mode label
+    _sb_text.setString(_items[SB_FUNCTION_MODE]);
+    if(_items[SB_FUNCTION_MODE]=="in function mode")
+        _sb_text.setFillColor(sf::Color::Red);
+    _sb_text.setStyle(sf::Text::Italic);
+    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+    window.draw(_sb_text);
+}
+void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
+    //drawing history section
+    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
+        string eq;
+        if(i==0){
+            _sb_text.setStyle(sf::Text::Underlined);
+        }
+        else{
+            _sb_text.setStyle(sf::Text::Regular);
+            eq="["+to_string(i)+"]: ";
+        }
+        eq+=_items[SB_EQ_HIST_HEADER+i];
+        _sb_text.setString(eq);
+        _sb_text.setFillColor(sf::Color::White);
+        _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+        height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+        window.draw(_sb_text);
+    }
+}
+
 void Sidebar::updateHistory(vector<string>& history){
     for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
         _items[SB_EQ_HIST_HEADER+i+1]=history[i];
     }
 }
-
 
 string& Sidebar::operator [](int index){
     return _items[index];
