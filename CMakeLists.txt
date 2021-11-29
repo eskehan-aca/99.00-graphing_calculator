@@ -40,6 +40,7 @@ ADD_EXECUTABLE(main
     includes/_SFML/graph.cpp
     includes/_SFML/sidebar.cpp
     includes/_SFML/textbox.cpp
+    includes/_SFML/keybinds.cpp
     includes/_SFML/system.cpp
     includes/exceptions/missingparan.cpp
     includes/exceptions/dividebyzero.cpp
@@ -63,6 +64,7 @@ ADD_EXECUTABLE(basic_test
     includes/_SFML/graph.cpp
     includes/_SFML/sidebar.cpp
     includes/_SFML/textbox.cpp
+    includes/_SFML/keybinds.cpp
     includes/_SFML/system.cpp
     includes/exceptions/missingparan.cpp
     includes/exceptions/dividebyzero.cpp
@@ -86,6 +88,7 @@ ADD_EXECUTABLE(testB
     includes/_SFML/graph.cpp
     includes/_SFML/sidebar.cpp
     includes/_SFML/textbox.cpp
+    includes/_SFML/keybinds.cpp
     includes/_SFML/system.cpp
     includes/exceptions/missingparan.cpp
     includes/exceptions/dividebyzero.cpp

@@ -1,6 +1,6 @@
 #include "animate.h"
 
-Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info),_textbox(){
+Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info),_textbox(),_keybinds(){
     cout<<"Animate CTOR: TOP"<<endl;
     _window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GRAPHING CALCULATOR");
     _window.setFramerateLimit(15);
@@ -63,16 +63,11 @@ void Animate::processEvents(){
                 _sidebar[SB_EQUATION_LABEL]=_info->_equation;   //restore to prev
         }
     }
-    else if(help){
-        sf::RectangleShape helpScreen;
-        helpScreen.setFillColor(sf::Color(192,192,192));
-        helpScreen.setSize(sf::Vector2f(0.75*GRAPH_HEIGHT, 0.75*GRAPH_WIDTH));
-        helpScreen.setPosition(sf::Vector2f(0.25*GRAPH_HEIGHT, 0.25*GRAPH_WIDTH));
-        _window.draw(helpScreen);
-        if(event.type==sf::Event::KeyPressed && event.key.code==sf::Keyboard::Escape){
-            help=false;
+    else if(_keybinds.selected()){
+        _keybinds.sort_input(event);
+        bool exit=_keybinds.selected();
+        if(!exit)
             _sidebar[SB_FUNCTION_MODE]="not in function mode";
-        }
     }
     else{
         switch (event.type){        //check the type of event
@@ -84,19 +79,19 @@ void Animate::processEvents(){
             switch(event.key.code){
             //OTHER============================================================
             case sf::Keyboard::Enter:
-                _sidebar[SB_KEY_PRESSED] = "ENTER";          //update eq to graph
+                _sidebar[SB_KEY_PRESSED] = "ENTER";
                 _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                 _sidebar[SB_FUNCTION_MODE]="in function mode";
-                _window.pollEvent(event);   //clear enter?
+                _window.pollEvent(event);   //clear enter
                 _textbox.select();
                 cout<<"exiting case enter"<<endl;
                 break;
             case sf::Keyboard::Slash:
-                _sidebar[SB_KEY_PRESSED] = "SLASH";          //update eq to graph
+                _sidebar[SB_KEY_PRESSED] = "SLASH";
                 _sidebar[SB_COMMAND_NAME] = "HELP MENU";
                 _sidebar[SB_FUNCTION_MODE]="displaying help menu";
-                _window.pollEvent(event);   //clear slash?
-                help=true;
+                _window.pollEvent(event);   //clear slash
+                _keybinds.select();
                 cout<<"exiting case slash"<<endl;
                 break;
             case sf::Keyboard::Escape:
@@ -286,6 +281,7 @@ void Animate::update(){
 void Animate::Draw(){
     _system.Draw(_window);
     _sidebar.Draw(_window); 
+    _keybinds.Draw(_window);
     // _textbox.Draw(_window);                //unncessary?
 
     if(_mouse_in){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   

@@ -2,6 +2,7 @@
 #define ANIMATE_H
 #include <fstream>
 #include "../constants.h"
+#include "keybinds.h"
 #include "sidebar.h"
 #include "textbox.h"
 #include "system.h"
@@ -18,6 +19,7 @@ private:
     System _system;                     //container for all the animated objects
     Sidebar _sidebar;                   //rectangular message sidebar
     Textbox _textbox;                   //textbox for user input
+    Keybinds _keybinds;                 //display keybinds for commands
     
     vector<string> _history;            //vector to save function history
 
