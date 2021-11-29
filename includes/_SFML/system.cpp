@@ -46,6 +46,7 @@ void System::Step(int command, GraphInfo* info){
     case RESET:
         info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
         info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
+        info->_num_points=NUM_POINTS;
         _calculate_graph_info(info);
         _g.update();
         break;
@@ -105,7 +106,7 @@ void System::Step(int command, GraphInfo* info){
         break;
     
     //ZOOMING==================================================================
-    case ZOOM_IN:
+    case ZOOM_OUT:
         //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
@@ -120,7 +121,7 @@ void System::Step(int command, GraphInfo* info){
         _calculate_graph_info(info);
         _g.update();
         break;
-    case ZOOM_OUT:
+    case ZOOM_IN:
         //domain
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
