@@ -6,7 +6,7 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _window.setFramerateLimit(15);
 
     _cursor=sf::CircleShape();
-    _cursor.setRadius(2.5);
+    _cursor.setRadius(CURSOR_RADIUS);
     _cursor.setFillColor(sf::Color::Red);
 
     _history.reserve(HISTORY_LIMIT);
@@ -58,6 +58,8 @@ void Animate::processEvents(){
                 _history.insert(_history.begin(),_textbox.text());
                 _sidebar.updateHistory(_history);
             }
+            else
+                _sidebar[SB_EQUATION_LABEL]=_info->_equation;   //restore to prev
         }
     }
     else{
@@ -83,23 +85,7 @@ void Animate::processEvents(){
                 _command=ESCAPE;
                 break;
                 
-            //ACCESS HISTORY====================================================
-            /*
-            //CURRENTLY DOESN'T WORK
-            case sf::Keyboard::Num1:    temp=1;
-            case sf::Keyboard::Num2:    temp=2;
-            case sf::Keyboard::Num3:    temp=3;
-            case sf::Keyboard::Num4:    temp=4;
-                assert(temp!=0 && temp<=DISPLAYED_HISTORY_ITEMS);
-                _sidebar[SB_KEY_PRESSED] = "NUM "+to_string(temp);
-                _sidebar[SB_COMMAND_NAME] = "ACCESS SIDEBAR HISTORY "+to_string(temp);
-                _sidebar[SB_EQUATION_LABEL] = _sidebar[SB_EQ_HIST_HEADER+temp];
-                _info->_equation=_sidebar[SB_EQ_HIST_HEADER+temp];
-                _command=HISTORY;
-                break;
-            */
-            //NUMBERS (access history)=======================================
-            
+            //NUMBERS (access history)=========================================
             case sf::Keyboard::Num1:
                 _sidebar[SB_KEY_PRESSED] = "NUM 1";
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 1";
@@ -144,15 +130,7 @@ void Animate::processEvents(){
                 }
                 _command=HISTORY;
                 break;
-            
-           
-            // case sf::Keyboard::Num0:
-            //     _sidebar[SB_KEY_PRESSED] = "NUM 0";
-            //     _sidebar[SB_COMMAND_NAME] = "DEFAULT GRAPH 0";
-            //     _sidebar[SB_EQUATION_LABEL] = DEFAULT_EQUATION0;
-            //     _command=NUM_0;
-            //     break;
-
+        
             //LETTERS==========================================================
             case sf::Keyboard::S:
                 if(save_file("test.txt",_history))
@@ -244,10 +222,30 @@ void Animate::processEvents(){
             mouseY=event.mouseMove.y;
             break;
         case sf::Event::MouseButtonReleased:
-            if(event.mouseButton.button == sf::Mouse::Right){
-                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
+            if(event.mouseButton.button == sf::Mouse::Left){
+                _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);
+                if(_mouse_in){
+                    int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
+                    if(i!=-1){
+                        _sidebar[SB_COMMAND_NAME] = "CLICK HISTORY ITEM "+to_string(i);
+                        _sidebar[SB_EQUATION_LABEL] = _history[i-1];
+                        _info->_equation=_history[i-1];
+                        if(i==1){
+                            if(_sidebar[SB_EQUATION_LABEL]!=_history[0] && _history[0]!=_history[1]){
+                                _info->_equation=_history[0];
+                                _sidebar[SB_EQUATION_LABEL] = _history[0];
+                            }
+                        }
+                        else if(_history[0]!=_history[i-1]){
+                            _history.insert(_history.begin(),_history[i-1]);
+                        }
+                        _sidebar.updateHistory(_history);
+                        _command=HISTORY;
+                    }
+                }
+            }
             else{
-                _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);}
+                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
             break;
         
         //=====================================================================
@@ -261,7 +259,7 @@ void Animate::update(){
     _system.Step(_command, _info);
     _command=-1;     //resetting _command
     if(_mouse_in){
-        _cursor.setPosition(sf::Mouse::getPosition(_window).x-2.5, sf::Mouse::getPosition(_window).y-2.5);   //_cursor red dot:
+        _cursor.setPosition(sf::Mouse::getPosition(_window).x-CURSOR_RADIUS, sf::Mouse::getPosition(_window).y-CURSOR_RADIUS);   //_cursor red dot:
         _sidebar[SB_MOUSE_POSITION] = mouse_pos_string(_window);  //mouse location text for sidebar:
     }
 }

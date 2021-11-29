@@ -39,6 +39,12 @@ Sidebar::Sidebar(float height, float width):_height(height), _width(width){
     for(int i=0; i<_items.size(); i++)
         cout<<"["<<i+1<<"]: "<<_items[i]<<endl;
 
+    //init _history_height vector
+    _history_height.reserve(20);
+    for(int i=0; i<20; i++){
+        _history_height.push_back(0);
+    }
+
     cout<<"Sidebar instantiated successfully"<<endl;
 }
 
@@ -49,6 +55,7 @@ void Sidebar::Draw(sf::RenderWindow& window){
     float height=SB_VERTICAL_MARGIN;
     _draw_eq_label(window, height);
     _draw_funct_label(window, height);
+    
     height+=3*SB_VERTICAL_LINE_SPACING;
     _draw_history(window, height);
 
@@ -121,6 +128,7 @@ void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
     for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
         string eq;
         if(i==0){
+            _history_height[i]=height; //starting point
             _sb_text.setStyle(sf::Text::Underlined);
         }
         else{
@@ -132,6 +140,7 @@ void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
         _sb_text.setFillColor(sf::Color::White);
         _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
         height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+        _history_height[i+1]=height;    //saving the end 
         window.draw(_sb_text);
     }
 }
@@ -140,6 +149,19 @@ void Sidebar::updateHistory(vector<string>& history){
     for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
         _items[SB_EQ_HIST_HEADER+i+1]=history[i];
     }
+}
+int Sidebar::mouseClick(sf::Vector2i position){
+    //horizontal bound (within sidebar)
+    if(position.x>_height){
+        //accomodate for header
+        for(int i=1; i<=DISPLAYED_HISTORY_ITEMS; i++){
+            if(position.y>=_history_height[i] && position.y<_history_height[i+1]){
+                cout<<"clicked history item "<<i<<endl;
+                return i;
+            }
+        }
+    }
+    return -1;
 }
 
 string& Sidebar::operator [](int index){
