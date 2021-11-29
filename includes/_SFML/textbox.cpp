@@ -1,4 +1,7 @@
 #include "textbox.h"
+#define DELETE  8
+#define ENTER   13
+#define ESCAPE  27
 
 Textbox::Textbox(){
     _selected=false;
@@ -45,13 +48,13 @@ void Textbox::sort_input(sf::Event input){
     if(input.type==sf::Event::TextEntered){
         int unicode=input.text.unicode;
         if(unicode<128){
-            if(unicode!=8 && unicode!=13 && unicode!=27)
+            if(unicode!=DELETE && unicode!=ENTER && unicode!=ESCAPE)
                 _text+=static_cast<char>(unicode);
-            else if(unicode==8 && !_text.empty())
+            else if(unicode==DELETE && !_text.empty())
                 _text.pop_back();
-            else if(unicode==13 && modified())
+            else if(unicode==ENTER && modified())
                 _selected=false;    //enter if new eq
-            else if(unicode==27){
+            else if(unicode==ESCAPE){
                 _text=_prev;        //reset text
                 _selected=false;    //unselect
             }
