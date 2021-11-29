@@ -54,6 +54,7 @@ const float SIDE_BAR = 400;
 const float SCREEN_WIDTH = GRAPH_WIDTH+GRAPH_PADDING+SIDE_BAR;
 const float SCREEN_HEIGHT = GRAPH_WIDTH+GRAPH_PADDING;
 
+const float CURSOR_RADIUS = 2.5;
 const float POINT_RADIUS = 4;
 const float LINE_WEIGHT = 1;
 
@@ -62,7 +63,7 @@ const float DOMAIN_MAX = 10;
 const float RANGE_MIN = -10;
 const float RANGE_MAX = 10;
 
-const int NUM_POINTS = 21;
+const int NUM_POINTS = 81;
 
 const int HISTORY_LIMIT = 40;
 const int DISPLAYED_HISTORY_ITEMS = 4;
