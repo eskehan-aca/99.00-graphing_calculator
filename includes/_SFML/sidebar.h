@@ -22,6 +22,9 @@ private:
     float _height;
     float _width;
 
+    void _init_sfml();
+    void _init_vector();
+
     void _draw_eq_label(sf::RenderWindow& window, float& height);
     void _draw_funct_label(sf::RenderWindow& window, float& height);
     void _draw_history(sf::RenderWindow& window, float& height);

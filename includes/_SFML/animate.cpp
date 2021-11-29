@@ -23,7 +23,6 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
 
     _command=-1;
     _mouse_in=true;
-    help=false;
 
     cout<<"Animate instantiated successfully."<<endl;
 }
@@ -282,7 +281,7 @@ void Animate::Draw(){
     _system.Draw(_window);
     _sidebar.Draw(_window); 
     _keybinds.Draw(_window);
-    // _textbox.Draw(_window);                //unncessary?
+    // _textbox.Draw(_window);                //unused atm
 
     if(_mouse_in){_window.draw(_cursor);}     //drawing dot to follow cursor --> draw last so it appears above everything else   
     //- - - - - - - - - - - - - - - - - - -

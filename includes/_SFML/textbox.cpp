@@ -63,6 +63,6 @@ void Textbox::sort_input(sf::Event input){
         cout<<"_text: "<<_text<<endl;
         }
     }
-    if(_selected==false)
+    if(!_selected)
         cout<<"SELECTED FALSE: EXIT============================="<<endl;
 }

@@ -15,6 +15,7 @@
 //DEBUG
 const bool translateDebug=false;
 const bool tokenizeDebug=false;
+const bool sidebarDebug=false;
 const bool graphDebug=false;
 const bool queueDebug=false;
 const bool typeDebug=false;
