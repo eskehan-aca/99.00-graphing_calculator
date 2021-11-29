@@ -118,6 +118,8 @@ void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
     _sb_text.setString(_items[SB_FUNCTION_MODE]);
     if(_items[SB_FUNCTION_MODE]=="in function mode")
         _sb_text.setFillColor(sf::Color::Red);
+    else if(_items[SB_FUNCTION_MODE]=="displaying help menu")
+        _sb_text.setFillColor(sf::Color::Blue);
     _sb_text.setStyle(sf::Text::Italic);
     _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
     height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;

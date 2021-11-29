@@ -23,6 +23,7 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
 
     _command=-1;
     _mouse_in=true;
+    help=false;
 
     cout<<"Animate instantiated successfully."<<endl;
 }
@@ -62,6 +63,17 @@ void Animate::processEvents(){
                 _sidebar[SB_EQUATION_LABEL]=_info->_equation;   //restore to prev
         }
     }
+    else if(help){
+        sf::RectangleShape helpScreen;
+        helpScreen.setFillColor(sf::Color(192,192,192));
+        helpScreen.setSize(sf::Vector2f(0.75*GRAPH_HEIGHT, 0.75*GRAPH_WIDTH));
+        helpScreen.setPosition(sf::Vector2f(0.25*GRAPH_HEIGHT, 0.25*GRAPH_WIDTH));
+        _window.draw(helpScreen);
+        if(event.type==sf::Event::KeyPressed && event.key.code==sf::Keyboard::Escape){
+            help=false;
+            _sidebar[SB_FUNCTION_MODE]="not in function mode";
+        }
+    }
     else{
         switch (event.type){        //check the type of event
         case sf::Event::Closed:     // _window closed
@@ -78,6 +90,14 @@ void Animate::processEvents(){
                 _window.pollEvent(event);   //clear enter?
                 _textbox.select();
                 cout<<"exiting case enter"<<endl;
+                break;
+            case sf::Keyboard::Slash:
+                _sidebar[SB_KEY_PRESSED] = "SLASH";          //update eq to graph
+                _sidebar[SB_COMMAND_NAME] = "HELP MENU";
+                _sidebar[SB_FUNCTION_MODE]="displaying help menu";
+                _window.pollEvent(event);   //clear slash?
+                help=true;
+                cout<<"exiting case slash"<<endl;
                 break;
             case sf::Keyboard::Escape:
                 _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
