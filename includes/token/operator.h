@@ -14,6 +14,7 @@ public:
 
     virtual int Precedence() const;
     bool Associativity() const; //returns true if right associative
+    string opStr() const;       //returns _op string
 
     virtual double perform(double lhs, double rhs);
 

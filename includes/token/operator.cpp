@@ -22,7 +22,9 @@ int Operator::Precedence() const{
 bool Operator::Associativity() const{
     return _op=="^";    //currently only ^ op is right associative
 }
-
+string Operator::opStr() const{
+    return _op;
+}
 //ARITH
 double Operator::perform(double lhs, double rhs){
     if(_op=="+")
