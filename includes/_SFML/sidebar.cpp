@@ -1,6 +1,6 @@
 #include "sidebar.h"
 
-Sidebar::Sidebar(float height, float width):_height(height), _width(width){
+Sidebar::Sidebar(float leftMargin, float sbWidth):_x_start(leftMargin), _width(sbWidth){
     _init_sfml();
     _init_vector();
     cout<<"Sidebar instantiated successfully"<<endl;
@@ -14,12 +14,12 @@ void Sidebar::Draw(sf::RenderWindow& window){
     _draw_eq_label(window, height);
     _draw_funct_label(window, height);
     
-    height+=3*SB_VERTICAL_LINE_SPACING; //saved in _history_height[0]
+    height+=4*SB_VERTICAL_LINE_SPACING; //saved in _history_height[0]
     _draw_history(window, height);
 
     _sb_text.setString(_items[SB_MOUSE_POSITION]);
     height+=2*SB_VERTICAL_LINE_SPACING;
-    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+    _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
     window.draw(_sb_text);
 }
 
@@ -30,9 +30,16 @@ void Sidebar::_draw_eq_label(sf::RenderWindow& window, float& height){
         eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
     _sb_text.setString(eqLabel);
     _sb_text.setStyle(sf::Text::Bold);
-    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
-    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+    _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
+    
+    if(!_fit_text() && sidebarDebug)    //should run fittext funct regardless, returns false if eq still does not fit
+        cout<<"err: eq too long"<<endl;
+
     window.draw(_sb_text);
+
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+    _sb_text.setCharacterSize(30);      //restore font size
+
     //handle formatting --> diff if in function mode?
 }
 void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
@@ -41,9 +48,11 @@ void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
     if(_items[SB_FUNCTION_MODE]=="in function mode")
         _sb_text.setFillColor(sf::Color::Red);
     else if(_items[SB_FUNCTION_MODE]=="displaying help menu")
-        _sb_text.setFillColor(sf::Color::Blue);
+        _sb_text.setFillColor(sf::Color(0,255,255));
+    // else if(_items[SB_FUNCTION_MODE]=="in graph mode")
+    //     _sb_text.setFillColor(sf::Color::Green);
     _sb_text.setStyle(sf::Text::Italic);
-    _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+    _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
     height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
     window.draw(_sb_text);
 }
@@ -62,7 +71,7 @@ void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
         eq+=_items[SB_EQ_HIST_HEADER+i];
         _sb_text.setString(eq);
         _sb_text.setFillColor(sf::Color::White);
-        _sb_text.setPosition(sf::Vector2f(_height+SB_LEFT_MARGIN,height));
+        _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
         height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
         _history_height[i+1]=height;    //saving the end 
         window.draw(_sb_text);
@@ -72,7 +81,7 @@ void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
 void Sidebar::_init_sfml(){
     //set up the sidebar rectangle:
     _sb_rect.setFillColor(sf::Color(105,105,105)); //(192,192,192)); //silver
-    _sb_rect.setPosition(sf::Vector2f(_height, 0));
+    _sb_rect.setPosition(sf::Vector2f(_x_start, 0));
     _sb_rect.setSize(sf::Vector2f(_width, SCREEN_HEIGHT));
     
     //init font
@@ -123,7 +132,7 @@ void Sidebar::updateHistory(vector<string>& history){
 }
 int Sidebar::mouseClick(sf::Vector2i position){
     //horizontal bound (within sidebar)
-    if(position.x>_height){
+    if(position.x>_x_start){
         //accomodate for header
         for(int i=1; i<=DISPLAYED_HISTORY_ITEMS; i++){
             if(position.y>=_history_height[i] && position.y<_history_height[i+1]){
@@ -137,4 +146,18 @@ int Sidebar::mouseClick(sf::Vector2i position){
 
 string& Sidebar::operator [](int index){
     return _items[index];
+}
+
+bool Sidebar::_fit_text(){
+    float rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
+    int charSize=_sb_text.getCharacterSize();
+    while(rightBound>=SCREEN_WIDTH && charSize>15){ //15 as min font size 
+        if(sidebarDebug){
+            cout<<"bound: "<<_sb_text.getLocalBounds().width+_sb_text.getPosition().x<<endl;
+            cout<<"fSize: "<<_sb_text.getCharacterSize()<<endl;
+        }
+        _sb_text.setCharacterSize(--charSize);
+        rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
+    }
+    return rightBound>=SCREEN_WIDTH;    //false if text does not fit
 }
