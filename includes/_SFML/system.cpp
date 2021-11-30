@@ -44,10 +44,7 @@ void System::Step(int command, GraphInfo* info){
     */
     //LETTERS==================================================================
     case RESET:
-        info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
-        info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
-        info->_num_points=NUM_POINTS;
-        _calculate_graph_info(info);
+        _init_graph_info(info);
         _g.update();
         break;
     case CENTER:

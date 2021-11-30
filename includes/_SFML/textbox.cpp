@@ -66,3 +66,8 @@ void Textbox::sort_input(sf::Event input){
     if(!_selected)
         cout<<"SELECTED FALSE: EXIT============================="<<endl;
 }
+void Textbox::reset(){
+    _selected=false;
+    _text="";
+    _prev="";
+}

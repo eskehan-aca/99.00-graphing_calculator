@@ -15,6 +15,8 @@ public:
     bool modified() const;
     bool selected() const;
     string text() const;
+    
+    void reset();
 
 private:
     sf::Text _text_display;

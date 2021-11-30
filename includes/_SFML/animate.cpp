@@ -50,11 +50,11 @@ void Animate::processEvents(){
         _sidebar[SB_EQUATION_LABEL]=_textbox.text();
         bool exit=_textbox.selected();
         if(!exit){
-            _sidebar[SB_FUNCTION_MODE]="not in function mode";  //CLEAN
+            _sidebar[SB_FUNCTION_MODE]="in graph mode";  //CLEAN
             if(_textbox.modified()){
                 _command=ENTER_EQ;
                 _info->_equation=_textbox.text();
-                _sidebar[SB_FUNCTION_MODE]="not in function mode";
+                _sidebar[SB_FUNCTION_MODE]="in graph mode";
                 _history.insert(_history.begin(),_textbox.text());
                 _sidebar.updateHistory(_history);
             }
@@ -66,7 +66,7 @@ void Animate::processEvents(){
         _keybinds.sort_input(event);
         bool exit=_keybinds.selected();
         if(!exit)
-            _sidebar[SB_FUNCTION_MODE]="not in function mode";
+            _sidebar[SB_FUNCTION_MODE]="in graph mode";
     }
     else{
         switch (event.type){        //check the type of event
@@ -154,6 +154,8 @@ void Animate::processEvents(){
             case sf::Keyboard::R:
                 _sidebar[SB_KEY_PRESSED] = "R";
                 _sidebar[SB_COMMAND_NAME] = "RESET";
+                _sidebar[SB_EQUATION_LABEL] = "";
+                _textbox.reset();
                 _command=RESET;
                 break;
             case sf::Keyboard::H:
