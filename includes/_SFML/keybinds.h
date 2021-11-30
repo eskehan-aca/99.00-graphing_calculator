@@ -15,11 +15,14 @@ public:
     bool selected() const;
 
 private:
+    vector<string> _items;
+    sf::RectangleShape _background;
     sf::Text _text_display;
     sf::Font _font;
     
     bool _selected;
     void _init_sfml();
+    void _init_vector();
 };
 
 #endif //KEYBINDS
