@@ -36,7 +36,15 @@ double RPN::evaluate(){
             case OPERATOR:{
                 //pop x2 (REVISIT: number of args that operator requires)
                 Token* right=s.pop();    //stack pop1 = right
-                Token* left=s.pop();     //stack pop2 = left
+                Token* left;            //stack pop2 = left
+                
+                //unary [-] minus operator
+                if(s.empty() && static_cast<Operator*>(pop)->opStr()=="-"){
+                    left=new Integer(0.0);
+                    if(rpnDebug){cout<<"testing unary minus handling in RPN evaluate case op if statement"<<endl;}
+                }
+                else
+                    left=s.pop();     
             
                 assert(right->Type()==NUMBER && left->Type()==NUMBER);
                 double rVal=static_cast<Integer*>(right)->Num();
@@ -105,7 +113,15 @@ double RPN::evaluate(double var){
         case OPERATOR:{
             //pop x2 (REVISIT: number of args that operator requires)
             Token* right=s.pop();    //stack pop1 = right
-            Token* left=s.pop();     //stack pop2 = left
+            Token* left;             //stack pop2 = left
+            
+            //unary [-] minus operator
+            if(s.empty() && static_cast<Operator*>(pop)->opStr()=="-"){
+                left=new Integer(0.0);
+                if(rpnDebug){cout<<"testing unary minus handling in RPN evaluate case op if statement"<<endl;}
+            }
+            else
+                left=s.pop();     
             
             assert(right->Type()==NUMBER && left->Type()==NUMBER);
             double rVal=static_cast<Integer*>(right)->Num();
