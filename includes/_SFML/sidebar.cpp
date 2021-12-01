@@ -78,6 +78,19 @@ void Sidebar::_draw_history(sf::RenderWindow& window, float& height){
     }
 }
 
+bool Sidebar::_fit_text(){
+    float rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
+    int charSize=_sb_text.getCharacterSize();
+    while(rightBound>=SCREEN_WIDTH && charSize>15){ //15 as min font size 
+        if(sidebarDebug){
+            cout<<"bound: "<<_sb_text.getLocalBounds().width+_sb_text.getPosition().x<<endl;
+            cout<<"fSize: "<<_sb_text.getCharacterSize()<<endl;
+        }
+        _sb_text.setCharacterSize(--charSize);
+        rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
+    }
+    return rightBound>=SCREEN_WIDTH;    //false if text does not fit
+}
 void Sidebar::_init_sfml(){
     //set up the sidebar rectangle:
     _sb_rect.setFillColor(sf::Color(105,105,105)); //(192,192,192)); //silver
@@ -85,14 +98,14 @@ void Sidebar::_init_sfml(){
     _sb_rect.setSize(sf::Vector2f(_width, SCREEN_HEIGHT));
     
     //init font
-    if(!font.loadFromFile("arial.ttf")){    // if (!font.loadFromFile("Roboto-Thin.ttf")){
+    if(!_font.loadFromFile("arial.ttf")){    // if (!_font.loadFromFile("Roboto-Thin.ttf")){
         cout<<"Sidebar CTOR: Font failed to load"<<endl;
         cin.get();
         exit(-1);
     }
 
     //init text
-    _sb_text.setFont(font);
+    _sb_text.setFont(_font);
     _sb_text.setCharacterSize(30);
     _sb_text.setStyle(sf::Text::Bold);
     _sb_text.setFillColor(sf::Color::White);
@@ -146,18 +159,4 @@ int Sidebar::mouseClick(sf::Vector2i position){
 
 string& Sidebar::operator [](int index){
     return _items[index];
-}
-
-bool Sidebar::_fit_text(){
-    float rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
-    int charSize=_sb_text.getCharacterSize();
-    while(rightBound>=SCREEN_WIDTH && charSize>15){ //15 as min font size 
-        if(sidebarDebug){
-            cout<<"bound: "<<_sb_text.getLocalBounds().width+_sb_text.getPosition().x<<endl;
-            cout<<"fSize: "<<_sb_text.getCharacterSize()<<endl;
-        }
-        _sb_text.setCharacterSize(--charSize);
-        rightBound=_sb_text.getLocalBounds().width+_sb_text.getPosition().x;
-    }
-    return rightBound>=SCREEN_WIDTH;    //false if text does not fit
 }

@@ -16,7 +16,7 @@ private:
     vector<string> _items;              //strings to place on the sidebar
     vector<float> _history_height;      //to save height y coord of hist items
     sf::RectangleShape _sb_rect;        //sidebar rectangle
-    sf::Font font;                      //used to draw text
+    sf::Font _font;                      //used to draw text
     sf::Text _sb_text;                  //used to draw strings on the window object
 
     float _x_start;                     //x coord (left margin) for sidebar window
