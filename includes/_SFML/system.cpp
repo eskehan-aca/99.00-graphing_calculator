@@ -9,39 +9,15 @@ System::System(GraphInfo* info):_g(info){
 
 void System::Step(int command, GraphInfo* info){
     switch(command){
-    case -1:
-    case SAVE: 
-        break;     //unused commands
+    case -1: break;
     float prevMin, prevMax, temp;
     
     //ACCESS HISTORY===========================================================
-    case HISTORY:       //CURRENTLY DOESN'T WORK
-        _calculate_graph_info(info);    //unsure if this is necessary?
+    case HISTORY:                       //REVISIT + TEST
+        _calculate_graph_info(info);    //unsure if necessary?
         _g.update();
         break;
-    /*
-    //DEFAULT EQUATIONS========================================================
-    case NUM_0:
-        info->_equation=DEFAULT_EQUATION0;
-        _g.update();
-        break;
-    case NUM_1:
-        info->_equation=DEFAULT_EQUATION1;
-        _g.update();
-        break;
-    case NUM_2:
-        info->_equation=DEFAULT_EQUATION2;
-        _g.update();
-        break;
-    case NUM_3:
-        info->_equation=DEFAULT_EQUATION3;
-        _g.update();
-        break;
-    case NUM_4:
-        info->_equation=DEFAULT_EQUATION4;
-        _g.update();
-        break;
-    */
+
     //LETTERS==================================================================
     case RESET:
         _init_graph_info(info);

@@ -149,7 +149,6 @@ void Animate::processEvents(){
             case sf::Keyboard::S:
                 if(save_file("test.txt",_history))
                     cout<<"file saved successfully"<<endl;
-                _command=SAVE;
                 break;
             case sf::Keyboard::R:
                 _sidebar[SB_KEY_PRESSED] = "R";
