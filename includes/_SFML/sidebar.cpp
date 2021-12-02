@@ -1,6 +1,6 @@
 #include "sidebar.h"
 
-Sidebar::Sidebar(float leftMargin, float sbWidth):_x_start(leftMargin), _width(sbWidth){
+Sidebar::Sidebar(float leftMargin, float sbWidth):_x_start(leftMargin), _width(sbWidth),_mode(GRAPHING_EQ){
     _init_sfml();
     _init_vector();
     cout<<"Sidebar instantiated successfully"<<endl;
@@ -23,10 +23,22 @@ void Sidebar::Draw(sf::RenderWindow& window){
     window.draw(_sb_text);
 }
 
+void Sidebar::updateMode(int mode){
+    switch(mode){
+    case GRAPHING_EQ:   _items[SB_CALCULATOR_MODE]="graph mode";    break;
+    case TEXT_INPUT:    _items[SB_CALCULATOR_MODE]="input mode";    break;
+    case HELP_MENU:     _items[SB_CALCULATOR_MODE]="help display";  break;
+    case FILE_SAVE:     _items[SB_CALCULATOR_MODE]="file saved!";   break;
+    case SAVE_FAIL:     _items[SB_CALCULATOR_MODE]="SAVING FAILED"; break;
+    default: assert(false); break;}
+    _mode=mode;
+}
+
+
 void Sidebar::_draw_eq_label(sf::RenderWindow& window, float& height){
     //drawing equation label
     string eqLabel="Graphing y = [ "+_items[SB_EQUATION_LABEL]+" ]";
-    if(_items[SB_FUNCTION_MODE]=="in function mode")
+    if(_mode==TEXT_INPUT)
         eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
     _sb_text.setString(eqLabel);
     _sb_text.setStyle(sf::Text::Bold);
@@ -39,20 +51,25 @@ void Sidebar::_draw_eq_label(sf::RenderWindow& window, float& height){
 
     height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
     _sb_text.setCharacterSize(30);      //restore font size
-
-    //handle formatting --> diff if in function mode?
 }
 void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
     //drawing function mode label
-    _sb_text.setString(_items[SB_FUNCTION_MODE]);
-    if(_items[SB_FUNCTION_MODE]=="in function mode")
-        _sb_text.setFillColor(sf::Color::Red);
-    else if(_items[SB_FUNCTION_MODE]=="displaying help menu")
-        _sb_text.setFillColor(sf::Color(0,255,255));
-    // else if(_items[SB_FUNCTION_MODE]=="in graph mode")
-    //     _sb_text.setFillColor(sf::Color::Green);
+    _sb_text.setString(_items[SB_CALCULATOR_MODE]);
     _sb_text.setStyle(sf::Text::Italic);
     _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
+    
+    //colors!
+    if(_mode==TEXT_INPUT)
+        _sb_text.setFillColor(sf::Color::Red);
+    else if(_mode==HELP_MENU)
+        _sb_text.setFillColor(sf::Color(0,255,255));
+    else if(_mode==GRAPHING_EQ)
+        _sb_text.setFillColor(sf::Color(220,220,220));
+    else if(_mode==FILE_SAVE)
+        _sb_text.setFillColor(sf::Color(0,220,100));
+    else if(_mode==SAVE_FAIL)
+        _sb_text.setFillColor(sf::Color(255,0,0));
+    
     height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
     window.draw(_sb_text);
 }
@@ -118,7 +135,7 @@ void Sidebar::_init_vector(){
         _items.push_back("");
     }
 
-    _items[SB_FUNCTION_MODE]="function mode?";
+    _items[SB_CALCULATOR_MODE]="CALCULATOR MODE";
     _items[SB_EQ_HIST_HEADER]="EQUATION HISTORY:";
     _items[SB_MOUSE_POSITION]="MOUSE POSITION";
     _items[SB_MOUSE_CLICKED]="MOUSE COMMAND";

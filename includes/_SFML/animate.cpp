@@ -50,12 +50,11 @@ void Animate::processEvents(){
         _sidebar[SB_EQUATION_LABEL]=_textbox.text();
         bool exit=_textbox.selected();
         if(!exit){
-            _sidebar[SB_FUNCTION_MODE]="in graph mode";  //CLEAN
+            _sidebar.updateMode(GRAPHING_EQ);
             if(_textbox.modified()){
                 _command=ENTER_EQ;
                 _info->_equation=_textbox.text();
-                _sidebar[SB_FUNCTION_MODE]="in graph mode";
-                
+
                 //don't need to insert blanks!!
                 if(!_textbox.text().empty())
                     _history.insert(_history.begin(),_textbox.text());
@@ -70,7 +69,7 @@ void Animate::processEvents(){
         _keybinds.sort_input(event);
         bool exit=_keybinds.selected();
         if(!exit)
-            _sidebar[SB_FUNCTION_MODE]="in graph mode";
+            _sidebar.updateMode(GRAPHING_EQ);
     }
     else{
         switch (event.type){        //check the type of event
@@ -84,7 +83,7 @@ void Animate::processEvents(){
             case sf::Keyboard::Enter:
                 _sidebar[SB_KEY_PRESSED] = "ENTER";
                 _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
-                _sidebar[SB_FUNCTION_MODE]="in function mode";
+                _sidebar.updateMode(TEXT_INPUT);
                 _window.pollEvent(event);   //clear enter
 
                 //TEMPORARY DUE TO CHANGES WITH HISTORY
@@ -96,7 +95,7 @@ void Animate::processEvents(){
             case sf::Keyboard::Slash:
                 _sidebar[SB_KEY_PRESSED] = "SLASH";
                 _sidebar[SB_COMMAND_NAME] = "HELP MENU";
-                _sidebar[SB_FUNCTION_MODE]="displaying help menu";
+                _sidebar.updateMode(HELP_MENU);
                 _window.pollEvent(event);   //clear slash
                 _keybinds.select();
                 cout<<"exiting case slash"<<endl;
@@ -157,14 +156,20 @@ void Animate::processEvents(){
         
             //LETTERS==========================================================
             case sf::Keyboard::S:
-                if(save_file("test.txt",_history))
-                    cout<<"file saved successfully"<<endl;
+                if(save_file("test.txt",_history)){
+                    _sidebar.updateMode(FILE_SAVE);
+                }
+                else
+                    _sidebar.updateMode(SAVE_FAIL);
                 break;
             case sf::Keyboard::R:
                 _sidebar[SB_KEY_PRESSED] = "R";
                 _sidebar[SB_COMMAND_NAME] = "RESET";
                 _sidebar[SB_EQUATION_LABEL] = "";
                 _textbox.reset();
+                _history.clear();
+                _sidebar.updateMode(GRAPHING_EQ);
+                _sidebar.updateHistory(_history);
                 _command=RESET;
                 break;
             case sf::Keyboard::H:

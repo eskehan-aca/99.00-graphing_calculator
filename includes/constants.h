@@ -85,7 +85,7 @@ const float SB_VERTICAL_LINE_SPACING = 10;
 
 //SB MESSAGES
 const int SB_EQUATION_LABEL = 0;
-const int SB_FUNCTION_MODE = SB_EQUATION_LABEL+1;
+const int SB_CALCULATOR_MODE = SB_EQUATION_LABEL+1;
 
 const int SB_EQ_HIST_HEADER = SB_EQUATION_LABEL+3;
 const int SB_EQ_HIST_1 = SB_EQ_HIST_HEADER+1;
@@ -99,6 +99,14 @@ const int SB_KEY_PRESSED = SB_MOUSE_CLICKED+1;
 const int SB_COMMAND_NAME = SB_KEY_PRESSED+5;
 
 ///////////////////////////////////
+
+enum CALCULATOR_MODES{
+    GRAPHING_EQ,
+    TEXT_INPUT,
+    HELP_MENU,
+    FILE_SAVE,
+    SAVE_FAIL,
+};
 
 //COMMANDS
 enum COMMANDS{
