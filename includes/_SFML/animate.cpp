@@ -86,6 +86,10 @@ void Animate::processEvents(){
                 _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                 _sidebar[SB_FUNCTION_MODE]="in function mode";
                 _window.pollEvent(event);   //clear enter
+
+                //TEMPORARY DUE TO CHANGES WITH HISTORY
+                _textbox.setText(_info->_equation);
+                
                 _textbox.select();
                 cout<<"exiting case enter"<<endl;
                 break;
@@ -230,70 +234,56 @@ void Animate::processEvents(){
                 break;
             }
             break;
-
         //MOUSE INPUT==========================================================
-        case sf::Event::MouseEntered:
-            _mouse_in=true;
-            break;
-        case sf::Event::MouseLeft:
-            _mouse_in=false;
-            break;
+        case sf::Event::MouseEntered:   _mouse_in=true;     break;
+        case sf::Event::MouseLeft:      _mouse_in=false;    break;
         case sf::Event::MouseMoved:
             mouseX=event.mouseMove.x;
             mouseY=event.mouseMove.y;
             break;
-        case sf::Event::MouseButtonReleased:
-            if(event.mouseButton.button == sf::Mouse::Left){
-                _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);
-                
-                
-                if(_mouse_in){
-                    int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
-                    if(i!=-1 && i<=_history.size()){
-                        _sidebar[SB_COMMAND_NAME] = "CLICK HISTORY ITEM "+to_string(i);
-                        _sidebar[SB_EQUATION_LABEL] = _history[i-1];
-                        _info->_equation=_history[i-1];
-                        if(i==1){
-                            if(_sidebar[SB_EQUATION_LABEL]!=_history[0] && _history[0]!=_history[1]){
-                                _info->_equation=_history[0];
-                                _sidebar[SB_EQUATION_LABEL] = _history[0];
-                            }
+        case sf::Event::MouseButtonReleased:{
+            if(!_mouse_in){break;}  //don't do anything if click is not in window
+
+            //i=which item clicked on 
+            int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
+            if(i!=-1 && i<=_history.size()){
+                //LEFT CLICK
+                if(event.mouseButton.button==sf::Mouse::Left){
+                    _sidebar[SB_COMMAND_NAME] = "SELECT HISTORY ITEM "+to_string(i);
+                    _sidebar[SB_EQUATION_LABEL] = _history[i-1];
+                    _info->_equation=_history[i-1];
+                    
+                    if(i==1){
+                        if(_sidebar[SB_EQUATION_LABEL]!=_history[0] && _history[0]!=_history[1]){
+                            _info->_equation=_history[0];
+                            _sidebar[SB_EQUATION_LABEL] = _history[0];
                         }
-                        else if(_history[0]!=_history[i-1]){
-                            _history.insert(_history.begin(),_history[i-1]);
-                        }
-                        _sidebar.updateHistory(_history);
-                        _command=HISTORY;
-
-                        for(int i=0; i<_history.size(); i++)
-                            cout<<" UPD ["<<i<<"] "<<_history.at(i)<<endl;
-                        cout<<" _history size: "<<_history.size()<<endl;
-
-                    }
-                }
-
-
-            }
-            else{
-                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);
-
-                if(_mouse_in){
-                    int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
-                    if(i!=-1 && i<=_history.size()){
-                        _sidebar[SB_COMMAND_NAME] = "DELETE HISTORY ITEM "+to_string(i);
-                        _history.erase(_history.begin()+i-1);
-                        _sidebar.updateHistory(_history);
-
-                        for(int i=0; i<_history.size(); i++)
-                            cout<<" DEL ["<<i<<"] "<<_history.at(i)<<endl;
-                        cout<<" _history size: "<<_history.size()<<endl;
                     }
                     
+                    else if(_history[0]!=_history[i-1]){
+                        _history.insert(_history.begin(),_history[i-1]);
+                    }
+                    
+                    _command=HISTORY;
+
+
                 }
-            
+                //RIGHT CLICK
+                else if(event.mouseButton.button==sf::Mouse::Right){
+                    _sidebar[SB_COMMAND_NAME] = "DELETE HISTORY ITEM "+to_string(i);
+                    _history.erase(_history.begin()+i-1);
+                    _sidebar.updateHistory(_history);
+                }
+                _sidebar.updateHistory(_history);          
+                //PRINT HISTORY VECTOR
+                if(historyDebug){
+                    for(int i=0; i<_history.size(); i++)
+                        cout<<"_history["<<i<<"]="<<_history.at(i)<<endl;
+                    cout<<" _history size: "<<_history.size()<<endl;
+                }
             }
             break;
-        
+        }
         //=====================================================================
         default:
             break;

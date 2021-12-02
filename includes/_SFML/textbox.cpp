@@ -15,7 +15,7 @@ void Textbox::Draw(sf::RenderWindow& window){
     window.draw(_text_display);
 }
 void Textbox::select(){
-    cout<<"enter Textbox select function";
+    //cout<<"enter Textbox select function"<<endl;
     _selected=true;
     _prev=_text;
 }
@@ -60,6 +60,7 @@ void Textbox::sort_input(sf::Event input){
             }
             else
                 cout<<"hit enter but no changes to string --> nothing happens"<<endl;
+                
         cout<<"_text: "<<_text<<endl;
         }
     }
@@ -70,4 +71,7 @@ void Textbox::reset(){
     _selected=false;
     _text="";
     _prev="";
+}
+void Textbox::setText(string text){
+    _text=text;
 }

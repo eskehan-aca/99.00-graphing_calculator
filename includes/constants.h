@@ -16,6 +16,7 @@
 const bool translateDebug=false;
 const bool tokenizeDebug=false;
 const bool keybindsDebug=false;
+const bool historyDebug=true;
 const bool sidebarDebug=false;
 const bool graphDebug=false;
 const bool queueDebug=false;

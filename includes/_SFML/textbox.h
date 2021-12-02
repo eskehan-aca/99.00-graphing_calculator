@@ -8,6 +8,9 @@ public:
     Textbox();
 
     void select();
+    void setText(string text);
+    void reset();
+
     void sort_input(sf::Event input);
 
     void Draw(sf::RenderWindow& window);
@@ -16,7 +19,6 @@ public:
     bool selected() const;
     string text() const;
     
-    void reset();
 
 private:
     sf::Text _text_display;
