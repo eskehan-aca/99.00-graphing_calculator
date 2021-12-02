@@ -104,6 +104,7 @@ void Animate::processEvents(){
                 break;
                 
             //NUMBERS (access history)=========================================
+            /*
             case sf::Keyboard::Num1:
                 _sidebar[SB_KEY_PRESSED] = "NUM 1";
                 _sidebar[SB_COMMAND_NAME] = "HISTORY ITEM 1";
@@ -148,6 +149,7 @@ void Animate::processEvents(){
                 }
                 _command=HISTORY;
                 break;
+                */
         
             //LETTERS==========================================================
             case sf::Keyboard::S:
