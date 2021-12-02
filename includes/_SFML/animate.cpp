@@ -55,7 +55,11 @@ void Animate::processEvents(){
                 _command=ENTER_EQ;
                 _info->_equation=_textbox.text();
                 _sidebar[SB_FUNCTION_MODE]="in graph mode";
-                _history.insert(_history.begin(),_textbox.text());
+                
+                //don't need to insert blanks!!
+                if(!_textbox.text().empty())
+                    _history.insert(_history.begin(),_textbox.text());
+                
                 _sidebar.updateHistory(_history);
             }
             else
@@ -239,9 +243,11 @@ void Animate::processEvents(){
         case sf::Event::MouseButtonReleased:
             if(event.mouseButton.button == sf::Mouse::Left){
                 _sidebar[SB_MOUSE_CLICKED]="LEFT CLICK "+mouse_pos_string(_window);
+                
+                
                 if(_mouse_in){
                     int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
-                    if(i!=-1){
+                    if(i!=-1 && i<=_history.size()){
                         _sidebar[SB_COMMAND_NAME] = "CLICK HISTORY ITEM "+to_string(i);
                         _sidebar[SB_EQUATION_LABEL] = _history[i-1];
                         _info->_equation=_history[i-1];
@@ -256,11 +262,34 @@ void Animate::processEvents(){
                         }
                         _sidebar.updateHistory(_history);
                         _command=HISTORY;
+
+                        for(int i=0; i<_history.size(); i++)
+                            cout<<" UPD ["<<i<<"] "<<_history.at(i)<<endl;
+                        cout<<" _history size: "<<_history.size()<<endl;
+
                     }
                 }
+
+
             }
             else{
-                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);}
+                _sidebar[SB_MOUSE_CLICKED]="RIGHT CLICK "+mouse_pos_string(_window);
+
+                if(_mouse_in){
+                    int i=_sidebar.mouseClick(sf::Mouse::getPosition(_window));
+                    if(i!=-1 && i<=_history.size()){
+                        _sidebar[SB_COMMAND_NAME] = "DELETE HISTORY ITEM "+to_string(i);
+                        _history.erase(_history.begin()+i-1);
+                        _sidebar.updateHistory(_history);
+
+                        for(int i=0; i<_history.size(); i++)
+                            cout<<" DEL ["<<i<<"] "<<_history.at(i)<<endl;
+                        cout<<" _history size: "<<_history.size()<<endl;
+                    }
+                    
+                }
+            
+            }
             break;
         
         //=====================================================================

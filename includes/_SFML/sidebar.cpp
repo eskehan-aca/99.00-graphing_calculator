@@ -140,7 +140,11 @@ void Sidebar::_init_vector(){
 
 void Sidebar::updateHistory(vector<string>& history){
     for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
-        _items[SB_EQ_HIST_HEADER+i+1]=history[i];
+        //accomodate for having less history than spots displayed
+        if(history.size()<=i)
+            _items[SB_EQ_HIST_HEADER+i+1]="";
+        else
+            _items[SB_EQ_HIST_HEADER+i+1]=history[i];
     }
 }
 int Sidebar::mouseClick(sf::Vector2i position){
