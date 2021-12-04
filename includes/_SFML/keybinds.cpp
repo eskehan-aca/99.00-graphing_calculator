@@ -82,12 +82,12 @@ void Keybinds::_init_vector(){
     _items.push_back("");
     _items[0]="COMMAND                    SHORTCUT";
     _items.push_back("");
-    _items.push_back("equation history 1         [1]");
-    _items.push_back("equation history 2         [2]");
-    _items.push_back("equation history 3         [3]");
-    _items.push_back("equation history 4         [4]");
-    _items.push_back("");
-    _items.push_back("reset graph (zoom, pts)    [R]");
+    // _items.push_back("equation history 1         [1]");
+    // _items.push_back("equation history 2         [2]");
+    // _items.push_back("equation history 3         [3]");
+    // _items.push_back("equation history 4         [4]");
+    // _items.push_back("");
+    _items.push_back("reset graph (zoom, pts, hist) [R]");
     _items.push_back("display graph info         [I]");
     _items.push_back("center origin              [C]");
     _items.push_back("force update               [F]");

@@ -1,5 +1,5 @@
-x ^ 2
-1 / x
 sec ( x )
-sqrt ( x )
-3 * sin ( x )
+1 / sqrt ( x )
+abs ( x )
+x * cos ( x )
+x ^ 3 / 10

@@ -269,7 +269,7 @@ bool test_graph1(bool debug=false){
   cout<<"_info should be address "<<info<<endl;
   Graph g(info);
   cout<<"g instantiated successfully: ";
-  g.printpts();
+  // g.printpts();
   // g.set_info();
   Plot p(info);
 
@@ -289,12 +289,12 @@ bool test_graph2(bool debug=false){
   cout<<"info->_eq: "<<info->_equation<<endl;
   Graph g(info);
   cout<<"pts for eq: x-2";
-  g.printpts();
+  // g.printpts();
 
   info->_equation="2 * x - 1";
   cout<<"pts for eq: x-2";
   g.update();
-  g.printpts();
+  // g.printpts();
 
   return true;
 }
@@ -312,15 +312,15 @@ bool test_graph_comp(bool debug=false){
 
   _info->_equation="x";
   Graph g(_info);
-  g.printpts();
+  // g.printpts();
   
   _info->_equation="x ^ 2";
   g.update();
-  g.printpts();
+  // g.printpts();
 
   _info->_equation="( 5 / 4 ^ 3 ) * ( x ^ 3 ) - 1";
   g.update();
-  g.printpts(); 
+  // g.printpts(); 
 
   return true;
 }

@@ -1,7 +1,7 @@
 #include "graph.h"
 
 Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
-    update();
+    // update();
     _init_sfml();
     cout<<"Graph instantiated successfully"<<endl;
 }
