@@ -9,20 +9,27 @@ System::System(GraphInfo* info):_g(info){
 
 void System::Step(int command, GraphInfo* info){
     switch(command){
-    case -1: break;
+    case ESCAPE:        cout<<"SYSTEM::STEP() switch ESCAPE"<<endl; 
+    case SAVE: 
+    case -1: 
+        break;
     float prevMin, prevMax, temp;
     
-    //ACCESS HISTORY===========================================================
-    case HISTORY:                       //REVISIT + TEST
-        _calculate_graph_info(info);    //unsure if necessary?
+    //LETTERS==================================================================
+    case ENTER_EQ:      cout<<"SYSTEM::STEP() switch ENTER_EQ"<<endl;
+    case HISTORY:
+    case LOAD:
+    case FORCE_UPDATE:
+        _calculate_graph_info(info);
         _g.update();
         break;
-
-    //LETTERS==================================================================
     case RESET:
         _init_graph_info(info);
         _g.update();
         break;
+    case HOME:
+        info->_domain=sf::Vector2f(DOMAIN_MIN,DOMAIN_MAX);
+        info->_range=sf::Vector2f(RANGE_MIN,RANGE_MAX);
     case CENTER:
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
@@ -38,10 +45,6 @@ void System::Step(int command, GraphInfo* info){
         break;
     case INFO_LABEL:
         info->_graph_info=!info->_graph_info;
-        break;
-    case FORCE_UPDATE:
-        _calculate_graph_info(info);
-        _g.update();
         break;
 
     //PANNING/ARROW KEYS=======================================================
@@ -120,16 +123,6 @@ void System::Step(int command, GraphInfo* info){
         info->_num_points-=10;
         _calculate_graph_info(info);
         _g.update(); 
-        break;
-
-    //OTHER====================================================================
-    case ENTER_EQ:
-        cout<<"SYSTEM::STEP() switch ENTER_EQ"<<endl;
-        _calculate_graph_info(info);
-        _g.update();
-        break;
-    case ESCAPE:
-        cout<<"SYSTEM::STEP() switch ESCAPE"<<endl; 
         break;
 
     //=========================================================================

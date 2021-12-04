@@ -16,6 +16,7 @@
 const bool translateDebug=false;
 const bool tokenizeDebug=false;
 const bool keybindsDebug=false;
+const bool animateDebug=false;
 const bool historyDebug=true;
 const bool sidebarDebug=false;
 const bool graphDebug=false;
@@ -41,8 +42,8 @@ const int NUM_OPERS=5;
 const array<string,NUM_OPERS> OPER_LIST{"+", "-", "*", "/", "^"};
 
 //FUNCTION LIST:    sin, cos, tan, arcsin, arccos, arctan, log, sqrt
-const int NUM_FUNCTS=12;
-const array<string,NUM_FUNCTS> FUNCT_LIST{"sin", "cos", "tan", "arcsin", "arccos", "arctan", "log", "sqrt", "csc", "sec", "cot"};
+const int NUM_FUNCTS=13;
+const array<string,NUM_FUNCTS> FUNCT_LIST{"sin", "cos", "tan", "arcsin", "arccos", "arctan", "log", "sqrt", "csc", "sec", "cot", "abs"};
 
 //=============================================================================
 //DEFAULT VALUES
@@ -105,7 +106,9 @@ enum CALCULATOR_MODES{
     TEXT_INPUT,
     HELP_MENU,
     FILE_SAVE,
+    FILE_LOAD,
     SAVE_FAIL,
+    RESET_CALC,
 };
 
 //COMMANDS
@@ -121,7 +124,9 @@ enum COMMANDS{
     HISTORY,    //accessing history - CURRENTLY DOESN'T WORK
     
     SAVE,       //save file         S
+    LOAD,       //load file         L
     RESET,      //reset origin      R
+    HOME,       //center, reset zoomH
     CENTER,     //center origin     C, H
     INFO_LABEL, //toggle graph info I
     FORCE_UPDATE,//recalculate      F, U

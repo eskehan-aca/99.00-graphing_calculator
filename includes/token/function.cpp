@@ -44,6 +44,8 @@ double Function::perform(double input){
         return 1/cos(input);
     if(_funct=="cot")
         return 1/tan(input);
+    if(_funct=="abs")
+        return abs(input);
     assert(false);
 }
 

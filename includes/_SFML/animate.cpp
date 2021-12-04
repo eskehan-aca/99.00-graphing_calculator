@@ -1,7 +1,7 @@
 #include "animate.h"
 
 Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system(_info),_textbox(),_keybinds(){
-    cout<<"Animate CTOR: TOP"<<endl;
+    cout<<"Animate: CTOR TOP"<<endl;
     _window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GRAPHING CALCULATOR");
     _window.setFramerateLimit(15);
 
@@ -9,22 +9,26 @@ Animate::Animate():_info(new GraphInfo()),_sidebar(WORK_PANEL, SIDE_BAR),_system
     _cursor.setRadius(CURSOR_RADIUS);
     _cursor.setFillColor(sf::Color::Red);
 
-    _history.reserve(HISTORY_LIMIT);
-
-    cout<<"load file"<<endl;
-    load_file("defaults.txt",_history);
-    for(int i=0; i<_history.size(); i++)
-        cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
-
-    cout<<"update history"<<endl;
-    _sidebar.updateHistory(_history);
-    for(int i=0; i<_history.size(); i++)
-        cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
-
     _command=-1;
+    _history.reserve(HISTORY_LIMIT);
+    if(load_file("test.txt",_history)){
+        _sidebar.updateMode(FILE_LOAD);
+        cout<<"Animate: loaded file successfully"<<endl;
+    }
+    else
+        cout<<"Animate: failed to load file!"<<endl;
+    
+    _sidebar.updateHistory(_history);
     _mouse_in=true;
 
-    cout<<"Animate instantiated successfully."<<endl;
+    if(animateDebug){
+        for(int i=0; i<_history.size(); i++)
+            cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
+        cout<<"update history"<<endl;
+        for(int i=0; i<_history.size(); i++)
+            cout<<"["<<i+1<<"]: "<<_history[i]<<endl;
+    }
+    cout<<"Animate instantiated successfully"<<endl;
 }
 void Animate::run(){ 
     while (_window.isOpen()){
@@ -162,19 +166,33 @@ void Animate::processEvents(){
                 else
                     _sidebar.updateMode(SAVE_FAIL);
                 break;
+            case sf::Keyboard::L:
+                if(load_file("test.txt",_history)){
+                    _sidebar.updateMode(FILE_LOAD);
+                    _sidebar.updateHistory(_history);
+                    _command=FORCE_UPDATE;
+                }
+                else
+                    _sidebar.updateMode(SAVE_FAIL);
+                    _command=LOAD;
+                break;
             case sf::Keyboard::R:
                 _sidebar[SB_KEY_PRESSED] = "R";
                 _sidebar[SB_COMMAND_NAME] = "RESET";
                 _sidebar[SB_EQUATION_LABEL] = "";
                 _textbox.reset();
                 _history.clear();
-                _sidebar.updateMode(GRAPHING_EQ);
+                _sidebar.updateMode(RESET_CALC);
                 _sidebar.updateHistory(_history);
                 _command=RESET;
                 break;
             case sf::Keyboard::H:
+                _sidebar[SB_KEY_PRESSED] = "H";
+                _sidebar[SB_COMMAND_NAME] = "HOME";
+                _command=HOME;
+                break;
             case sf::Keyboard::C:
-                _sidebar[SB_KEY_PRESSED] = "C/H";
+                _sidebar[SB_KEY_PRESSED] = "C";
                 _sidebar[SB_COMMAND_NAME] = "CENTER";
                 _command=CENTER;
                 break;

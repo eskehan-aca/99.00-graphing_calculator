@@ -25,11 +25,13 @@ void Sidebar::Draw(sf::RenderWindow& window){
 
 void Sidebar::updateMode(int mode){
     switch(mode){
-    case GRAPHING_EQ:   _items[SB_CALCULATOR_MODE]="graph mode";    break;
-    case TEXT_INPUT:    _items[SB_CALCULATOR_MODE]="input mode";    break;
-    case HELP_MENU:     _items[SB_CALCULATOR_MODE]="help display";  break;
-    case FILE_SAVE:     _items[SB_CALCULATOR_MODE]="file saved!";   break;
-    case SAVE_FAIL:     _items[SB_CALCULATOR_MODE]="SAVING FAILED"; break;
+    case GRAPHING_EQ:   _items[SB_CALCULATOR_MODE]="graph mode";        break;
+    case TEXT_INPUT:    _items[SB_CALCULATOR_MODE]="input mode";        break;
+    case HELP_MENU:     _items[SB_CALCULATOR_MODE]="help display";      break;
+    case FILE_SAVE:     _items[SB_CALCULATOR_MODE]="file saved";        break;
+    case FILE_LOAD:     _items[SB_CALCULATOR_MODE]="save loaded";       break;
+    case SAVE_FAIL:     _items[SB_CALCULATOR_MODE]="SAVING FAILED";     break;
+    case RESET_CALC:    _items[SB_CALCULATOR_MODE]="calculator reset";  break;
     default: assert(false); break;}
     _mode=mode;
 }
@@ -67,8 +69,12 @@ void Sidebar::_draw_funct_label(sf::RenderWindow& window, float& height){
         _sb_text.setFillColor(sf::Color(220,220,220));
     else if(_mode==FILE_SAVE)
         _sb_text.setFillColor(sf::Color(0,220,100));
+    else if(_mode==FILE_LOAD)
+        _sb_text.setFillColor(sf::Color(0,180,220));
     else if(_mode==SAVE_FAIL)
-        _sb_text.setFillColor(sf::Color(255,0,0));
+        _sb_text.setFillColor(sf::Color(255,55,55));
+    else if(_mode==RESET_CALC)
+        _sb_text.setFillColor(sf::Color(255,55,55));
     
     height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
     window.draw(_sb_text);
@@ -135,6 +141,7 @@ void Sidebar::_init_vector(){
         _items.push_back("");
     }
 
+    //CALC MODE default should never get drawn ==> init by orig loading file in animate ctor
     _items[SB_CALCULATOR_MODE]="CALCULATOR MODE";
     _items[SB_EQ_HIST_HEADER]="EQUATION HISTORY:";
     _items[SB_MOUSE_POSITION]="MOUSE POSITION";
