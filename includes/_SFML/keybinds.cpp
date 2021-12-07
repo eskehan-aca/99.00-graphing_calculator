@@ -31,7 +31,7 @@ void Keybinds::Draw(sf::RenderWindow& window){
     }
 }
 void Keybinds::select(){
-    cout<<"enter Keybind select function";
+    if(keybindsDebug){cout<<"enter Keybind select function";}
     _selected=true;
 }
 bool Keybinds::selected() const{
@@ -52,15 +52,15 @@ void Keybinds::sort_input(sf::Event input){
         }
     }
 
-    if(!_selected)
-        cout<<"KEYBIND SELECTED FALSE: EXIT================"<<endl;
+    if(!_selected && keybindsDebug)
+        cout<<"KEYBIND SELECTED FALSE: EXIT"<<endl;
 }
 void Keybinds::_init_sfml(){
     //init font
-    if (!_font.loadFromFile("arial.ttf")){
-        cout<<"TEXTBOX INIT_SFML(): Font failed to load"<<endl;
+    if(!_font.loadFromFile("arial.ttf")){
+        if(keybindsDebug){cout<<"TEXTBOX INIT_SFML(): Font failed to load"<<endl;}
         cin.get();
-        exit(-1);
+        assert(false);
     }
     
     //init background
@@ -87,7 +87,7 @@ void Keybinds::_init_vector(){
     // _items.push_back("equation history 3         [3]");
     // _items.push_back("equation history 4         [4]");
     // _items.push_back("");
-    _items.push_back("reset graph (zoom, pts, hist) [R]");
+    _items.push_back("[R] reset calculator           [R]");
     _items.push_back("display graph info         [I]");
     _items.push_back("center origin              [C]");
     _items.push_back("force update               [F]");

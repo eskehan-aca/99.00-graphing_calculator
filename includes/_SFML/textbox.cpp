@@ -15,7 +15,7 @@ void Textbox::Draw(sf::RenderWindow& window){
     window.draw(_text_display);
 }
 void Textbox::select(){
-    //cout<<"enter Textbox select function"<<endl;
+    if(textboxDebug){cout<<"enter Textbox select function"<<endl;}
     _selected=true;
     _prev=_text;
 }
@@ -31,9 +31,9 @@ string Textbox::text() const{
 void Textbox::_init_sfml(){
     //init font
     if (!_font.loadFromFile("arial.ttf")){
-        cout<<"TEXTBOX INIT_SFML(): Font failed to load"<<endl;
+        if(textboxDebug){cout<<"TEXTBOX INIT_SFML(): Font failed to load"<<endl;}
         cin.get();
-        exit(-1);
+        assert(false);
     }
     
     //init text
@@ -58,14 +58,12 @@ void Textbox::sort_input(sf::Event input){
                 _text=_prev;        //reset text
                 _selected=false;    //unselect
             }
-            else
+            else if(textboxDebug)
                 cout<<"hit enter but no changes to string --> nothing happens"<<endl;
-                
-        cout<<"_text: "<<_text<<endl;
+        if(textboxDebug){cout<<"_text: "<<_text<<endl;}
         }
     }
-    if(!_selected)
-        cout<<"SELECTED FALSE: EXIT============================="<<endl;
+    if(!_selected && textboxDebug){cout<<"SELECTED FALSE: EXIT TEXTBOX SORT_INPUT"<<endl;}
 }
 void Textbox::reset(){
     _selected=false;

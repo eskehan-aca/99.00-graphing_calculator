@@ -43,11 +43,13 @@ Token* Tokenize::_convert_token(char* charToken){
             return new Function(charToken);
             break;
         default:
-            cout<<"Tokenize::_convert_token ERR: invalid token type"<<endl;
-            cout<<"token: "<<string(charToken)<<endl;
+            if(tokenizeDebug){
+                cout<<"Tokenize::_convert_token ERR: invalid token type"<<endl;
+                cout<<"token: "<<string(charToken)<<endl;
+            }
             break;
     }
-    cout<<"ERR: Tokenize::_convert_token did not return"<<endl;
+    if(tokenizeDebug){cout<<"ERR: Tokenize::_convert_token did not return"<<endl;}
     assert(false);
     return nullptr;
 }
@@ -96,7 +98,7 @@ int Tokenize::_token_type(const char* token){
     if(_is_funct(tokstr))
         return FUNCTION;
 
-    cout<<"UNKNOWN STRING: ["<<tokstr<<"]"<<endl;
+    if(tokenizeDebug){cout<<"UNKNOWN STRING: ["<<tokstr<<"]"<<endl;}
     assert(false);
     return -1;
 }

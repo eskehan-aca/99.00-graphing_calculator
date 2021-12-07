@@ -9,14 +9,15 @@ System::System(GraphInfo* info):_g(info){
 
 void System::Step(int command, GraphInfo* info){
     switch(command){
-    case ESCAPE:        cout<<"SYSTEM::STEP() switch ESCAPE"<<endl; 
+    //exit early
+    case ESCAPE:
     case SAVE: 
     case -1: 
         break;
     float prevMin, prevMax, temp;
     
     //LETTERS==================================================================
-    case ENTER_EQ:      cout<<"SYSTEM::STEP() switch ENTER_EQ"<<endl;
+    case ENTER_EQ:      if(systemDebug){cout<<"SYSTEM::STEP() switch ENTER_EQ"<<endl;}
     case HISTORY:
     case LOAD:
     case FORCE_UPDATE:
@@ -40,7 +41,7 @@ void System::Step(int command, GraphInfo* info){
         temp=(prevMax-prevMin)/2;
         info->_range=sf::Vector2f(-temp,temp);
         _calculate_graph_info(info);
-        cout<<"origin centered: "<<boolalpha<<info->_origin_centered<<endl;
+        if(systemDebug){cout<<"origin centered: "<<boolalpha<<info->_origin_centered<<endl;}
         _g.update();
         break;
     case INFO_LABEL:
@@ -87,7 +88,7 @@ void System::Step(int command, GraphInfo* info){
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
-        // cout<<"zoom scale (temp): "<<temp<<endl;
+        if(systemDebug){cout<<"zoom scale: "<<temp<<endl;}
         info->_domain=sf::Vector2f(prevMin-temp,prevMax+temp);
         //range
         prevMin=info->_range.x;
@@ -102,7 +103,7 @@ void System::Step(int command, GraphInfo* info){
         prevMin=info->_domain.x;
         prevMax=info->_domain.y;
         temp=(prevMax-prevMin)/10;
-        // cout<<"zoom scale (temp): "<<temp<<endl;
+        if(systemDebug){cout<<"zoom scale: "<<temp<<endl;}
         info->_domain=sf::Vector2f(prevMin+temp,prevMax-temp);
         //range
         prevMin=info->_range.x;
@@ -127,7 +128,7 @@ void System::Step(int command, GraphInfo* info){
 
     //=========================================================================
     default:
-        cout<<"SYSTEM::STEP(): switch UNKNOWN ["<<command<<"]"<<endl;
+        if(systemDebug){cout<<"SYSTEM::STEP(): switch UNKNOWN ["<<command<<"]"<<endl;}
         break;
     }
 }

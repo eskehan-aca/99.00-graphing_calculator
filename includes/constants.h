@@ -16,9 +16,11 @@
 const bool translateDebug=false;
 const bool tokenizeDebug=false;
 const bool keybindsDebug=false;
+const bool textboxDebug=false;
 const bool animateDebug=false;
-const bool historyDebug=true;
+const bool historyDebug=false;
 const bool sidebarDebug=false;
+const bool systemDebug=false;
 const bool graphDebug=false;
 const bool queueDebug=false;
 const bool typeDebug=false;
@@ -67,7 +69,7 @@ const float DOMAIN_MAX = 10;
 const float RANGE_MIN = -10;
 const float RANGE_MAX = 10;
 
-const int NUM_POINTS = 81;
+const int NUM_POINTS = 151;
 
 const int HISTORY_LIMIT = 40;
 const int DISPLAYED_HISTORY_ITEMS = 4;
@@ -143,23 +145,11 @@ enum COMMANDS{
     DEC_PTS,   //decrease # pts     [
 
     ENTER_EQ,  //?????????????? get equation maybe    
-    ESCAPE, //exit (no command # associated, just here for reference) --> should not *do* anything?
+    ESCAPE,    //exit (no command # associated, just here for reference) --> should not *do* anything?
 
     //MOUSE COMMANDS
     RIGHT_CLICK,
     LEFT_CLICK,
 };
-
-//funct:
-// change colors :) (pts,background)     'c'
-// display grid lines                    'g'?
-// selecting functs to draw from sidebar 
-// revisit zoom --> zoom in based on cursor location??
-// hiding sidebar?
-// plot multiple eqs?
-// process click --> pass location to sidebar class (similar to what textbox class does)
-// revisit & reformat textbox class --> screen overlay (transparency?)
-// add funciton mode to switch statement --> allow closing tab while typing
-// animate enter cmd : textbox --> write eq to sidebar, not graphinfo
 
 #endif //CONSTANTS_H

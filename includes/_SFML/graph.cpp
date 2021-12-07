@@ -8,7 +8,7 @@ Graph::Graph(GraphInfo* info):_plotter(info),_info(info){
 
 void Graph::update(){    //UPDATE IS CALLED WHENEVER POINTS TO PLOT CHANGES
     if(_info->_equation.empty()){
-        cout<<"no equation!!"<<endl;
+        if(graphDebug){cout<<"no equation!!"<<endl;}
         _screen_points.clear();
     }
     else
@@ -91,9 +91,9 @@ void Graph::_draw_labels(sf::RenderWindow& window){
 void Graph::_init_sfml(){
     //init font
     if(!_font.loadFromFile("arial.ttf")){
-        cout<<"GRAPH INIT_SFML(): Font failed to load"<<endl;
+        if(graphDebug){cout<<"GRAPH INIT_SFML(): Font failed to load"<<endl;}
         cin.get();
-        exit(-1);
+        assert(false);
     }
     
     //init label (revisit)

@@ -75,7 +75,8 @@ double RPN::evaluate(){
                 break;
             }
             default:{
-                cout<<"INVALID TOKEN, TYPE: "<<pop->Type()<<endl;
+                if(rpnDebug){cout<<"INVALID TOKEN, TYPE: "<<pop->Type()<<endl;}
+                assert(false);
                 break;
             }
         }
@@ -157,7 +158,7 @@ double RPN::evaluate(double var){
             break;
         }
         default:{
-            cout<<"INVALID TOKEN, TYPE: "<<pop->Type()<<endl;
+            if(rpnDebug){cout<<"INVALID TOKEN, TYPE: "<<pop->Type()<<endl;}
             break;
         }
         }

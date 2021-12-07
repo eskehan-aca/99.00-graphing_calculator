@@ -122,9 +122,9 @@ void Sidebar::_init_sfml(){
     
     //init font
     if(!_font.loadFromFile("arial.ttf")){    // if (!_font.loadFromFile("Roboto-Thin.ttf")){
-        cout<<"Sidebar CTOR: Font failed to load"<<endl;
+        if(sidebarDebug){cout<<"Sidebar CTOR: Font failed to load"<<endl;}
         cin.get();
-        exit(-1);
+        assert(false);
     }
 
     //init text
@@ -177,7 +177,7 @@ int Sidebar::mouseClick(sf::Vector2i position){
         //accomodate for header
         for(int i=1; i<=DISPLAYED_HISTORY_ITEMS; i++){
             if(position.y>=_history_height[i] && position.y<_history_height[i+1]){
-                cout<<"clicked history item "<<i<<endl;
+                if(sidebarDebug){cout<<"clicked history item "<<i<<endl;}
                 return i;
             }
         }

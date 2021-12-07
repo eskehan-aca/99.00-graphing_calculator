@@ -88,13 +88,10 @@ void Animate::processEvents(){
                 _sidebar[SB_KEY_PRESSED] = "ENTER";
                 _sidebar[SB_COMMAND_NAME] = "ENTER EQUATION";
                 _sidebar.updateMode(TEXT_INPUT);
-                _window.pollEvent(event);   //clear enter
-
-                //TEMPORARY DUE TO CHANGES WITH HISTORY
-                _textbox.setText(_info->_equation);
-                
+                _window.pollEvent(event);           //clear enter
+                _textbox.setText(_info->_equation); //TEMPORARY DUE TO CHANGES WITH HISTORY
                 _textbox.select();
-                cout<<"exiting case enter"<<endl;
+                if(animateDebug){cout<<"exiting case enter"<<endl;}
                 break;
             case sf::Keyboard::Slash:
                 _sidebar[SB_KEY_PRESSED] = "SLASH";
@@ -102,7 +99,7 @@ void Animate::processEvents(){
                 _sidebar.updateMode(HELP_MENU);
                 _window.pollEvent(event);   //clear slash
                 _keybinds.select();
-                cout<<"exiting case slash"<<endl;
+                if(animateDebug){cout<<"exiting case slash"<<endl;}
                 break;
             case sf::Keyboard::Escape:
                 _sidebar[SB_KEY_PRESSED] = "ESC: EXIT";      //use to exit
@@ -299,7 +296,7 @@ void Animate::processEvents(){
                 }
                 _sidebar.updateHistory(_history);          
                 //PRINT HISTORY VECTOR
-                if(historyDebug){
+                if(historyDebug || animateDebug){
                     for(int i=0; i<_history.size(); i++)
                         cout<<"_history["<<i<<"]="<<_history.at(i)<<endl;
                     cout<<" _history size: "<<_history.size()<<endl;
@@ -342,7 +339,7 @@ bool save_file(string filename, const vector<string>& history){
     ofstream outs;
     outs.open(filename);
     if(outs.fail()){
-        cout<<"opening file "<<filename<<" failed"<<endl;
+        if(animateDebug){cout<<"opening file "<<filename<<" failed"<<endl;}
         return false;
     }
     for(int i=0; i<history.size(); i++){
@@ -355,7 +352,7 @@ bool load_file(string filename, vector<string>& history){
     ifstream ins;
     ins.open(filename);
     if(ins.fail()){
-        cout<<"opening file "<<filename<<" failed"<<endl;
+        if(animateDebug){cout<<"opening file "<<filename<<" failed"<<endl;}
         return false;
     }
     string temp;

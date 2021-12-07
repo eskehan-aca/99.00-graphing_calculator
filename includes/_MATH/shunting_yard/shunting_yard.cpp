@@ -78,9 +78,7 @@ Queue<Token*>& ShuntingYard::postfix(){
                 }
             }
         }
-        else{
-            cout<<"INVALID TOKEN: "<<pop<<endl;
-        }
+        else if(syDebug){cout<<"INVALID TOKEN: "<<pop<<endl;}
         if(syDebug){
             cout<<"infix queue:    "<<_queue;
             cout<<"operator stack: "<<operators;
