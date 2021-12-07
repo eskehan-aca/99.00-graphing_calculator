@@ -1,8 +1,9 @@
 # Work Report
 ## Name: <ins> Elizabeth Skehan </ins>
-*FALL 2021 | CS003A | GRAPHING CALCULATOR FINAL*
+*FALL 2021 | CS003A | GRAPHING CALCULATOR FINAL PROJECT*
 
-## Features 🌟
+## Features: 🌟
+*may not be up to date*
 - enter equation
   - wait for unique equation
   - modify selected equation 
@@ -31,20 +32,23 @@
 - ✅ equation history (save, load) 
 - ✅ user interactions (zoom, pan)
 - ✅ math functions (trig, log, abs, sqrt, unary minus)
-- ❌ demonstrative video
+- ❌ demonstrative video (+ readme embed)
 - ❌ commented code
-- ❌ full testing suite?
+- ❌ testing suite --> see previous git repos
 
 ### REFLECTIONS: 💬
 - project organization
   - needing to establish design guidelines (clearly outlining what should be handled by what class, hierarchies, rules, design structure, etc). 
   - keeping track of implemented features as they are created
+  - removing unused constants
 - time management/future
   - prioritizing more important features rather than 'fun' ones
   - having a project overview/goal setting?
+  - having the project feel less manually hardcoded --> ie: have more settings/features be user editable. i think sfml and the design/visual aspect of this project did feel much 'clunkier,' outdated, or time consuming. would like to see how this project can be implemented with a display that is less hard coded? --> brancing into other areas of cs
+  - developing a personal workflow w/ cs projects and assignments :)
+  - figuring out code design and formatting preferences
 - environment (not as important)
-  - unsure how to include testing
-  - unsure how to link git repos/histories
+  - unsure how to include testing/link previous git repos/histories
 
 ### KNOWN BUGS: 🐛
 *these are not hard to correct, i just haven't gotten around to it yet*
@@ -55,17 +59,9 @@
 
 ---
 ## FOR ME
-#### to submit:
-- video
-- testing
-- 🧹commenting code
-- 🧹readme (feature list, video embed)
-
 #### current:
-- 🎨 keybinds class
-  - string spacing
-  - update cmds/features
-- 🎨 displaying domain
+- 🧹 move sidebar update calls from process events to animate + clean
+- 🎨 keybinds/help display formatting and aesthetics
 - 🐛 revisit missing points w/ transparency
 
 #### future features/ideas:
@@ -87,16 +83,23 @@
   - modifying keybinds
   - vector of cmds?
   - multiple pages?
+  - make this into a struct
+  - edit keybinds via click
 - saving/loading functions
   - duplicates in immediate list
   - saved functs vs equation history
   - custom saves, save names
   - select with num keys
   - using vector??
+- sidebar
+  - clean drawing functions
+  - update functions (update all?)
+  - display graph range?
 - other
-  - clean constants.h
+  - remove excess/unused constants
   - remove function.cpp missing return types 
   - remove duplicate rpn code for var/no var
+  - toggle class instantiated couts
 
 🧮 MISC:
   - holding multiple graphinfos?
@@ -109,6 +112,8 @@
   - plotting multiple equations
   - textbox class to modify keybinds via click help menu
   - revisit zoom scale
+  - saving user settings
+  - math exceptions (folder)
 
 ⌨ USER:
   - cmd input
@@ -118,7 +123,7 @@
   - scrolling to zoom in / out
   - zoom dependent on cursor location?
   - panning with mouse control
-  - change window size
+  - change window size/other constants
 
 🎨 AESTHETICS/COSMETICS:
   - closing sidebar?
