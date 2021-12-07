@@ -38,6 +38,7 @@ double Operator::perform(double lhs, double rhs){
     if(_op=="^")
         return pow(lhs,rhs);
     assert(false);
+    return -1;
 }
 
 //CALL AFTER IDENTIFIER HAS BEEN SET!

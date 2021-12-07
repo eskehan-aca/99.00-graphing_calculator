@@ -138,8 +138,8 @@ void System::Draw(sf::RenderWindow& window){
     _g.draw(window);
 }
 void System::_init_graph_info(GraphInfo* info){
-    cout<<"System: initializing GraphInfo"<<endl;
-
+    if(systemDebug){cout<<"System: initializing GraphInfo"<<endl;}
+    
     info->_equation=DEFAULT_EQUATION0;
     info->_graph_info=false;
 

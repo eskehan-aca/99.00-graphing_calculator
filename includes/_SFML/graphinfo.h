@@ -7,7 +7,7 @@ struct GraphInfo{
     string _equation;                   //equation string (infix)
 
     //update with system: _calculate_graph_info()
-    sf::Vector2f _window_dimensions;    //600x600? for rn
+    sf::Vector2f _window_dimensions;
     
     sf::Vector2f _domain;               //from x: [min,max]
     sf::Vector2f _range;                //from y: [min,max]

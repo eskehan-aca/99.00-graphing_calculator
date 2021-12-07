@@ -12,7 +12,6 @@ public:
     virtual void Print();
 
     virtual int Precedence() const;
-    virtual int Identifier() const;
 
     friend ostream& operator<<(ostream& outs, const Function& f);
     //not used atm --> currently assuming that FUNCTIONS are 1 arg, OPERATORS are 2 arg

@@ -1,3 +1,9 @@
+x / ( x - 5 )
+log x / x
+abs ( x ) * sin x
+5 * log ( x - 3 )
+- x
+x ^ 3 / 8
 sec ( x )
 1 / sqrt ( x )
 abs ( x )

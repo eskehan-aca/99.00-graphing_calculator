@@ -14,11 +14,10 @@ void Function::Print(){
 int Function::Precedence() const{
     return 5;
 }
-int Function::Identifier() const{
-
-}
 double Function::perform(double lhs, double rhs){
     //check #args//input required by function
+    assert(false);
+    return -1;
 }
 double Function::perform(double input){
     //check #args//input required by function
@@ -36,10 +35,10 @@ double Function::perform(double input){
         return atan(input);
     if(_funct=="log")
         return log(input);
-    if(_funct=="sqrt")          //domain error if x is negative 
-        return sqrt(input);     //check for errors w/ precedence
+    if(_funct=="sqrt")          
+        return sqrt(input);
     if(_funct=="csc")
-        return 1/sin(input);    //check divide by 0?
+        return 1/sin(input);
     if(_funct=="sec")
         return 1/cos(input);
     if(_funct=="cot")
@@ -47,6 +46,7 @@ double Function::perform(double input){
     if(_funct=="abs")
         return abs(input);
     assert(false);
+    return -1;
 }
 
 //IO
