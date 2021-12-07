@@ -15,18 +15,21 @@ void Keybinds::Draw(sf::RenderWindow& window){
         //background
         window.draw(_background);
 
-        float height=0.125*GRAPH_HEIGHT+SB_VERTICAL_LINE_SPACING;
+        float x=_background.getPosition().x+SB_LEFT_MARGIN;
+        float height=_background.getPosition().y+SB_VERTICAL_LINE_SPACING;
+        
         for(int i=0; i<=_items.size(); i++){
-        if(i==0){
-            _text_display.setStyle(sf::Text::Underlined);
-        }
-        else{
-            _text_display.setStyle(sf::Text::Regular);
-        }
-        _text_display.setString(_items[i]);
-        _text_display.setPosition(sf::Vector2f(0.125*GRAPH_WIDTH+SB_LEFT_MARGIN,height));
-        height+=_text_display.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
-        window.draw(_text_display);
+            if(i==0){
+                _text_display.setStyle(sf::Text::Underlined);
+                height+=5;
+            }
+            else{
+                _text_display.setStyle(sf::Text::Regular);
+            }
+            _text_display.setString(_items[i]);
+            _text_display.setPosition(sf::Vector2f(x,height));
+            height+=_text_display.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;
+            window.draw(_text_display);
         }
     }
 }
@@ -64,48 +67,55 @@ void Keybinds::_init_sfml(){
     }
     
     //init background
-    _background.setSize(sf::Vector2f(0.75*GRAPH_HEIGHT, 0.75*GRAPH_WIDTH));
-    _background.setFillColor(sf::Color(40,40,40,200));
-    _background.setPosition(sf::Vector2f(0.125*GRAPH_HEIGHT, 0.125*GRAPH_WIDTH));
+    _background.setSize(sf::Vector2f(0.35*GRAPH_HEIGHT, 0.5*GRAPH_WIDTH));
+    _background.setFillColor(sf::Color(40,40,40,220));
+    _background.setPosition(sf::Vector2f(0.125*GRAPH_HEIGHT, 0.175*GRAPH_WIDTH));
 
     //init text
     _text_display.setFont(_font);
     _text_display.setCharacterSize(20);
     _text_display.setStyle(sf::Text::Bold);
     _text_display.setFillColor(sf::Color::White);
-    _text_display.setPosition(sf::Vector2f(0.25*GRAPH_HEIGHT+50, 0.25*GRAPH_WIDTH+50));
+    float x=_background.getPosition().x+SB_LEFT_MARGIN;
+    float y=_background.getPosition().y+SB_VERTICAL_LINE_SPACING;
+    _text_display.setPosition(sf::Vector2f(x,y));
 }
 void Keybinds::_init_vector(){
     //init _items vector
     _items.reserve(50);
 
     _items.push_back("");
-    _items[0]="COMMAND                    SHORTCUT";
+    _items[0]="KEYBINDS";
+    _items.push_back("");
     _items.push_back("");
     // _items.push_back("equation history 1         [1]");
     // _items.push_back("equation history 2         [2]");
     // _items.push_back("equation history 3         [3]");
     // _items.push_back("equation history 4         [4]");
     // _items.push_back("");
-    _items.push_back("[R] reset calculator           [R]");
-    _items.push_back("display graph info         [I]");
-    _items.push_back("center origin              [C]");
-    _items.push_back("force update               [F]");
-    _items.push_back("save history               [S]");
+    _items.push_back("[ENTER] input equation");
+    _items.push_back("[SLASH] display help");
     _items.push_back("");
-    _items.push_back("zoom in                    [+]");
-    _items.push_back("zoom out                   [-]");
+    _items.push_back("[C] center origin");
+    _items.push_back("[H] restore default view");
+    _items.push_back("[R] reset calculator");
+    _items.push_back("[S] save equation history");
+    _items.push_back("[L] load equation history");
+    _items.push_back("[I] display graph info");
+    _items.push_back("[F] force update");
     _items.push_back("");
-    _items.push_back("pan right                  [RIGHT ARROW]");
-    _items.push_back("pan left                   [LEFT ARROW]");
-    _items.push_back("pan down                   [DOWN ARROW]");
-    _items.push_back("pan up                     [UP ARROW]");
+    _items.push_back("[+] zoom in");
+    _items.push_back("[-] zoom out");
     _items.push_back("");
-    _items.push_back("increase # points          [RIGHT BRACKET]");
-    _items.push_back("decrease # points          [LEFT BRACKET]");
-    _items.push_back("");
-    _items.push_back("input equation             [ENTER]");
-    _items.push_back("display help               [SLASH]");
+    _items.push_back("[ARROW KEYS]  panning");
+    _items.push_back("[L/R BRACKET] points plotted");
+    // _items.push_back("pan right                  [RIGHT ARROW]");
+    // _items.push_back("pan left                   [LEFT ARROW]");
+    // _items.push_back("pan down                   [DOWN ARROW]");
+    // _items.push_back("pan up                     [UP ARROW]");
+    // _items.push_back("");
+    // _items.push_back("increase # points          [RIGHT BRACKET]");
+    // _items.push_back("decrease # points          [LEFT BRACKET]");
 
     if(keybindsDebug){
         for(int i=0; i<_items.size(); i++){
