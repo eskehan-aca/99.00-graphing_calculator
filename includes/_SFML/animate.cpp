@@ -313,7 +313,13 @@ void Animate::processEvents(){
 }
 void Animate::update(){
     _system.Step(_command, _info);
+    _sidebar.updateDomain(_info->_domain);
+    _sidebar.updateRange(_info->_range);
     _command=-1;     //resetting _command
+
+    //mode sidebar update calls from process events to animate!
+    // if(funct to check if need to update specific sidebar features)
+    // if(_command==FORCE_UPDATE || _command==RESET || _command==HOME || _command==CENTER || _command==PAN_DOWN || _command==PAN_LEFT || _command==PAN_UP || _command==PAN_RIGHT || _command==ZOOM_IN || _command==ZOOM_OUT)
     if(_mouse_in){
         _cursor.setPosition(sf::Mouse::getPosition(_window).x-CURSOR_RADIUS, sf::Mouse::getPosition(_window).y-CURSOR_RADIUS);   //_cursor red dot:
         _sidebar[SB_MOUSE_POSITION] = mouse_pos_string(_window);  //mouse location text for sidebar:

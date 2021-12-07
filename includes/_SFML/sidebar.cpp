@@ -7,38 +7,49 @@ Sidebar::Sidebar(float leftMargin, float sbWidth):_x_start(leftMargin), _width(s
 }
 
 void Sidebar::Draw(sf::RenderWindow& window){
-    window.draw(_sb_rect);
-    _sb_text.setFillColor(sf::Color::White);
-
     float height=SB_VERTICAL_MARGIN;
+
+    window.draw(_sb_rect);
+    
     _draw_eq_label(window, height);
     _draw_funct_label(window, height);
     
     height+=4*SB_VERTICAL_LINE_SPACING; //saved in _history_height[0]
+    
     _draw_history(window, height);
 
+    //MOUSE POSITION
+    height+=5*SB_VERTICAL_LINE_SPACING;
     _sb_text.setString(_items[SB_MOUSE_POSITION]);
-    height+=2*SB_VERTICAL_LINE_SPACING;
     _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;  //update height var
     window.draw(_sb_text);
-}
 
-void Sidebar::updateMode(int mode){
-    switch(mode){
-    case GRAPHING_EQ:   _items[SB_CALCULATOR_MODE]="graph mode";        break;
-    case TEXT_INPUT:    _items[SB_CALCULATOR_MODE]="input mode";        break;
-    case HELP_MENU:     _items[SB_CALCULATOR_MODE]="help display";      break;
-    case FILE_SAVE:     _items[SB_CALCULATOR_MODE]="file saved";        break;
-    case FILE_LOAD:     _items[SB_CALCULATOR_MODE]="save loaded";       break;
-    case SAVE_FAIL:     _items[SB_CALCULATOR_MODE]="SAVING FAILED";     break;
-    case RESET_CALC:    _items[SB_CALCULATOR_MODE]="calculator reset";  break;
-    default: assert(false); break;}
-    _mode=mode;
+    //DOMAIN DISPLAY
+    height+=58*SB_VERTICAL_LINE_SPACING;
+    _sb_text.setString(_items[SB_DOMAIN_DISPLAY]);
+    _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
+    _sb_text.setCharacterSize(20);
+    // if(!_fit_text() && sidebarDebug){cout<<"err: domain string too long"<<endl;}
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;  //update height var
+    window.draw(_sb_text);
+    
+    //RANGE DISPLAY
+    _sb_text.setString(_items[SB_RANGE_DISPLAY]);
+    _sb_text.setPosition(sf::Vector2f(_x_start+SB_LEFT_MARGIN,height));
+    _sb_text.setCharacterSize(20);
+    // if(!_fit_text() && sidebarDebug){cout<<"err: range string too long"<<endl;}
+    height+=_sb_text.getLocalBounds().height+SB_VERTICAL_LINE_SPACING;  //update height var
+    window.draw(_sb_text);
 }
 
 
 void Sidebar::_draw_eq_label(sf::RenderWindow& window, float& height){
-    //drawing equation label
+    //reset _sb_text settings    
+    _sb_text.setCharacterSize(30);
+    _sb_text.setStyle(sf::Text::Bold);
+    _sb_text.setFillColor(sf::Color::White);
+
     string eqLabel="Graphing y = [ "+_items[SB_EQUATION_LABEL]+" ]";
     if(_mode==TEXT_INPUT)
         eqLabel="y = [ "+_items[SB_EQUATION_LABEL]+" ]";
@@ -145,6 +156,8 @@ void Sidebar::_init_vector(){
     _items[SB_CALCULATOR_MODE]="CALCULATOR MODE";
     _items[SB_EQ_HIST_HEADER]="EQUATION HISTORY:";
     _items[SB_MOUSE_POSITION]="MOUSE POSITION";
+    _items[SB_DOMAIN_DISPLAY]="GRAPH DOMAIN";
+    _items[SB_RANGE_DISPLAY]="GRAPH RANGE";
     _items[SB_MOUSE_CLICKED]="MOUSE COMMAND";
     _items[SB_KEY_PRESSED]="KEYBOARD COMMAND";
     _items[SB_COMMAND_NAME]="COMMAND NAME";
@@ -163,13 +176,43 @@ void Sidebar::_init_vector(){
 }
 
 void Sidebar::updateHistory(vector<string>& history){
-    for(int i=0; i<=DISPLAYED_HISTORY_ITEMS; i++){
+    for(int i=0; i<DISPLAYED_HISTORY_ITEMS; i++){
         //accomodate for having less history than spots displayed
         if(history.size()<=i)
             _items[SB_EQ_HIST_HEADER+i+1]="";
         else
             _items[SB_EQ_HIST_HEADER+i+1]=history[i];
     }
+}
+void Sidebar::updateMode(int mode){
+    switch(mode){
+    case GRAPHING_EQ:   _items[SB_CALCULATOR_MODE]="graph mode";        break;
+    case TEXT_INPUT:    _items[SB_CALCULATOR_MODE]="input mode";        break;
+    case HELP_MENU:     _items[SB_CALCULATOR_MODE]="help display";      break;
+    case FILE_SAVE:     _items[SB_CALCULATOR_MODE]="file saved";        break;
+    case FILE_LOAD:     _items[SB_CALCULATOR_MODE]="save loaded";       break;
+    case SAVE_FAIL:     _items[SB_CALCULATOR_MODE]="SAVING FAILED";     break;
+    case RESET_CALC:    _items[SB_CALCULATOR_MODE]="calculator reset";  break;
+    default: assert(false); break;}
+    _mode=mode;
+}
+void Sidebar::updateDomain(sf::Vector2f domain){
+    ostringstream stream;
+    stream<<fixed<<setprecision(2)<<domain.x;
+    string min=stream.str();
+    stream.str("");
+    stream<<fixed<<setprecision(2)<<domain.y;
+    string max=stream.str();
+    _items[SB_DOMAIN_DISPLAY]="domain: ("+min+", "+max+")";
+}
+void Sidebar::updateRange(sf::Vector2f range){
+    ostringstream stream;
+    stream<<fixed<<setprecision(2)<<range.x;
+    string min=stream.str();
+    stream.str("");
+    stream<<fixed<<setprecision(2)<<range.y;
+    string max=stream.str();
+    _items[SB_RANGE_DISPLAY]="range: ("+min+", "+max+")";
 }
 int Sidebar::mouseClick(sf::Vector2i position){
     //horizontal bound (within sidebar)

@@ -2,14 +2,19 @@
 #define SIDEBAR_H
 #include "../constants.h"
 #include "textbox.h"
+#include <sstream>
 
 using namespace std;
 class Sidebar{
 public:
     Sidebar(float leftMargin, float sbWidth);
     int mouseClick(sf::Vector2i position);   //returns the command associated with the function clicked from function history
+
     void updateHistory(vector<string>& history);
     void updateMode(int mode);
+    void updateDomain(sf::Vector2f domain);
+    void updateRange(sf::Vector2f range);
+    
     void Draw(sf::RenderWindow& window);
     string& operator [](int index);
 
