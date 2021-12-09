@@ -32,9 +32,9 @@
 - ✅ equation history (save, load) 
 - ✅ user interactions (zoom, pan)
 - ✅ math functions (trig, log, abs, sqrt, unary minus)
-- ❌ demonstrative video (+ readme embed)
-- ❌ commented code
-- ❌ testing suite --> see previous git repos
+- ✅ demonstrative video (+ readme embed)
+- ❎ commented code
+- ❎ testing suite --> see previous git repos
 
 ### REFLECTIONS: 💬
 - project organization
@@ -54,6 +54,11 @@
 *these are not hard to correct, i just haven't gotten around to it yet*
 - missing points w/ transparency
 - animate class -> "locked" into calc modes
+
+
+### VIDEO DEMO: 🎥
+![VIDEO DEMO](ESKEHAN_GraphingCalculatorDemo.mp4)
+![VIDEO DEMO](https://github.com/CS3A-classroom/99_00_final_project-elizabethskehan/blob/main/ESKEHAN_GraphingCalculatorDemo.mp4) 
 
 <br>
 
